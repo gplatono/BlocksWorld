@@ -2,6 +2,9 @@
 The following is a modified version of Google Cloud Speech API sample located at
 https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/speech/microphone/transcribe_streaming_indefinite.py
 
+Modifications made are in compliance with the APACHE LICENSE 2.0.
+Copyright notice preserved below.
+
 - G. Platonov
 """
 
