@@ -1,6 +1,7 @@
 import bpy
 import os
 import sys
+import numpy as np
 
 filepath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, filepath)
@@ -25,3 +26,17 @@ class Constructor(object):
 		"""
 
 		pass
+
+	def sample(self, relatum, relation, referent1=None, referent2=None):
+		position = np.array([0, 0, 0])
+		val = 0
+		region_size = 5		
+		iter = 0
+		while val < 0.9:
+			new_pos = np.random.multivariate_normal(mean = position, cov = (1 - val) * region_size * np.eye(3), size=1)
+			relatum.move(new_pos)
+			curr_val = relation(relatum) if referent1 is None else relation(relatum, referent1) if referent2 is None else relation(relatum, referent1, referent2)
+			if curr_val > val:
+				val = curr_val:
+				position = new_pos
+			iter += 1
