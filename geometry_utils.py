@@ -306,9 +306,9 @@ def cosine_similarity(v1, v2):
 def within_cone(v1, v2, threshold):
     cos = cosine_similarity(v1, v2)
     #print ("DENOM: {}, TAN: {}".format((1 + np.sign(threshold - cos) * threshold), 0.5 * math.pi * (cos - threshold) / (1 + np.sign(threshold - cos) * threshold)))
-    tangent = -math.tan(0.5 * math.pi * (cos - threshold) / (1 + np.sign(threshold - cos) * threshold))
-    if tangent <= 100:
-        return 1 / (1 + math.e ** tangent)
+    tangent = math.tan(0.5 * math.pi * (cos - threshold) / (1 + np.sign(threshold - cos) * threshold))
+    if tangent <= 20:
+        return 1 / (1 + math.e ** (-tangent))
     else:
         return 0
 

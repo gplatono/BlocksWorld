@@ -297,6 +297,20 @@ class Entity(object):
     def compute_size(self):
         return self.radius
 
+    def move_to(self, location=None, rotation=None):
+        """
+        Move the entity into the location.
+
+        """
+
+        displacement = location - self.location
+
+        print ("COMP: ", self.components)
+        for comp in self.components:
+            comp.location = Vector(np.array(comp.location) + displacement)
+            print ("VEC: ", Vector(np.array(comp.location) + displacement))
+        self.update()        
+
     def update(self):
         print ("UPDATING " + self.name + "...")        
         #Compute mesh-related data

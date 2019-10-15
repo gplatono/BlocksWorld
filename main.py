@@ -237,13 +237,33 @@ def run_debug(world, hci_manager):
 
 #Entry point
 def main():
-    world = World(bpy.context.scene, simulation_mode=False)
 
+    if '-s' in sys.argv:
+        settings['SIMULATION_MODE'] = True
+
+    if '-d' in sys.argv:
+        settings['DEVELOPMENT_MODE'] = True
+        
+    world = World(bpy.context.scene, simulation_mode=settings['SIMULATION_MODE'])
+
+    Toy = world.find_entity_by_name('toyota')
+    #print (Toy)
+
+    #print (Toy.vertex_set)
+
+    Toy.move_to(np.array([0, 0, 0]))
+    bpy.context.scene.update()
+
+    time.sleep(1.0)
+    print (Toy.vertex_set)
+
+    print ("\n\n\n")
+    #print ([v.co for v in Toy.components[0].data.vertices])
     spatial.entities = world.entities
     spatial.world = world
     constraint_solver.world = world
 
-    hci_manager = HCIManager(world, debug_mode = False)
+    hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'])
 
     if hci_manager.debug_mode == True:
         run_debug(world, hci_manager)
