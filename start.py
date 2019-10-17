@@ -9,25 +9,30 @@ system = platform.system()
 eta_path = os.path.normpath("../eta-blocksworld")
 bw_path = os.path.dirname(os.path.abspath(__file__))
 
-command = ['blender', 'bw_scene.blend', '-P', 'main.py', '--']
-bgcommand = ['blender', '--background', 'bw_scene.blend', '-P', 'main.py', '--']
+params = []
 
-os.chdir(eta_path)
-if system == 'Windows':
-	os.system("start /B sbcl --load start.lisp")
+if '-bo' not in sys.argv:
+	os.chdir(eta_path)
+	if system == 'Windows':
+		os.system("start /B sbcl --load start.lisp")
+	else:
+		os.system("sbcl --load start.lisp &")
+
+	time.sleep(2.0)
+	os.chdir(bw_path)
 else:
-	os.system("sbcl --load start.lisp &")
-
-time.sleep(2.0)
-os.chdir(bw_path)
+	params.append('-bo')
 
 if '-s' in sys.argv:
-	command.append('-s')
+	params.append('-s')
 
 if '-d' in sys.argv:
-	command.append('-d')
+	params.append('-d')
 
-if '-b' not in sys.argv:
-	subprocess.call(command)
+if '-bg' not in sys.argv:
+	command = ['blender', 'bw_scene.blend', '-P', 'main.py', '--'] + params	
 else:
-	subprocess.call(bgcommand)
+	command = ['blender', '--background', 'bw_scene.blend', '-P', 'main.py', '--'] + params
+
+
+subprocess.call(command)

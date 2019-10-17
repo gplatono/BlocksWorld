@@ -243,39 +243,48 @@ def main():
 
     if '-d' in sys.argv:
         settings['DEVELOPMENT_MODE'] = True
+
+    if '-bo' in sys.argv:
+        settings['DEVELOPMENT_MODE'] = True
+        settings['SIMULATION_MODE'] = True
         
+     
     world = World(bpy.context.scene, simulation_mode=settings['SIMULATION_MODE'])
 
     Toy = world.find_entity_by_name('toyota')
+    Star = world.find_entity_by_name('starbucks')
+    Tex = world.find_entity_by_name('texaco')
+    Tar = world.find_entity_by_name('target')
+
+    print (Toy.type_structure)
+
+    from constructor import Constructor
+    cons = Constructor()
+    #print ("INTER TEST: ", intersection_entities(Tar, Tex))
+    #cons.sample(Toy, spatial.touching, Star)
     #print (Toy)
 
     #print (Toy.vertex_set)
 
-    Toy.move_to(np.array([0, 0, 0]))
-    bpy.context.scene.update()
+    #Toy.move_to(np.array([0, 0, 0]))
 
-    time.sleep(1.0)
-    print (Toy.vertex_set)
-
-    print ("\n\n\n")
     #print ([v.co for v in Toy.components[0].data.vertices])
     spatial.entities = world.entities
     spatial.world = world
     constraint_solver.world = world
 
-    hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'])
+    if '-bo' not in sys.argv:
+        hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'])
 
-    if hci_manager.debug_mode == True:
-        run_debug(world, hci_manager)
-        return
+        if hci_manager.debug_mode == True:
+            run_debug(world, hci_manager)
+            return
     
-    hci_thread = Thread(target = hci_manager.start)
-    hci_thread.setDaemon(True)
-    hci_thread.start()
-    #print ("TEST")
+        hci_thread = Thread(target = hci_manager.start)
+        hci_thread.setDaemon(True)
+        hci_thread.start()
 
 if __name__ == "__main__":
-    #save_screenshot()
     #fix_ids()
     #bpy.ops.wm.save_mainfile(filepath=bpy.data.filepath)
     main()

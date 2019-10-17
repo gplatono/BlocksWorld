@@ -141,7 +141,7 @@ class Entity(object):
         vertices = []
         if self.category == self.Category.PRIMITIVE:
             for obj in self.components:
-                vertices += [obj.matrix_world * v.co for v in obj.data.vertices]
+                vertices += [obj.matrix_world @ v.co for v in obj.data.vertices]
             vertices = [np.array([v[0],v[1],v[2]]) for v in vertices]
         elif self.category == self.Category.STRUCTURE:
             vertices = [v for e in self.components for v in e.vertex_set]
@@ -155,7 +155,7 @@ class Entity(object):
         if self.category == self.Category.PRIMITIVE:
             for ob in self.components:
                 for face in ob.data.polygons:
-                    faces.append([ob.matrix_world * ob.data.vertices[i].co for i in face.vertices])
+                    faces.append([ob.matrix_world @ ob.data.vertices[i].co for i in face.vertices])
         elif self.category == self.Category.STRUCTURE:
             faces = [f for entity in self.components for f in entity.faces]        
         return faces
@@ -307,8 +307,11 @@ class Entity(object):
 
         print ("COMP: ", self.components)
         for comp in self.components:
-            comp.location = Vector(np.array(comp.location) + displacement)
+            print ("LOC: ", comp.location, np.array(comp.location), location, displacement)
             print ("VEC: ", Vector(np.array(comp.location) + displacement))
+            comp.location = Vector(np.array(comp.location) + displacement)
+        dg = bpy.context.evaluated_depsgraph_get().update()
+        
         self.update()        
 
     def update(self):

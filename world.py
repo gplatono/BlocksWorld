@@ -19,6 +19,8 @@ class World(object):
 		self.active_context = []
 		self.simulation_mode = simulation_mode
 
+		print ('sim: ', self.simulation_mode)
+
 		if self.simulation_mode == False:
 			self.tracker = Tracker(self)
 			time.sleep(0.5)
@@ -64,20 +66,28 @@ class World(object):
 		well as several other aspects requiring the POV concept,
 		e.g., taking screenshots.
 		"""
-		lamp = bpy.data.lamps.new("Lamp", type = 'POINT')
-		lamp.energy = 30
-		cam = bpy.data.cameras.new("Camera")
+		
+		#lamp = bpy.data.lamps.new("Lamp", type = 'POINT')
+		lamp = bpy.data.lights.new(name="Lamp", type = 'POINT')
+
+		lamp.energy = 30		
 
 		if bpy.data.objects.get("Lamp") is not None:
 			lamp_obj = bpy.data.objects["Lamp"]
 		else:
-			lamp_obj = bpy.data.objects.new("Lamp", lamp)
-			self.scene.objects.link(lamp_obj)
+			lamp_obj = bpy.data.objects.new("Lamp", lamp)			
+			bpy.context.collection.objects.link(lamp_obj)
+			#bpy.context.view_layer.objects.active = lamp
+			#self.scene.objects.link(lamp_obj)
+
+		cam = bpy.data.cameras.new("Camera")
 		if bpy.data.objects.get("Camera") is not None:
 			cam_ob = bpy.data.objects["Camera"]
 		else:
 			cam_ob = bpy.data.objects.new("Camera", cam)
-			self.scene.objects.link(cam_ob)    
+			bpy.context.collection.objects.link(cam_ob)
+			#bpy.context.view_layer.objects.active = 
+			#self.scene.objects.link(cam_ob)    
 
 		#lamp_obj.location = (-20, 0, 10)
 		#cam_ob.location = (-15.5, 0, 7)
@@ -88,18 +98,23 @@ class World(object):
 		bpy.data.cameras['Camera'].lens = 20
 
 		bpy.context.scene.camera = self.scene.objects["Camera"]
-
+		
 		if bpy.data.objects.get("Observer") is None:
 			mesh = bpy.data.meshes.new("Observer")
 			bm = bmesh.new()
 			bm.verts.new(cam_ob.location)
 			bm.to_mesh(mesh)
 			observer = bpy.data.objects.new("Observer", mesh)    
-			self.scene.objects.link(observer)
+			bpy.context.collection.objects.link(observer)
+			#self.scene.objects.link(observer)
 			bm.free()
-			self.scene.update()
+			#self.scene.update()
 		else: 
 			observer = bpy.data.objects["Observer"]            
+
+		dg = bpy.context.evaluated_depsgraph_get() 
+		dg.update()
+
 		observer_entity = Entity(observer)
 		observer_entity.camera = cam_ob
 		observer_entity.location = np.array(cam_ob.location)
