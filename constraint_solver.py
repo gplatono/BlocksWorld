@@ -62,7 +62,7 @@ func_to_rel_map = {
     spatial.at: 'next to',        
     spatial.higher_than: 'high',
     spatial.lower_than: 'low',
-    spatial.in_front_of: 'in front of',
+    spatial.in_front_of_deic: 'in front of',
     spatial.behind: 'behind',
     spatial.clear: 'clear',
     spatial.where: 'where',

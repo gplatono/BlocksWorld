@@ -57,6 +57,7 @@ class Entity(object):
         elif type(components) == list and components != [] and type(components[0]) == Entity:
             self.category = self.Category.STRUCTURE
             self.constituents = [item for entity in components for item in entity.constituents]
+            self.name = 'struct=(' + '+'.join([item.name for item in self.components]) + ')'
         elif type(components) == list or type(components) == np.ndarray:
             self.category = self.Category.REGION
             self.constituents = [components]
@@ -307,8 +308,8 @@ class Entity(object):
 
         print ("COMP: ", self.components)
         for comp in self.components:
-            print ("LOC: ", comp.location, np.array(comp.location), location, displacement)
-            print ("VEC: ", Vector(np.array(comp.location) + displacement))
+            #print ("LOC: ", comp.location, np.array(comp.location), location, displacement)
+            #print ("VEC: ", Vector(np.array(comp.location) + displacement))
             comp.location = Vector(np.array(comp.location) + displacement)
         dg = bpy.context.evaluated_depsgraph_get().update()
         

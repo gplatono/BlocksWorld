@@ -5,6 +5,7 @@ import bmesh
 from geometry_utils import *
 from bw_tracker import Tracker
 import time
+import spatial
 
 class World(object):
 	"""
@@ -17,9 +18,7 @@ class World(object):
 		self.scene = scene
 		self.entities = []
 		self.active_context = []
-		self.simulation_mode = simulation_mode
-
-		print ('sim: ', self.simulation_mode)
+		self.simulation_mode = simulation_mode		
 
 		if self.simulation_mode == False:
 			self.tracker = Tracker(self)
@@ -30,20 +29,10 @@ class World(object):
 				self.entities.append(Entity(obj))
 				if self.entities[-1].name.lower() != "table":
 					self.active_context.append(self.entities[-1])
-
-		#self.test = shared_volume(self.entities[0], self.entities[1])
-		#shared_volume(self.entities[0], self.entities[1])
-
+		
 		#Number of objects in the world
 		self.N = len(self.entities)
-
-		self.dimensions = self.get_dimensions()
-		
-		# self.avg_dist = 0
-		# if len(self.entities) != 0:
-		# 	for (a, b) in itertools.combinations(self.entities, r = 2):
-		# 		self.avg_dist += distance(a, b)
-		# self.avg_dist = self.avg_dist * 2 / (self.N * (self.N - 1))		
+		self.dimensions = self.get_dimensions()		
 		self.observer = self.create_observer()
 
 		#Set the fundamental extrinsic axes
@@ -52,7 +41,10 @@ class World(object):
 		self.up_axis = np.array([0, 0, 1.0])
 		
 		#List of  possible color modifiers
-		self.color_mods = ['black', 'red', 'blue', 'brown', 'green', 'yellow']
+		self.color_mods = ['black', 'red', 'blue', 'brown', 'green', 'yellow']		
+
+		#Create and save the initial state of the world
+		self.history = []
 
 		
 	def get_observer(self):
@@ -120,7 +112,7 @@ class World(object):
 		observer_entity.location = np.array(cam_ob.location)
 		observer_entity.up = np.array([0, 1, 3])
 		observer_entity.right = np.array([1, 0, 0])
-		observer_entity.set_frontal(-observer_entity.location)
+		observer_entity.set_frontal(observer_entity.location)
 		return observer_entity
 
 	def get_dimensions(self):
@@ -170,3 +162,24 @@ class World(object):
 			if entity.name.lower() == name.lower():
 				return entity
 		return None
+
+	class State:
+
+		def __init__(self, entities):
+			self.entities = entities
+			self.state_facts = []
+			self.compute()
+			self.relation_dict = {}			
+
+		def compute(self):
+			from constraint_solver import func_to_rel_map
+			relations = [spatial.to_the_left_of_deic, spatial.to_the_right_of_deic, spatial.near, spatial.at, spatial.between, spatial.on, spatial.in_front_of_deic]
+			for ent1 in self.entities:
+				for ent2 in self.entities:
+					if ent1 != ent2:
+						for rel in relations:
+							if rel != spatial.between:
+								val = rel(ent1, ent2)
+								if val > 0.7:
+									self.state_facts.append([func_to_rel_map[rel], ent1, ent2, val])
+									#self.relation_dict[]

@@ -1,5 +1,7 @@
 import math
 import numpy as np
+import bpy, bmesh
+from mathutils.bvhtree import BVHTree
 
 
 #Computes the value of the univariate Gaussian
@@ -307,7 +309,7 @@ def within_cone(v1, v2, threshold):
     cos = cosine_similarity(v1, v2)
     #print ("DENOM: {}, TAN: {}".format((1 + np.sign(threshold - cos) * threshold), 0.5 * math.pi * (cos - threshold) / (1 + np.sign(threshold - cos) * threshold)))
     tangent = math.tan(0.5 * math.pi * (cos - threshold) / (1 + np.sign(threshold - cos) * threshold))
-    if tangent <= 20:
+    if -20 <= tangent and tangent <= 20:
         return 1 / (1 + math.e ** (-tangent))
     else:
         return 0
@@ -617,9 +619,6 @@ def bmesh_check_intersect_objects(obj, obj2):
 
 #print("There are%s intersections." % ("" if intersect else " NO"))
 
-import bpy, bmesh
-from mathutils.bvhtree import BVHTree
-
 def intersection_check(a, b):
     """
     Check if two Blender objects are intersecting.
@@ -631,41 +630,23 @@ def intersection_check(a, b):
     True if the meshes of a and b intersect each other, False otherwise
 
     """
-    #check every object for intersection with every other object
-    #for obj_now in obj_list:
-     #   for obj_next in obj_list:
-      #      print()
-        #    if obj_now == obj_next:
-          #      continue
 
-            #create bmesh objects
+    #Create and fill bmesh data
+    
     bm1 = bmesh.new()
-    bm2 = bmesh.new()
-
-    #fill bmesh data from objects
     bm1.from_mesh(a.data)
+    bm2 = bmesh.new()
     bm2.from_mesh(b.data)            
 
-    #fixed it here:
     bm1.transform(a.matrix_world)
     bm2.transform(b.matrix_world) 
 
-    #make BVH tree from BMesh of objects
+    #Create BVH trees based on bmeshes
     a_BVHtree = BVHTree.FromBMesh(bm1)
     b_BVHtree = BVHTree.FromBMesh(bm2)           
 
-    #get intersecting pairs
-    inter = a_BVHtree.overlap(b_BVHtree)
-
-    #print("i got this far 1")
-    
-    #if list is empty, no objects are touching
-    if inter != []:
-        return True
-        #print(obj_now + " and " + obj_next + " are touching!")
-    else:
-        return False
-        #print(obj_now + " and " + obj_next + " NOT touching!")
+    #Check if the overlap set is empty and return the result
+    return a_BVHtree.overlap(b_BVHtree) != []
 
 def intersection_entities(a, b):
     for acomp in a.components:
@@ -674,12 +655,3 @@ def intersection_entities(a, b):
                 return True
             
     return False
-
-# use active scene
-#scene =  bpy.context.scene
-
-# define object list    
-#obj_list = ['object_a', 'object_b']
-
-# Run it      
-#intersection_check()

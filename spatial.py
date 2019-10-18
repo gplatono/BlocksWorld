@@ -34,6 +34,7 @@ rf_mapping = {'to the left of': 'to_the_left_of_deic',
 entities = []
 world = None
 
+
 def dist_obj(a, b):
     if type(a) is not Entity or type(b) is not Entity:
         return -1
