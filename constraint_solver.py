@@ -441,11 +441,11 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 	print ("FINAL ARGLISTS RETURNED FROM PRED: ",  predicate_values)
 
 	
-	from response_generator import ResponseGenerator
-	resp = ResponseGenerator()
-	resp = resp.generate_response(ret_val)
-	print ("RET_VAL", ret_val)
-	print ("RESP", resp)
+	#from response_generator import ResponseGenerator
+	#resp = ResponseGenerator()
+	#resp = resp.generate_response(ret_val)
+	#print ("RET_VAL", ret_val)
+	#print ("RESP", resp)
 	return predicate_values
 
 def resolve_argument(arg_object, entities):

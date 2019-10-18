@@ -31,7 +31,9 @@ class ModalTimerOp(bpy.types.Operator):
             elif event.type == "TIMER":
                 ModalTimerOp.tracker.moved_blocks = \
                 ModalTimerOp.tracker.update(ModalTimerOp.tracker.get_block_data())
-                bpy.context.scene.update()
+                #bpy.context.scene.update()
+                bpy.context.evaluated_depsgraph_get().update() 
+                #dg.update()
                 #print (ModalTimerOp.tracker.moved_blocks)
 
                 time.sleep(0.1)
@@ -44,7 +46,8 @@ class ModalTimerOp(bpy.types.Operator):
                     #ent.update()
                     ent = Entity(bpy.data.objects[name])
                     ModalTimerOp.tracker.world.entities.append(ent)
-                    bpy.context.scene.update()
+                    #bpy.context.scene.update()
+                    bpy.context.evaluated_depsgraph_get().update()
                     if self.tracker.verbose:
                         print ("ENTITY RELOCATED: ", name, ent.name, np.linalg.norm(old_loc - ent.location))
                         print ("OLD LOCATION: ", old_loc)
@@ -58,7 +61,7 @@ class ModalTimerOp(bpy.types.Operator):
         
         #Setup code (fires at the start)
         def execute(self, context):
-            self._timer = context.window_manager.event_timer_add(0.5, context.window)
+            self._timer = context.window_manager.event_timer_add(0.5, window=context.window)
             context.window_manager.modal_handler_add(self)
             #self.flag = False
             return {"RUNNING_MODAL"}
@@ -98,7 +101,8 @@ class Tracker(object):
 
         self.moved_blocks = []
         self.world = world        
-        bpy.context.scene.update()   
+        dg = bpy.context.evaluated_depsgraph_get().update()
+        #dg.update()
         bpy.ops.wm.modal_timer_operator()
           
     def create_block(self, name="", location=(0,0,0), rotation=(0,0,0), material=None):
@@ -122,7 +126,8 @@ class Tracker(object):
         block['id'] = "bw.item.block." + name
         block['color_mod'] = material.name
         block['main'] = 1.0
-        bpy.context.scene.update()
+        #bpy.context.scene.update()
+        bpy.context.evaluated_depsgraph_get().update()
         return block
     
     #Reset the scene by removing all the meshes
@@ -140,9 +145,9 @@ class Tracker(object):
         bpy.data.materials.new(name="red")
         bpy.data.materials.new(name="blue")
         bpy.data.materials.new(name="green")
-        bpy.data.materials['red'].diffuse_color = (1, 0, 0)
-        bpy.data.materials['green'].diffuse_color = (0, 1, 0)
-        bpy.data.materials['blue'].diffuse_color = (0, 0, 1)
+        bpy.data.materials['red'].diffuse_color = (1, 0, 0, 0)
+        bpy.data.materials['green'].diffuse_color = (0, 1, 0, 0)
+        bpy.data.materials['blue'].diffuse_color = (0, 0, 1, 0)
 
         self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
         materials = [bpy.data.materials['blue'], bpy.data.materials['green'], bpy.data.materials['red']]

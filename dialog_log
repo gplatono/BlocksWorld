@@ -3252,3 +3252,43 @@ SESSION: 2019-10-15 17:17:23
 
 SESSION: 2019-10-15 17:18:24
 =============================================================
+
+SESSION: 2019-10-18 13:46:07
+=============================================================
+
+SESSION: 2019-10-18 14:44:17
+=============================================================
+
+SESSION: 2019-10-18 14:56:57
+=============================================================
+
+SESSION: 2019-10-18 15:00:13
+=============================================================
+
+SESSION: 2019-10-18 15:04:11
+=============================================================
+15:04:20 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:04:31 USER: which blocks are to the left of the twitter block?
+15:04:32 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+15:04:45 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2019-10-18 15:06:47
+=============================================================
+15:06:55 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:07:01 USER: which blocks are to the left of the twitter block?
+15:07:03 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+15:07:14 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2019-10-18 15:07:28
+=============================================================
+15:07:38 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:07:52 USER: which blocks are to the left of the twitter block?
+15:07:54 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+15:08:03 DAVID:  just the target block is to the left of the twitter block .
+
+SESSION: 2019-10-18 15:08:21
+=============================================================
+15:08:31 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-18 15:10:23
+=============================================================
