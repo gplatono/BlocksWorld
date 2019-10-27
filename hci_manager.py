@@ -162,7 +162,8 @@ class HCIManager(object):
 					(' ram block', ' red block'), (' to other', ' two other'), (' lava the', ' above the'), (' watch', ' touch'),
 					(' phase', ' face'), (' passing', ' touching'), (' 3 ', ' three '), 
 					(' to bl', ' two bl'), (' to red', ' two red'), (' to gre', ' two gre'), ('what colors', 'what color'),
-					(' rad', ' red'), (' rand', ' red')]
+					(' rad', ' red'), (' rand', ' red'), 
+					('what\'s ', 'what is ')]
 		for misspell, fix in misspells:
 			input = input.replace(misspell, fix)
 		return input

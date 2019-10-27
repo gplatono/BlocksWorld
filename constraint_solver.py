@@ -57,6 +57,7 @@ func_to_rel_map = {
 	spatial.above: 'above',
     spatial.below: 'below',
     spatial.over: 'over',
+    spatial.under: 'under',
     spatial.inside: 'in',    
     spatial.touching: 'touching',
     spatial.at: 'next to',        
@@ -66,12 +67,16 @@ func_to_rel_map = {
     spatial.behind: 'behind',
     spatial.clear: 'clear',
     spatial.where: 'where',
+    spatial.supporting: 'supporting',
     exist: 'exist',
     spatial.facing: 'facing',
     color_pred: 'color',
     blue: 'blue',
     red: 'red',
     green: 'green',
+    ident: 'is',
+    spatial.between: 'between',
+    spatial.in_front_of: 'in front of',
 }
 
 rel_to_func_map = {
@@ -96,9 +101,9 @@ rel_to_func_map = {
 	'above.p': spatial.above,
     'below.p': spatial.below,
     'over.p': spatial.over,
-    'under.p': spatial.below,    
-    'underneath.p': spatial.below,    
-    'supporting.p': spatial.under,
+    'under.p': spatial.under,    
+    'underneath.p': spatial.under,    
+    'supporting.p': spatial.supporting,
 
     'in.p': spatial.inside,
     'in': spatial.inside,    
@@ -168,6 +173,7 @@ arity = {
 	spatial.lower_than: 2,
 	spatial.where: 1,
 	spatial.facing: 2,
+	spatial.supporting: 2,
 	ident: 2,
 	exist: 1,
 	color_pred: 1,
@@ -436,7 +442,13 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 		if unique == False:
 			predicate_values = [(arg, val) for (arg, val) in predicate_values if val >= 0.7]
 		else:
-			predicate_values = [predicate_values[0]]
+			if len(predicate_values) > 1:
+				if predicate_values[0][1] > predicate_values[1][1] + 0.2:
+					predicate_values = [predicate_values[0]]
+				else:
+					predicate_values = []
+
+			#predicate_values = [predicate_values[0]]
 		
 	print ("FINAL ARGLISTS RETURNED FROM PRED: ",  predicate_values)
 

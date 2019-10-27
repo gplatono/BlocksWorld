@@ -285,6 +285,18 @@ def larger_than(a, b):
                              + bbox_a[7][1] - bbox_a[0][1] \
                              + bbox_a[7][2] - bbox_a[0][2])))
 
+def supporting(a, b):
+    direct_support = touching(a, b) * above(b, a)
+    indirect_support = 0
+    a_h = a.centroid[2]
+    b_h = b.centroid[2]
+    for entity in world.entities:
+        e_h = entity.centroid[2]
+        if (e_h - a_h) / a.size >= 0.8 and (b_h - e_h) / b.size >= 0.8:
+            indirect_support = max(indirect_support, min(supporting(a, entity), supporting(entity, b)))
+    print ("SUPPORT: ", direct_support, indirect_support)
+    return max(direct_support, indirect_support)
+
 #Computes the "on" relation
 #Inputs: a, b - entities
 #Return value: real number from [0, 1]
@@ -296,8 +308,10 @@ def on(a, b):
     print ("LOCA: ", proj_dist_scaled)
     hor_offset = math.e ** (-0.3 * proj_dist_scaled)
     #print ("PROJ DIST: ", a, b, hor_offset)
-
-    ret_val =  touching(a, b) * above(a, b) * hor_offset if hor_offset < 0.9 else above(a, b) #* touching(a, b)
+    print ("ON METRICS: ", touching(a, b), above(a, b), hor_offset, touching(a, b) * above(a, b) * hor_offset)
+    ret_val =  touching(a, b) * above(a, b) if hor_offset < 0.8 else above(a, b) #* touching(a, b)
+    #print ("ON METRICS: ", touching(a, b), above(a, b), hor_offset, touching(a, b) * above(a, b) * hor_offset)
+    #ret_val = max(ret_val, supporting(b, a))
 
     
     #print ("CURRENT ON: ", a, b, ret_val, above(a, b), touching(a, b), hor_offset)
@@ -392,7 +406,7 @@ def in_front_of(a, b):
         return 0
     front_deic = in_front_of_deic(a, b)
     front_extr = in_front_of_extr(a, b)
-    #print ("IN_FRONT_OF: ", a, b, front_deic, front_extr)
+    print ("IN_FRONT_OF: ", a, b, front_deic, front_extr)
     return max(front_deic, front_extr)
 
 #Enable SVA
@@ -627,7 +641,8 @@ def higher_than_centroidwise(a, b):
 
     a0 = a.centroid
     b0 = b.centroid
-    return sigmoid(a0[2]-b0[2], 1.0, 1.0)#1 / (1 + math.exp(-(a0[2] - b0[2]))
+    scaled_dist = a0[2]-b0[2] / (max(a.size, b. size) + 0.01)
+    return sigmoid(scaled_dist, 1.0, 1.0)#1 / (1 + math.exp(-(a0[2] - b0[2]))
 
 def higher_than(a, b):
     return higher_than_centroidwise(a, b)

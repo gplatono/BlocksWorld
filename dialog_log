@@ -3292,3 +3292,704 @@ SESSION: 2019-10-18 15:08:21
 
 SESSION: 2019-10-18 15:10:23
 =============================================================
+
+SESSION: 2019-10-25 12:42:46
+=============================================================
+12:42:56 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-25 12:43:03
+=============================================================
+12:43:13 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+12:43:19 USER: which blocks are between the twitter block and the mercedes block?
+12:43:20 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P ((THE.D (Twitter BLOCK.N)) AND.CC (THE.D (Mercedes BLOCK.N)))))) ?)
+12:43:32 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+12:43:52 USER: which blocks are on top of the starbucks block?
+12:43:53 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+12:44:00 DAVID:  there are no blocks that are on top of the starbucks block .
+12:44:06 USER: which blocks are touching the twitter block?
+12:44:07 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?)
+12:44:15 DAVID:  you think only the mcdonald's block is touching the twitter block .
+12:44:27 USER: which blocks are touching the target block?
+12:44:28 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Target BLOCK.N))))) ?)
+12:44:36 DAVID:  just the starbucks block is touching the target block .
+12:44:48 USER: how many blocks are touching the texaco block?
+12:44:50 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?)
+12:44:58 DAVID:  just the mcdonald's block is touching the texaco block .
+12:45:07 USER: how many blocks are to the left of the texaco block?
+12:45:09 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Texaco BLOCK.N))))) ?)
+12:45:19 DAVID:  there are 2 that are to the left of the texaco block . the starbucks block and the target block .
+12:45:49 USER: is the target block to the left of the starbucks block?
+12:45:50 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (TO_THE_LEFT_OF.P (THE.D (Starbucks BLOCK.N)))) ?)
+12:45:54 DAVID:  yes
+12:45:58 USER: what color is the starbucks block?
+12:45:59 ULF: ((SUB ({OF}.P (WHAT.D COLOR.N)) ((PRES BE.V) (THE.D (Starbucks BLOCK.N)) *H)) ?)
+12:46:04 DAVID:  it is green
+12:46:09 USER: what color are the block stacking the toyota block?
+12:46:18 DAVID:  you are asking about some block , but i didn't catch what it was.
+12:46:22 USER: what is the leftmost block?
+12:46:23 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+12:46:34 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2019-10-25 12:48:22
+=============================================================
+12:48:30 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-25 12:48:49
+=============================================================
+12:48:57 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+12:49:00 USER: what is the leftmost block?
+12:49:02 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+12:49:07 DAVID:  only the target block .
+12:49:11 USER: which blocks are touching the twitter block?
+12:49:12 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?)
+12:49:21 DAVID:  you think only the mercedes block is touching the twitter block .
+12:49:44 USER: which blocks are touching the texaco block?
+12:49:45 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?)
+12:49:52 DAVID:  just the mcdonald's block is touching the texaco block .
+
+SESSION: 2019-10-25 12:51:27
+=============================================================
+12:51:36 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+12:51:40 USER: which blocks are touching the twitter block?
+12:51:41 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?)
+12:51:49 DAVID:  you think only the mercedes block is touching the twitter block .
+12:51:56 USER: which blocks are to the left of the texaco block?
+12:51:57 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Texaco BLOCK.N))))) ?)
+12:52:05 DAVID:  the starbucks block and the target block are to the left of the texaco block .
+
+SESSION: 2019-10-25 12:52:38
+=============================================================
+12:52:46 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+12:52:52 USER: which blocks are to the left of the texaco block?
+12:52:53 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Texaco BLOCK.N))))) ?)
+12:53:02 DAVID:  the twitter , starbucks , and target blocks are to the left of the texaco block .
+12:53:06 USER: what is the leftmost block?
+12:53:07 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+12:53:12 DAVID:  only the target block .
+12:53:18 USER: what color are the blocks touching the mcdonald's block?
+12:53:19 ULF: ((SUB ({OF}.P (WHAT.D COLOR.N)) ((PRES BE.V) (THE.D (N+PREDS (PLUR BLOCK.N) (TOUCHING.P (THE.D (McDonalds BLOCK.N))))) *H)) ?)
+12:53:25 DAVID:  they are blue , and red
+12:53:34 USER: which blocks are between the starbucks block and the block?
+12:53:35 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P ((THE.D (Starbucks BLOCK.N)) AND.CC (THE.D BLOCK.N))))) ?)
+
+SESSION: 2019-10-25 12:54:22
+=============================================================
+12:54:31 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-25 12:54:53
+=============================================================
+12:55:02 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+12:55:09 USER: which blocks are between the twitter block and the mcdonald's block?
+12:55:10 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P ((THE.D (Twitter BLOCK.N)) AND.CC (THE.D (McDonalds BLOCK.N)))))) ?)
+12:55:18 DAVID:  just the texaco block is between the twitter block and the mcdonald's block .
+12:55:25 USER: how many blocks are between the twitter block and the toyota block?
+12:55:26 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P ((THE.D (Twitter BLOCK.N)) AND.CC (THE.D (Toyota BLOCK.N)))))) ?)
+12:55:39 DAVID:  there are 3 that are between the twitter block and the toyota block . the texaco , mcdonald's , and mercedes blocks .
+12:55:45 USER: what is on top of the twitter block?
+12:55:46 ULF: ((WHAT.PRO ((PRES BE.V) (ON_TOP_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+12:55:50 DAVID:  there is no such block .
+12:56:00 USER: which block is on top of the twitter block?
+12:56:01 ULF: (((WHICH.D BLOCK.N) ((PRES BE.V) (ON_TOP_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+12:56:08 DAVID:  there is no block that is on top of the twitter block .
+12:56:19 USER: what is on top of the starbucks block?
+12:56:20 ULF: ((WHAT.PRO ((PRES BE.V) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+12:56:25 DAVID:  there is no such block .
+
+SESSION: 2019-10-25 13:11:13
+=============================================================
+13:11:22 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-25 13:11:43
+=============================================================
+13:11:51 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:12:15 USER: what is the leftmost block?
+13:12:17 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+13:12:21 DAVID:  only the target block .
+13:12:26 USER: is the target block behind the starbucks block?
+13:12:28 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (BEHIND.P (THE.D (Starbucks BLOCK.N)))) ?)
+13:12:32 DAVID:  no
+13:12:38 USER: is the target?
+13:12:40 ULF: NIL
+13:12:41 USER: starbucks block
+13:12:42 ULF: NIL
+13:12:50 USER:  is the target block behind the starbucks block?
+13:12:51 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (BEHIND.P (THE.D (Starbucks BLOCK.N)))) ?)
+13:12:54 DAVID:  no
+13:13:00 USER: what is
+13:13:08 DAVID:  i apologize , i couldn't understand what you said .
+13:13:15 USER: which blocks are in front of the target block?
+13:13:16 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (IN_FRONT_OF.P (THE.D (Target BLOCK.N))))) ?)
+13:13:27 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+13:14:14 USER: which blocks are between the texaco block and the toyota block?
+13:14:15 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P ((THE.D (Texaco BLOCK.N)) AND.CC (THE.D (Toyota BLOCK.N)))))) ?)
+13:14:24 DAVID:  the mcdonald's block and the mercedes block are between the texaco block and the toyota block .
+13:14:29 USER: is the starbucks block touching the target?
+13:14:30 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) TOUCHING.A) ?)
+13:14:33 DAVID:  yes
+13:14:51 USER: is the starbucks block touching the mcdonald's block?
+13:14:52 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) (TOUCHING.P (THE.D (McDonalds BLOCK.N)))) ?)
+13:14:55 DAVID:  no
+13:15:02 USER: is the twitter block touching the burger king block?
+13:15:04 ULF: (((PRES BE.V) (THE.D (Twitter BLOCK.N)) (TOUCHING.P (THE.D (Burger King BLOCK.N)))) ?)
+13:15:07 DAVID:  no
+13:15:11 USER: which blocks are touching the texaco block?
+13:15:12 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?)
+13:15:20 DAVID:  the twitter block and the mcdonald's block are touching the texaco block .
+13:15:51 USER: what is the topmost block?
+13:15:53 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N TOP.A BLOCK.N))))) ?)
+13:15:59 DAVID:  only the twitter block .
+13:16:02 USER: twitter block above the starbucks block
+13:16:12 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+13:16:16 USER: is the twitter block above the starbucks block?
+13:16:17 ULF: (((PRES BE.V) (THE.D (Twitter BLOCK.N)) (ABOVE.P (THE.D (Starbucks BLOCK.N)))) ?)
+13:16:20 DAVID:  no
+13:16:44 USER: what is the rightmost block?
+13:16:45 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N RIGHT.A BLOCK.N))))) ?)
+13:16:49 DAVID:  only the burger king block .
+13:16:58 USER: what are the blue blocks?
+13:17:07 DAVID:  you are asking about some blue blocks , but i didn't catch what it was.
+13:17:11 USER: what are all of the blue blocks?
+13:17:20 DAVID:  you are asking about some blue blocks , but i didn't catch what it was.
+13:17:23 USER: flublok
+13:17:31 DAVID:  i apologize , i couldn't understand what you said .
+13:17:40 USER: what is the rightmost blue block?
+13:17:41 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N RIGHT.A (BLUE.A BLOCK.N)))))) ?)
+13:17:47 DAVID:  only the toyota block .
+13:17:52 USER: how many colors are there?
+13:17:53 ULF: NIL
+13:18:04 USER:  spatial questions, right?
+13:18:06 ULF: NIL
+13:18:24 USER: which red blocks are touching the mcdonald's block?
+13:18:25 ULF: (((WHICH.D (RED.A (PLUR BLOCK.N))) ((PRES BE.V) (TOUCHING.P (THE.D (McDonalds BLOCK.N))))) ?)
+13:18:31 DAVID:  only the mercedes block .
+13:18:40 USER: what color are the block station the toyota block?
+13:18:48 DAVID:  you are asking about some block , but i didn't catch what it was.
+13:18:54 USER: what color are the blocks touching the toyota block?
+13:18:55 ULF: ((SUB ({OF}.P (WHAT.D COLOR.N)) ((PRES BE.V) (THE.D (N+PREDS (PLUR BLOCK.N) (TOUCHING.P (THE.D (Toyota BLOCK.N))))) *H)) ?)
+13:18:59 DAVID:  they are green , and red
+13:19:09 USER: so i guess i'm wondering.
+13:19:17 DAVID:  i apologize , i couldn't understand what you said .
+13:19:21 USER: david can you give us a minute?
+13:19:28 DAVID:  sure, let me know when you want to continue.
+13:19:33 USER: so i just have this like
+13:19:39 USER:  neither, can you let it be cool if like if you have any thoughts on?
+13:19:59 USER:  cheap say anything above teaching this thing new qualities. like if i were to explain this thing like this is what this is what it means to be diagonal and then
+13:20:39 USER: show it to me examples and then it can and it has that into a cab you larry. is that sort of thing for the car. we're working on it. so it's basically in the design and discussion stage. we're trying to figure out what we need for. this idea is to rely on a bunch of primitive concepts at the dollar store like lower-level concepts and then come by so for example
+13:20:54 USER: what can moto a bunch of the simple truth revolt configurations like listing listing listing listing?
+13:20:59 USER: library
+13:21:46 USER:  multiple primitives expression for simple relations, like between a certain shapes like diagonal at shape and what not and we're going to try to use this library to constructor visitation form more complex options more complex asha like two sticks of the same height with the block on top of picture of both of them.
+13:21:49 USER:  this will be an hour or so.
+13:22:18 USER: the system is two stacks of the same height and we can figure out how to construct.
+13:22:30 USER:  a different from what you explain? what kind of question
+13:22:39 USER:  lincoln challenge question
+13:22:44 USER:  generality the problem is that so currently
+13:23:06 USER: you have two approaches to learning general neurology. however requires significant number of examples like a three or two short lord.
+13:23:12 USER:  do you have like present multiple examples of said if you want to act you cancel?
+13:23:17 USER:  scratched again
+13:23:31 USER:  so the logical systems they can be taught with like one shot few shot learning. so this is the goal. you want to try to achieve a few shot learning.
+13:23:35 USER:  generality
+13:23:40 USER:  a large variety of different concepts
+13:23:45 USER: okay.
+13:23:48 USER:  are there any
+13:23:55 USER:  are there any thoughts too? cuz i understand that like it seems like
+13:24:16 USER:  to try to bring it out from like just blockin above different color blocks and to pick-a-part things that image would be difficult to do in tire on that pipeline or something, but
+13:24:31 USER:  if the focus is on like the the general knowledge kind of formal logic, like epilog ask assessment of the things they can take from an image.
+13:24:35 USER:  how how much?
+13:24:42 USER: like are you guys trying to keep it all within the confines of like?
+13:25:15 USER:  aristotelian logic or or are they completely because you think is the best for the problem is the price of a prepositional world. we have a continuous space like for example in essay.
+13:25:25 USER:  another on a b right on starbucks twitter
+13:25:30 USER:  that's still on right cuz this is still our state's please.
+13:25:50 USER: continue is with all these things in the high-level loaded language the same the same state the same proposition is that block and then this is all so it starts two block like you're just giving it a training set, right?
+13:26:16 USER:  well not exactly so that idea is that the blender spatial subsystem would handle all these variations general rules slightly course information to the reasoning and planning system.
+13:26:25 USER:  it's kind of neat seem like how many sorts steps there are so there's
+13:26:28 USER: and i guess
+13:27:10 USER:  you're trying to use all these steps to kind of i would guess that like you're trying to use all the steps to kind of show that works, which is interesting like to hear you. say it and then which i guess did you guys like using like an open-source widely? why because basically plays on lamps for specify.
+13:27:20 USER:  stick like speech to text speech to text.
+13:27:28 USER: and then i would guess that like people who decides to make it easier for themselves.
+13:27:37 USER:  and skip the physicality and just go right into what's in there are kind of like
+13:27:46 USER:  the kind of just do it like i would guess that they're sort of doing a different thing at that point because the instalike if
+13:28:09 USER:  if you can do it, but it's not tangible, then it's different you can do this.
+13:28:15 USER:  certain tasks. they will still be there like planning the construction.
+13:28:31 USER: understanding the language that stand between my systems and applications.
+13:28:47 USER:  does the same old ass in the lab setting but i'm going to try to use them in real life. you know who plays this issues. that is so messy. so i don't think it's a good idea. what kind of like
+13:28:56 USER:  block away from the problems of physical world around them like as best as you can.
+13:29:06 USER:  it's a really interesting. thank you so much.
+13:29:09 USER:  i
+13:29:11 USER:  so
+13:29:16 USER: would you be blocking for any like
+13:29:24 USER:  oh, yeah.
+13:29:28 USER:  like what would that?
+13:29:34 USER:  what would i like you? like what would you will do?
+13:29:48 USER:  okay, so there are multiple tasks. so let's see what you'll be more interested in working with like or 41.
+13:29:50 USER:  so there are multiple tasks.
+13:30:34 USER: there's a problem parsing. so for now we're using the custom custom build foster for the you left, but apparently
+13:30:40 USER:  like definitely different variations of every friday. does it have to be
+13:30:54 USER:  manually coded. that's why we cannot handle a bunch of different expressions. like you change the wording of a question a little bit. so there's that far bar scene.
+13:31:00 USER:  actually this far
+13:31:16 USER: heavily relies on what gene is doing? so he is working on like general ewell esparza right now that you'll never placed if you succeed. so we're going to release a blocks are with keyless system.
+13:31:26 USER:  then there is
+13:31:31 USER:  speech generation issue.
+13:31:35 USER:  so right now it's relatively simple.
+13:31:43 USER:  because for most of the questions that are like relatively standardized forms of the answer so you can
+13:31:50 USER:  future moving towards
+13:31:52 USER:  tutoring
+13:31:55 USER:  system will be explained in the castle.
+13:32:01 USER: and when you like make a mistake.
+13:32:04 USER:  correct you.
+13:32:08 USER:  is the set of commands or
+13:32:17 USER:  malaysian all right now aaron
+13:32:23 USER:  so that's something you might join.
+13:32:32 USER:  bandera style of management
+13:32:51 USER:  i can't right now did i block at the new with the something covered in metairie for this moment? this is the introductory readings face says hello.
+13:32:56 USER: fashion
+13:33:02 USER:  touching the starbucks
+13:33:05 USER:  so we do.
+13:33:10 USER:  what's your pronoun?
+13:33:34 USER:  but again for the tutoring for previous stop before vacation.
+13:33:40 USER:  pure penalty.
+13:33:45 USER:  so now so
+13:34:12 USER: spatial reasoning subsystem of specialization module
+13:34:37 USER:  which will make the judgments above positioning and whatnot and communicate his back paws going to be using both ways either understanding what the description
+13:34:51 USER: i'm so messed up right now.
+13:34:54 USER:  play if i were to put something.
+13:35:04 USER:  yeah, you are.
+13:35:06 USER:  yeah.
+13:35:50 USER: i'm trying to fool the system.
+13:35:58 USER:  why does it have trouble with the?
+13:36:01 USER:  like the bit.
+13:36:31 USER:  like calibrate like every few seconds it does but the problem is that the volkswagen system is not super precise. so it doesn't really know the block identities. so every like a few times a second you just scan of the table and extracts older block positions, but it doesn't know which one
+13:36:41 USER: did you just tells you like? okay, there's a block at the point 0 0 2.
+13:36:44 USER:  like block at that.
+13:37:09 USER:  i can order to start asking questions like you need to know that this specific to some hacking to enable that yeah, but it's noisy.
+13:37:17 USER:  okay.
+13:37:26 USER:  is behind sort of
+13:37:29 USER: but
+13:38:17 USER: oh, i think it's because you're moving.
+13:38:25 USER: it's like when you create the background like
+13:38:32 USER:  you and blocks and the camera. so camera starts messing up the pool address and stuff.
+13:39:48 USER: what did you want to do? what do you want to do with the blocks? i was just trying to see like if i put one out of you like above of you of what sort of.
+13:39:51 USER: registers is happening.
+13:40:04 USER:  so i was so it should be still there because if the block so i can
+13:40:11 USER:  is that too kind of?
+13:40:25 USER: accounts / lake possible noise with the connect systems. yes. yes.
+
+SESSION: 2019-10-25 13:41:03
+=============================================================
+13:41:11 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:41:16 USER: david can you give us a minute?
+13:41:24 DAVID:  sure, let me know when you want to continue.
+13:44:23 USER: so right now none of the kinect sensor should be able to see there's blood here.
+13:44:48 USER: or maybe they've been out of their own memory.
+13:45:10 USER:  as long as you don't move the invisible block.
+13:46:18 USER: now is greater than you block.
+13:46:28 USER:  assume there's a new block appeared here, but this bucket thinks it's still there.
+13:46:33 USER:  so that spatial relations and
+13:46:41 USER: that would relate to david understanding.
+13:46:48 USER:  trying to communicate them back.
+13:47:10 USER:  there's one.
+13:47:20 USER:  now is that!
+13:47:29 USER:  so basically
+13:47:37 USER: it would like to be able.
+13:47:52 USER:  this block is multiple left with them.
+13:47:59 USER:  ask like whoa.
+13:48:17 USER:  is the starbucks block van to the writer in this case and if you ask
+13:48:24 USER:  which blocks are to the right of the mexican border?
+13:48:47 USER: because it's too far and they're like many blocks that are better candidates nationwide system of the judgment and you should be able to ask above the judge.
+13:48:50 USER:  so
+13:48:55 USER:  one of the things you're going to be working next few weeks.
+13:49:09 USER:  okay, there is a
+13:49:15 USER:  council of library
+13:49:19 USER:  so this will be the library of the primitive constructs.
+13:49:36 USER: memorial library
+13:49:40 USER:  plus
+13:49:44 USER:  schemas
+13:49:48 USER:  for multiple
+13:49:51 USER:  concepts
+13:50:03 USER:  stacks and rolls in what mountain chain
+13:50:07 USER:  the notion of a
+13:50:37 USER: then there is a
+13:50:45 USER:  construction planning
+13:50:52 USER:  and you have the definition of aspect.
+13:50:55 USER:  general description
+13:50:58 USER:  james substeps
+13:51:16 USER: these are things out. so for now.
+13:51:20 USER:  is that block a big area?
+13:51:34 USER:  so you might want to think and pick whatever area you like more.
+13:51:37 USER:  stop
+13:51:40 USER:  is going to be mostly python and blender programming.
+13:51:43 USER:  this will be
+13:51:47 USER:  mixed python for lisp after the recorder thing.
+13:51:51 USER:  the rest is mostly covered in, georgia.
+13:52:03 USER:  apostolic logic meaning which language
+13:52:18 USER: construction rules
+13:52:23 USER:  and then all the mlp is list.
+13:53:00 USER:  because lynn wanted to have like a unified framework for reasoning. so yeah, everything related to like like a high-level and planning construction planning everything else tracking spatial reasoning far and there is a subsystem after is the bible manager does everything else.
+13:53:06 USER: management in future red will also be above in construction planning.
+13:53:20 USER:  and then i guess blender unity are these things that are there like own ide interface series that is that already like
+13:53:32 USER:  i guess just like the languages blender uses.
+13:53:54 USER:  is there a is there like a paper on during like pre-existing literature? i may be able to all right. yeah, i will i will block into all of these hands.
+13:53:56 USER:  sort of
+13:54:07 USER: take note. i'm blocking through all this.
+13:54:19 USER:  oh, yes, i'll cram. i need to submit the
+13:54:40 USER:  yeah, it's it's working again.
+13:54:43 USER:  you block nice.
+13:54:50 USER:  oh, this is broken.
+
+SESSION: 2019-10-26 12:36:59
+=============================================================
+12:37:07 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 12:37:21
+=============================================================
+12:37:30 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 12:44:50
+=============================================================
+12:44:58 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+12:45:07 USER: how many blocks are on the table?
+12:45:08 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (ON.P (THE.D TABLE.N)))) ?)
+12:45:14 DAVID:  there are 8 blocks that are on the table .
+12:45:29 USER:  which blocks are touching the texaco block?
+12:45:30 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?)
+12:45:38 DAVID:  the twitter block and the mcdonald's block are touching the texaco block .
+
+SESSION: 2019-10-26 16:59:42
+=============================================================
+16:59:50 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+17:00:02 USER: how many blocks are to the left of the texaco block?
+17:00:03 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Texaco BLOCK.N))))) ?)
+17:00:15 DAVID:  there are 3 that are to the left of the texaco block . the twitter , starbucks , and target blocks .
+17:00:21 USER: which blocks are between two red blocks?
+17:00:22 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P (TWO.D (RED.A (PLUR BLOCK.N)))))) ?)
+17:00:30 DAVID:  the mcdonald's block and the texaco block are between two red blocks .
+17:00:37 USER: which blocks are touching some red block?
+17:00:38 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (SOME.D (RED.A BLOCK.N))))) ?)
+17:00:47 DAVID:  the toyota , texaco , and mcdonald's blocks are touching some red block .
+17:01:13 USER: which blocks are touching some red blocks?
+17:01:14 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (SOME.D (RED.A (PLUR BLOCK.N)))))) ?)
+17:01:25 DAVID:  the toyota , texaco , starbucks , and mcdonald's blocks are touching some red blocks .
+17:01:33 USER: what is today?
+17:01:40 DAVID:  i apologize , i couldn't understand what you said .
+17:01:41 USER:  i apologize. i couldn't understand what you said.
+17:01:49 DAVID:  i apologize , i couldn't understand what you said .
+17:02:05 USER: what is to the left of the starbucks block?
+17:02:07 ULF: ((WHAT.PRO ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+17:02:11 DAVID:  only the target block .
+17:02:16 USER: what is above the starbucks block?
+17:02:18 ULF: ((WHAT.PRO ((PRES BE.V) (ABOVE.P (THE.D (Starbucks BLOCK.N))))) ?)
+17:02:22 DAVID:  there is no such block .
+17:02:28 USER: is the starbucks block on the table?
+17:02:29 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) (ON.P (THE.D TABLE.N))) ?)
+17:02:32 DAVID:  yes
+17:02:37 USER: is the starbucks walgreen?
+17:02:39 ULF: NIL
+17:02:46 USER:  is the starbucks block green?
+17:02:48 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) GREEN.A) ?)
+17:02:51 DAVID:  yes
+17:02:57 USER: is the target block blue?
+17:02:58 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) BLUE.A) ?)
+17:03:01 DAVID:  yes
+17:03:05 USER: is the target block red?
+17:03:07 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) RED.A) ?)
+17:03:10 DAVID:  no
+17:03:16 USER: is there a block party in the starbucks block?
+17:03:17 ULF: (POSS-QUES (((PRES BE.V) (A.D BLOCK.N) (IN.P (THE.D (Starbucks BLOCK.N)))) ?))
+17:03:28 DAVID:  i am not sure if i understood the question correctly, but my answer is no , there is no such block .
+17:03:33 USER: is there a block touching the starbucks block?
+17:03:35 ULF: (((PRES BE.V) THERE.PRO (A.D BLOCK.N) (TOUCHING.P (THE.D (Starbucks BLOCK.N)))) ?)
+17:03:41 DAVID:  yes , the twitter block .
+17:03:49 USER: is the target block behind the starbucks block?
+17:03:51 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (BEHIND.P (THE.D (Starbucks BLOCK.N)))) ?)
+17:03:54 DAVID:  no
+
+SESSION: 2019-10-26 17:06:54
+=============================================================
+17:07:04 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 17:08:47
+=============================================================
+17:08:57 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+17:09:22 USER: is the target block behind the starbucks block?
+17:09:23 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (BEHIND.P (THE.D (Starbucks BLOCK.N)))) ?)
+17:09:29 DAVID:  yes
+17:09:36 USER: what is behind the starbucks block?
+17:09:37 ULF: ((WHAT.PRO ((PRES BE.V) (BEHIND.P (THE.D (Starbucks BLOCK.N))))) ?)
+17:09:43 DAVID:  only the target block .
+17:09:52 USER: which blocks are in front of the target block?
+17:09:54 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (IN_FRONT_OF.P (THE.D (Target BLOCK.N))))) ?)
+17:10:10 DAVID:  the starbucks block and the twitter block are in front of the target block .
+17:10:19 USER: how many blocks are in front of the target block?
+17:10:20 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (IN_FRONT_OF.P (THE.D (Target BLOCK.N))))) ?)
+17:10:32 DAVID:  there are 2 that are in front of the target block . the starbucks block and the twitter block .
+17:11:26 USER: what is on top of the starbucks block?
+17:11:27 ULF: ((WHAT.PRO ((PRES BE.V) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+17:11:32 DAVID:  there is no such block .
+17:11:40 USER: what is between the target block and the texaco block?
+17:11:41 ULF: ((WHAT.PRO ((PRES BE.V) (BETWEEN.P ((THE.D (Target BLOCK.N)) AND.CC (THE.D (Texaco BLOCK.N)))))) ?)
+17:11:48 DAVID:  the twitter block is and the texaco block .
+17:12:18 USER: which blocks are between the target block and the texaco block?
+17:12:19 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P ((THE.D (Target BLOCK.N)) AND.CC (THE.D (Texaco BLOCK.N)))))) ?)
+17:12:28 DAVID:  just the twitter block is between the target block and the texaco block .
+17:12:38 USER: what is the topmost block?
+17:12:39 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N TOP.A BLOCK.N))))) ?)
+17:12:44 DAVID:  only the target block .
+17:12:49 USER: which block is the topmost?
+17:12:50 ULF: (((WHICH.D BLOCK.N) ((PRES BE.V) TOPMOST.A)) ?)
+17:12:57 DAVID:  the target block is the topmost .
+17:13:02 USER: is there a topmost block?
+17:13:03 ULF: (((PRES BE.V) THERE.PRO (A.D (MOST-N TOP.A BLOCK.N))) ?)
+17:13:10 DAVID:  yes , the target block .
+17:13:14 USER: is there a higher block?
+17:13:25 DAVID:  you are asking about some higher block , but i didn't catch what it was.
+17:13:29 USER: is there a higher block?
+17:13:39 DAVID:  you are asking about some higher block , but i didn't catch what it was.
+17:13:41 USER: is there a high of block?
+17:13:53 DAVID:  you are asking about some high of block , but i didn't catch what it was.
+17:13:58 USER: is there a highest block?
+17:13:59 ULF: (((PRES BE.V) THERE.PRO (A.D (MOST-N HIGH.A BLOCK.N))) ?)
+17:14:05 DAVID:  yes , the target block .
+
+SESSION: 2019-10-26 17:15:50
+=============================================================
+17:15:59 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 17:17:46
+=============================================================
+17:17:55 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 17:20:00
+=============================================================
+17:20:09 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 17:23:53
+=============================================================
+17:24:02 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 17:26:24
+=============================================================
+
+SESSION: 2019-10-26 17:26:45
+=============================================================
+17:26:53 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+17:34:34 USER: what is that block front of the starbucks block?
+17:34:45 DAVID:  you are asking about some is that block , but i didn't catch what it was.
+17:34:49 USER: what is in front of the starbucks block?
+17:34:50 ULF: ((WHAT.PRO ((PRES BE.V) (IN_FRONT_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+17:34:55 DAVID:  there is no such block .
+
+SESSION: 2019-10-26 19:01:51
+=============================================================
+19:01:59 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+19:02:15 USER: what is in front of the starbucks block?
+19:02:17 ULF: ((WHAT.PRO ((PRES BE.V) (IN_FRONT_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+19:02:21 DAVID:  only the target block .
+19:02:33 USER: is the target block in front of the starbucks block?
+19:02:35 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (IN_FRONT_OF.P (THE.D (Starbucks BLOCK.N)))) ?)
+19:02:38 DAVID:  no
+
+SESSION: 2019-10-26 19:05:01
+=============================================================
+
+SESSION: 2019-10-26 19:05:11
+=============================================================
+
+SESSION: 2019-10-26 19:05:26
+=============================================================
+19:05:34 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+19:05:45 USER: what is in front of the starbucks block?
+19:05:46 ULF: ((WHAT.PRO ((PRES BE.V) (IN_FRONT_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+
+SESSION: 2019-10-26 19:38:12
+=============================================================
+19:38:20 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+19:38:37 USER: what's in front of the starbucks block?
+19:38:46 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+
+SESSION: 2019-10-26 19:39:37
+=============================================================
+19:39:45 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+19:39:50 USER: what's in front of the starbucks block?
+19:39:59 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+19:40:21 USER: what's in front of the starbucks block?
+
+SESSION: 2019-10-26 19:41:06
+=============================================================
+19:41:15 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+19:41:20 USER: what's in front of the starbucks block?
+19:41:29 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+19:41:41 USER: what is in front of the starbucks block?
+19:41:42 ULF: ((WHAT.PRO ((PRES BE.V) (IN_FRONT_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+19:41:46 DAVID:  only the target block .
+19:42:23 USER: what's in front of the storm on the block?
+19:42:31 DAVID:  you are asking about some block , but i didn't catch what it was.
+
+SESSION: 2019-10-26 19:43:04
+=============================================================
+19:43:13 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 19:44:49
+=============================================================
+19:44:58 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 19:46:26
+=============================================================
+
+SESSION: 2019-10-26 19:46:38
+=============================================================
+
+SESSION: 2019-10-26 19:46:49
+=============================================================
+
+SESSION: 2019-10-26 19:47:17
+=============================================================
+
+SESSION: 2019-10-26 19:47:38
+=============================================================
+19:47:46 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-10-26 19:53:26
+=============================================================
+19:53:36 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+19:53:51 USER: what is behind the target block?
+19:53:52 ULF: ((WHAT.PRO ((PRES BE.V) (BEHIND.P (THE.D (Target BLOCK.N))))) ?)
+19:54:01 DAVID:  the twitter , starbucks , and texaco blocks do .
+19:54:27 USER: is the starbucks block in front of the twitter block?
+19:54:28 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) (IN_FRONT_OF.P (THE.D (Twitter BLOCK.N)))) ?)
+19:54:32 DAVID:  yes
+19:54:37 USER: is the starbucks block on top of the target block?
+19:54:38 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) (ON_TOP_OF.P (THE.D (Target BLOCK.N)))) ?)
+19:54:44 DAVID:  yes
+19:54:54 USER: what is on top of the target block?
+19:54:55 ULF: ((WHAT.PRO ((PRES BE.V) (ON_TOP_OF.P (THE.D (Target BLOCK.N))))) ?)
+19:55:01 DAVID:  there is no such block .
+19:55:10 USER: is the starbucks block up on top of the target block?
+19:55:11 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) (UP.ADV-A (ON_TOP_OF.P (THE.D (Target BLOCK.N))))) ?)
+19:55:15 DAVID:  no
+
+SESSION: 2019-10-26 19:59:20
+=============================================================
+19:59:30 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+19:59:44 USER: is the target block on top of the starbucks block?
+19:59:46 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N)))) ?)
+19:59:50 DAVID:  yes
+
+SESSION: 2019-10-26 20:02:05
+=============================================================
+20:02:15 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+20:02:28 USER: is the target block on top of the starbucks block?
+20:02:30 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N)))) ?)
+20:02:34 DAVID:  yes
+20:02:47 USER: is the target block on top of the starbucks block?
+20:02:49 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N)))) ?)
+20:02:53 DAVID:  yes
+20:03:01 USER: is the target block?
+20:03:13 DAVID:  you are asking about some target block , but i didn't catch what it was.
+20:03:13 USER:  you were asking above some blocking two block but i didn't catch what it was.
+20:03:22 DAVID:  you are asking about some blocking two block , but i didn't catch what it was.
+20:03:30 USER: is the target block on top of the starbucks block?
+20:03:31 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N)))) ?)
+20:03:37 DAVID:  yes
+20:03:42 USER: is the target block on top of the twitter block?
+20:03:43 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (ON_TOP_OF.P (THE.D (Twitter BLOCK.N)))) ?)
+20:03:47 DAVID:  yes
+20:03:51 USER: what is on top of the twitter block?
+20:03:52 ULF: ((WHAT.PRO ((PRES BE.V) (ON_TOP_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+20:03:57 DAVID:  only the target block .
+20:04:04 USER: how many blocks are underneath the target block?
+20:04:05 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (UNDERNEATH.P (THE.D (Target BLOCK.N))))) ?)
+20:04:18 DAVID:  there are 3 that are underneath the target block . the twitter , starbucks , and texaco blocks .
+20:04:28 USER: how many blocks are under the target block?
+20:04:29 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (UNDER.P (THE.D (Target BLOCK.N))))) ?)
+20:04:42 DAVID:  there are 3 that are under the target block . the twitter , starbucks , and texaco blocks .
+20:04:48 USER: is the target block on top of the texaco block?
+20:04:50 ULF: (((PRES BE.V) (THE.D (Target BLOCK.N)) (ON_TOP_OF.P (THE.D (Texaco BLOCK.N)))) ?)
+20:04:54 DAVID:  no
+20:05:20 USER: which blocks are under the target block?
+20:05:21 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (UNDER.P (THE.D (Target BLOCK.N))))) ?)
+20:05:32 DAVID:  the twitter , starbucks , and texaco blocks are under the target block .
+
+SESSION: 2019-10-26 20:06:42
+=============================================================
+20:06:52 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+20:07:02 USER: how many blocks are under the target block?
+20:07:03 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (UNDER.P (THE.D (Target BLOCK.N))))) ?)
+20:07:16 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2019-10-26 20:07:55
+=============================================================
+20:08:05 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+20:08:13 USER: how many blocks are under the target block?
+20:08:14 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (UNDER.P (THE.D (Target BLOCK.N))))) ?)
+20:08:24 DAVID:  there are 2 that are under the target block . the starbucks block and the twitter block .
+20:08:44 USER: how many blocks are on the twitter block?
+20:08:45 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (ON.P (THE.D (Twitter BLOCK.N))))) ?)
+20:08:53 DAVID:  just the target block is on the twitter block .
+
+SESSION: 2019-10-26 20:20:41
+=============================================================
+20:20:50 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+20:20:57 USER: is the starbucks block supporting the target block?
+20:20:59 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) (SUPPORTING.P (THE.D (Target BLOCK.N)))) ?)
+20:21:03 DAVID:  no
+20:24:34 USER: is the starbucks block supporting the target block?
+20:24:35 ULF: (((PRES BE.V) (THE.D (Starbucks BLOCK.N)) (SUPPORTING.P (THE.D (Target BLOCK.N)))) ?)
+20:24:41 DAVID:  yes
+20:25:03 USER: which blocks are supported by the twitter block?
+20:25:04 ULF: (POSS-QUES (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (ON.P (THE.D (Twitter BLOCK.N))))) ?))
+20:25:17 DAVID:  i am not sure if i understood the question correctly, but my answer is just the target block is supported by the twitter block .
+20:25:30 USER: is the twitter block supporting the starbucks block?
+20:25:31 ULF: (((PRES BE.V) (THE.D (Twitter BLOCK.N)) (SUPPORTING.P (THE.D (Starbucks BLOCK.N)))) ?)
+20:25:34 DAVID:  yes
+20:25:50 USER: how many blocks are supported by the twitter block?
+20:25:59 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+20:26:19 USER: does the twitter block support the starbucks block?
+20:26:20 ULF: ((DOES.V (THE.D (Twitter BLOCK.N)) ((PRES SUPPORT.V) (THE.D (Starbucks BLOCK.N)))) ?)
+20:26:23 DAVID:  yes
+20:26:56 USER: is the twitter block supporting the starbucks block?
+20:26:57 ULF: (((PRES BE.V) (THE.D (Twitter BLOCK.N)) (SUPPORTING.P (THE.D (Starbucks BLOCK.N)))) ?)
+20:27:00 DAVID:  yes
+20:27:15 USER: which blocks is the twitter block supporting?
+20:27:16 ULF: ((SUB (WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (THE.D (Twitter BLOCK.N)) (SUPPORTING.P *H))) ?)
+20:27:26 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2019-10-26 20:28:17
+=============================================================
+20:28:25 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+20:28:28 USER: what is the topmost block?
+20:28:29 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N TOP.A BLOCK.N))))) ?)
+20:28:35 DAVID:  probably just the mercedes block is .
+
+SESSION: 2019-10-26 20:29:37
+=============================================================
+20:29:46 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+20:29:50 USER: what is the lowest block?
+20:29:51 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LOW.A BLOCK.N))))) ?)
+20:29:57 DAVID:  probably just the mercedes block is .
+20:30:04 USER: what is the topmost block?
+20:30:06 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N TOP.A BLOCK.N))))) ?)
+20:30:11 DAVID:  probably just the mercedes block is .
+20:30:14 USER: what is the leftmost block?
+20:30:15 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+20:30:19 DAVID:  only the target block .
+
+SESSION: 2019-10-26 20:36:12
+=============================================================
+20:36:21 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+20:36:24 USER: what is the leftmost block?
+20:36:25 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+20:36:29 DAVID:  only the target block .
+20:36:36 USER: what is the burger king block?
+20:36:45 DAVID:  you are asking about some burger_king block , but i didn't catch what it was.
+20:36:50 USER: what is the pokemon block?
+20:36:59 DAVID:  you are asking about some pokemon block , but i didn't catch what it was.
+20:37:06 USER: what is the topmost block?
+20:37:07 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N TOP.A BLOCK.N))))) ?)
+20:37:12 DAVID:  there is no such block .
+20:37:16 USER: what is the lowest block?
+20:37:18 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LOW.A BLOCK.N))))) ?)
+20:37:22 DAVID:  there is no such block .
+20:37:27 USER: what is on top of the twitter block?
+20:37:28 ULF: ((WHAT.PRO ((PRES BE.V) (ON_TOP_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+20:37:32 DAVID:  there is no such block .
+20:37:48 USER: what is on top of the twitter block?
+20:37:49 ULF: ((WHAT.PRO ((PRES BE.V) (ON_TOP_OF.P (THE.D (Twitter BLOCK.N))))) ?)
