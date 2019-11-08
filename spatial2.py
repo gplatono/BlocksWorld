@@ -132,6 +132,24 @@ class Spatial:
 			red:1,
 			green:1,}
 
+class Node:
+	def __init__(self):
+		pass
+
+
+class ConeArea(Node):
+	"""
+	Factor determining containment in an infinite cone-shaped beam
+	with the given width, emanating from the origin object/point into given 
+	direction 
+	"""
+
+	def __init__(self, origin, direction, width):
+		self.direction = direction
+		self.width = width
+
+	def compute(self, )
+
 entities = []
 world = None
 
