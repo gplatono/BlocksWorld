@@ -3,6 +3,8 @@ import os
 import sys
 import numpy as np
 import geometry_utils
+import math
+from sklearn.metrics.pairwise import cosine_similarity
 
 filepath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, filepath)
@@ -49,3 +51,23 @@ class Constructor(object):
 				return False
 		print ("CONVERGED AFTER " + str(iter) + " ITERATIONS.")
 		return True
+
+	def get_magnitude(self, a):
+		return math.sqrt((a[0] ** 2)+(a[1] ** 2)+(a[2] ** 2))
+
+	def get_dot_product(self, a, b):
+		return ((a[0]*b[0])+(a[1]*b[1])+(a[2]*b[2]))
+
+	def vectorSimilarity(self, a, b, a1, a2, c):
+		return (a1 * math.e ** (-c * (get_magnitude(a)- get_magnitude(b)))) + (a2 * cosine_similarity(a,b))
+
+	def structureSimilarity(self, a, b):
+		z = 0
+		for vectora in a:
+			x = 0
+			for vectorb in b:
+				y = vectorSimilarity(vectora , vectorb)
+				if(y > x):
+					x = y
+			z += x
+		return z/4
