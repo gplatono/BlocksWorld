@@ -52,15 +52,20 @@ class Constructor(object):
 		print ("CONVERGED AFTER " + str(iter) + " ITERATIONS.")
 		return True
 
+	#returns magnitude of a 3d vector a.
 	def get_magnitude(self, a):
 		return math.sqrt((a[0] ** 2)+(a[1] ** 2)+(a[2] ** 2))
 
+	#returns the dot products of two 3d vectors a and b.
 	def get_dot_product(self, a, b):
 		return ((a[0]*b[0])+(a[1]*b[1])+(a[2]*b[2]))
 
+	#function that inputs two vectors a,b and returns "similarity" between the two.
+  	#a1, a2, and c are scalers that have yet to be determined.
 	def vectorSimilarity(self, a, b, a1, a2, c):
 		return (a1 * math.e ** (-c * (get_magnitude(a)- get_magnitude(b)))) + (a2 * cosine_similarity(a,b))
 
+	# returns a value between 0 - 1 for the structure similarity 
 	def structureSimilarity(self, a, b):
 		z = 0
 		for vectora in a:
@@ -70,4 +75,4 @@ class Constructor(object):
 				if(y > x):
 					x = y
 			z += x
-		return z/4
+		return z/len(a)
