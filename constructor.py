@@ -67,12 +67,27 @@ class Constructor(object):
 
 	# returns a value between 0 - 1 for the structure similarity 
 	def structureSimilarity(self, a, b):
+		lengtha = len(a)
+		lengthb = len(b)
+
+		if(lengtha > lengthb):
+			for i in range(lengtha - lengthb):
+				b.append([0,0,0])
+
+		if(lengthb > lengtha):
+			for i in range(lengthb - lengtha):
+				a.append([0,0,0])
+
 		z = 0
 		for vectora in a:
 			x = 0
+			vb = 0
 			for vectorb in b:
 				y = vectorSimilarity(vectora , vectorb)
 				if(y > x):
 					x = y
+					vb = vectorb
 			z += x
+			b.remove(vb)
+
 		return z/len(a)
