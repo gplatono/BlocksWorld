@@ -53,6 +53,8 @@ grammar['consist_of.v'] = lambda x: TPred(x)
 grammar['face.v'] = lambda x: TPred(x)
 grammar['have.v'] = lambda x: TPred(x)
 grammar['color.pred'] = lambda x: TPred(x)
+grammar['put.v'] = lambda x: TPred(x)
+grammar['move.v'] = lambda x: TPred(x)
 
 grammar['side_by_side.a'] = lambda x: TPred(x)
 grammar['where.a'] = lambda x: TPred(x)
@@ -313,6 +315,7 @@ grammar[("NSentenceParams", "NPred")] = lambda x, y: y
 grammar[("TCopulaBe", "TPred")] = lambda x, y: y
 grammar[("TCopulaBe", "NPred")] = lambda x, y: y
 grammar[("TCopulaBe", "TAdj")] = lambda x, y: NPred(content = y.content, mods=y.mods)
+grammar[("TCopulaBe", "NColor")] = lambda x, y: NPred(content = y.content)
 # grammar[("TCopulaBe", "NRel")] = lambda x, y: y
 grammar[("TCopulaBe", "NArg")] = lambda x, y: NPred(content = x, children = [y])
 grammar[("NPred", "TPred")] = lambda x, y: NPred(content = y, children = x.children, neg = x.neg, mods = x.mods)

@@ -369,4 +369,9 @@ class Entity(object):
         #print ("Const name: " + self.components[0].name)
         print ("Mesh loc: " + str(self.components[0].location))
 
+    def get_component_vectors(self):
+        centroid = np.average([item.location for item in self.components])
+        vectors = [item.location - centroid for item in self.components]
+        return vectors
+
         

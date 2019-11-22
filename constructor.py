@@ -2,13 +2,13 @@ import bpy
 import os
 import sys
 import numpy as np
-import geometry_utils
 import math
-from sklearn.metrics.pairwise import cosine_similarity
+#from sklearn.metrics.pairwise import cosine_similarity
 
 filepath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, filepath)
 
+import geometry_utils
 from entity import Entity
 
 class Constructor(object):
@@ -53,41 +53,55 @@ class Constructor(object):
 		return True
 
 	#returns magnitude of a 3d vector a.
-	def get_magnitude(self, a):
-		return math.sqrt((a[0] ** 2)+(a[1] ** 2)+(a[2] ** 2))
+	# def get_magnitude(self, a):
+	# 	return math.sqrt((a[0] ** 2)+(a[1] ** 2)+(a[2] ** 2))
 
 	#returns the dot products of two 3d vectors a and b.
-	def get_dot_product(self, a, b):
-		return ((a[0]*b[0])+(a[1]*b[1])+(a[2]*b[2]))
+	# def get_dot_product(self, a, b):
+	# 	return ((a[0]*b[0])+(a[1]*b[1])+(a[2]*b[2]))
 
 	#function that inputs two vectors a,b and returns "similarity" between the two.
   	#a1, a2, and c are scalers that have yet to be determined.
-	def vectorSimilarity(self, a, b, a1, a2, c):
-		return (a1 * math.e ** (-c * (get_magnitude(a)- get_magnitude(b)))) + (a2 * cosine_similarity(a,b))
+	def vectorSimilarity(self, a, b):
+		w = 0.5
+		c = 1
+		mag_comp = w * math.e ** (-c * (math.fabs(np.linalg.norm(a) - np.linalg.norm(b))))
+		dir_comp = (1 - w) * (geometry_utils.cosine_similarity(a,b) + 1) / 2
+		print ("SIM: ", a, b, mag_comp, dir_comp)
+		return mag_comp + dir_comp
+		#w * math.e ** (-c * (math.fabs(np.linalg.norm(a) - np.linalg.norm(b)))) + (1 - w) * geometry_utils.cosine_similarity(a,b)
+
+	def similarity(self, a, b):
+		sim = self.structureSimilarity(a.get_component_vectors(), b.get_component_vectors())
+		return sim
 
 	# returns a value between 0 - 1 for the structure similarity 
 	def structureSimilarity(self, a, b):
-		lengtha = len(a)
-		lengthb = len(b)
+		max_len = max(len(a), len(b))		
 
-		if(lengtha > lengthb):
-			for i in range(lengtha - lengthb):
-				b.append([0,0,0])
+		for i in range(max_len - len(b)):
+			b.append((0,0,0))
 
-		if(lengthb > lengtha):
-			for i in range(lengthb - lengtha):
-				a.append([0,0,0])
+		for i in range(max_len - len(a)):
+			a.append((0,0,0))
 
-		z = 0
+		total_sim = 0
 		for vectora in a:
-			x = 0
-			vb = 0
+			print (a, b)
+			cand_sim = 0
+			cand = 0
 			for vectorb in b:
-				y = vectorSimilarity(vectora , vectorb)
-				if(y > x):
-					x = y
-					vb = vectorb
-			z += x
-			b.remove(vb)
+				curr_sim = self.vectorSimilarity(vectora, vectorb)
+				#print ("SIM: ", vectora, vectorb, curr_sim)
+				if(curr_sim > cand_sim):
+					cand_sim = curr_sim
+					cand = vectorb
+			total_sim += cand_sim
+			print (cand_sim, cand, vectora)
+			b.remove(cand)
 
-		return z/len(a)
+		return total_sim/max_len
+
+
+constr = Constructor()
+print(constr.structureSimilarity([(0, 0, 1), (0, 2, 0)], [(0, 0, 1), (0, 2, 0), (1, 0, 0)]))

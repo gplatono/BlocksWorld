@@ -113,9 +113,9 @@ class Tracker(object):
             return bl
         block_mesh = bpy.data.meshes.new('Block_mesh')
         block = bpy.data.objects.new(name, block_mesh)
-        bpy.context.scene.objects.link(block)
-        bpy.context.scene.objects.active = block
-        block.select = True
+        bpy.context.collection.objects.link(block)
+        #bpy.context.collection.objects.active = block
+        #block.select = True
         bm = bmesh.new()
         bmesh.ops.create_cube(bm, size=self.block_edge)
         bm.to_mesh(block_mesh)
