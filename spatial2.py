@@ -134,8 +134,7 @@ class Spatial:
 
 class Node:
 	def __init__(self):
-		pass
-
+		self.connections = []
 
 class ConeArea(Node):
 	"""
@@ -144,11 +143,59 @@ class ConeArea(Node):
 	direction 
 	"""
 
-	def __init__(self, origin, direction, width):
+	def __init__(self, origin=None, direction, width):
 		self.direction = direction
 		self.width = width
 
-	def compute(self, )
+	def compute(self, vect):
+		cos = self.direction.dot(vect) / (np.linalg.norm(self.direction) * \
+			np.linalg.norm(vect))
+		angle = math.acos(cos)
+		sigma = 1 / (1 + math.e ** (2 * (self.width - angle)))
+		return sigma
+
+
+class FrameSize(Node):
+	"""
+	Factor representing the frame size of the current scene.
+
+	"""
+	def compute(self):
+	    max_x = -100
+	    min_x = 100
+	    max_y = -100
+	    min_y = 100
+	    max_z = -100
+	    min_z = 100
+
+	    #Computes the scene bounding box
+	    for entity in entities:
+	        max_x = max(max_x, entity.span[1])
+	        min_x = min(min_x, entity.span[0])
+	        max_y = max(max_y, entity.span[3])
+	        min_y = min(min_y, entity.span[2])
+	        max_z = max(max_z, entity.span[5])
+	        min_z = min(min_z, entity.span[4])
+	    return max(max_x - min_x, max_y - min_y, max_z - min_z)
+
+
+class RawDistance(Node):
+
+	def compute(self, entity_a, entity_b):
+	    dist = dist_obj(a, b)
+	    if a.get('planar') is not None:
+	        #print ("TEST", a.name, b.name)
+	        dist = min(dist, get_planar_distance_scaled(a, b))
+	    elif b.get('planar') is not None:
+	        dist = min(dist, get_planar_distance_scaled(b, a))        
+	    elif a.get('vertical_rod') is not None or a.get('horizontal_rod') is not None or a.get('rod') is not None:
+	        dist = min(dist, get_line_distance_scaled(a, b))
+	    elif b.get('vertical_rod') is not None or b.get('horizontal_rod') is not None or b.get('rod') is not None:
+	        dist = min(dist, get_line_distance_scaled(b, a))
+	    elif a.get('concave') is not None or b.get('concave') is not None:
+	        dist = min(dist, closest_mesh_distance_scaled(a, b))
+
+
 
 entities = []
 world = None
@@ -216,26 +263,6 @@ def get_planar_orientation(a):
         return (0, 1, 0)
     else: return (0, 0, 1)
 
-#Returns the frame size of the current scene
-#Inputs: none
-#Return value: real number
-def get_frame_size(entities):
-    max_x = -100
-    min_x = 100
-    max_y = -100
-    min_y = 100
-    max_z = -100
-    min_z = 100
-
-    #Computes the scene bounding box
-    for entity in entities:
-        max_x = max(max_x, entity.span[1])
-        min_x = min(min_x, entity.span[0])
-        max_y = max(max_y, entity.span[3])
-        min_y = min(min_y, entity.span[2])
-        max_z = max(max_z, entity.span[5])
-        min_z = min(min_z, entity.span[4])
-    return max(max_x - min_x, max_y - min_y, max_z - min_z)
 
 
 #Computes the degree of vertical alignment (coaxiality) between two entities
