@@ -237,7 +237,7 @@ def run_debug(world, hci_manager):
 
 #Entry point
 def main():
-
+    print ("Entering the main loop...")
     if '-s' in sys.argv:
         settings['SIMULATION_MODE'] = True
 
@@ -253,24 +253,24 @@ def main():
     spatial.entities = world.entities
     spatial.world = world
     constraint_solver.world = world
-    world.history.append(world.State(world.entities))
-    for item in world.history:
-        print (item.state_facts)
+    # world.history.append(world.State(world.entities))
+    # for item in world.history:
+    #     print (item.state_facts)
 
-    Toy = world.find_entity_by_name('toyota')
-    Star = world.find_entity_by_name('starbucks')
-    Tex = world.find_entity_by_name('texaco')
-    Tar = world.find_entity_by_name('target')
-    Mrc = world.find_entity_by_name('mercedes')
+    # Toy = world.find_entity_by_name('toyota')
+    # Star = world.find_entity_by_name('starbucks')
+    # Tex = world.find_entity_by_name('texaco')
+    # Tar = world.find_entity_by_name('target')
+    # Mrc = world.find_entity_by_name('mercedes')
 
     #print (Toy.type_structure)
 
-    from constructor import Constructor
-    cons = Constructor()
+    #from constructor import Constructor
+    #cons = Constructor()
 
-    struct = Entity([Toy, Star])
+    #struct = Entity([Toy, Star])
 
-    print (spatial.touching(struct, Mrc))
+    #print (spatial.touching(struct, Mrc))
     #cons.sample(Toy, spatial.touching, Star)
 
     #print (Toy.vertex_set)
@@ -280,7 +280,7 @@ def main():
     #print ([v.co for v in Toy.components[0].data.vertices])
 
 
-    if '-bo' not in sys.argv:
+    if '-bo' not in sys.argv:        
         hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'])
 
         if hci_manager.debug_mode == True:

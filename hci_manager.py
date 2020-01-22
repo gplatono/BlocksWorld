@@ -48,11 +48,12 @@ class HCIManager(object):
 		self.speech_lock = RLock()
 		self.asr_active = False
 
-		self.eta_path = ".." + os.sep + "eta-blocksworld" + os.sep
+		self.eta_path = ".." + os.sep + "eta" + os.sep + "io" + os.sep
 		self.eta_input = self.eta_path + "input.lisp"
 		self.eta_ulf = self.eta_path + "ulf.lisp"
 		self.eta_answer = self.eta_path + "answer.lisp"
 		self.eta_output = self.eta_path + "output.txt"
+		self.eta_coords = self.eta_path + "coords.lisp"
 
 		self.dialog_log_path = "dialog_log"
 		self.log_file = None
@@ -133,6 +134,16 @@ class HCIManager(object):
 			logf.write("\nSESSION: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
 			logf.write("=============================================================\n")		
 
+	def write_coords(self):
+		last_moved = self.world.get_last_moved()		
+		if last_moved is not None and len(last_moved) > 0:			
+			print ("LAST_MOVED: ", last_moved)		
+			coord_list = ['(|' + item[0] + '| at-coords.p ' + str(int(item[1][0])) + ' ' \
+			+ str(int(item[1][1])) + ' ' + str(int(item[1][2])) + ')' for item in last_moved]
+			coord_str = "(setq *next-coords* \'(" + " ".join(coord_list) + "))"			
+			with open(self.eta_coords, 'w') as f:
+				f.write(coord_str)		
+
 	def preprocess(self, input):
 		input = input.lower()
 		misspells = [(' book', ' block'), (' blog', ' block'), (' black', ' block'), (' walk', ' block'), (' wok', ' block'), \
@@ -190,7 +201,10 @@ class HCIManager(object):
 		# print ("BEGLONG TO FACE: ", spatial.is_in_face(np.array([0, 0, 0.1]), face))
 		while True:
 
+			self.write_coords()
+
 			if self.state == self.STATE.INIT:
+				print ("WAITING...")
 				response = self.read_and_vocalize_from_eta()				
 				#print ("RESP", response)
 				# if response is None:
@@ -282,9 +296,6 @@ class HCIManager(object):
 						exit()
 
 					time.sleep(0.5)					
-					
-					
-
 				self.current_input = ""
 			self.speech_lock.release()
 			time.sleep(0.1)

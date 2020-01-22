@@ -6,7 +6,7 @@ import platform
 
 system = platform.system()
 
-eta_path = os.path.normpath("../eta-blocksworld")
+eta_path = os.path.normpath("../eta")
 bw_path = os.path.dirname(os.path.abspath(__file__))
 
 params = []
@@ -14,11 +14,11 @@ params = []
 if '-bo' not in sys.argv:
 	os.chdir(eta_path)
 	if system == 'Windows':
-		os.system("start /B sbcl --load start.lisp")
+		os.system("start cmd.exe /c sbcl --load start.lisp")
 	else:
 		os.system("sbcl --load start.lisp &")
 
-	time.sleep(2.0)
+	time.sleep(3.0)
 	os.chdir(bw_path)
 else:
 	params.append('-bo')
@@ -33,6 +33,5 @@ if '-bg' not in sys.argv:
 	command = ['blender', 'bw_scene.blend', '-P', 'main.py', '--'] + params	
 else:
 	command = ['blender', '--background', 'bw_scene.blend', '-P', 'main.py', '--'] + params
-
 
 subprocess.call(command)

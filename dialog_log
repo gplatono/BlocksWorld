@@ -4604,3 +4604,285 @@ SESSION: 2019-11-09 16:33:36
 16:39:19 DAVID:  there are 2 
 16:39:34 USER: goodbye, david.
 16:39:43 DAVID:  oh, thank you for the questions. good bye for now!
+
+SESSION: 2019-12-06 13:05:18
+=============================================================
+13:05:21 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-12-06 13:06:54
+=============================================================
+
+SESSION: 2019-12-06 15:43:51
+=============================================================
+
+SESSION: 2019-12-13 15:12:29
+=============================================================
+15:12:39 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2019-12-13 15:24:00
+=============================================================
+
+SESSION: 2019-12-13 15:31:21
+=============================================================
+
+SESSION: 2019-12-23 12:52:40
+=============================================================
+
+SESSION: 2019-12-23 12:58:37
+=============================================================
+
+SESSION: 2019-12-23 13:00:47
+=============================================================
+
+SESSION: 2019-12-23 15:07:06
+=============================================================
+
+SESSION: 2019-12-23 15:07:50
+=============================================================
+
+SESSION: 2019-12-23 15:12:54
+=============================================================
+15:13:57 USER: cast
+15:14:07 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:15:53 USER: which blocks were recently moved?
+15:16:30 USER:  how many blocks are on the table?
+
+SESSION: 2020-01-04 18:57:50
+=============================================================
+
+SESSION: 2020-01-04 18:59:02
+=============================================================
+18:59:09 USER: how many blocks are on the table?
+
+SESSION: 2020-01-04 19:25:16
+=============================================================
+
+SESSION: 2020-01-04 19:36:22
+=============================================================
+
+SESSION: 2020-01-04 19:37:14
+=============================================================
+
+SESSION: 2020-01-04 19:41:37
+=============================================================
+
+SESSION: 2020-01-04 19:50:59
+=============================================================
+
+SESSION: 2020-01-04 19:52:32
+=============================================================
+
+SESSION: 2020-01-04 19:57:52
+=============================================================
+
+SESSION: 2020-01-04 20:11:18
+=============================================================
+
+SESSION: 2020-01-04 20:11:50
+=============================================================
+
+SESSION: 2020-01-04 20:12:53
+=============================================================
+
+SESSION: 2020-01-04 20:14:06
+=============================================================
+20:14:16 USER: how many blocks are on the table?
+
+SESSION: 2020-01-04 20:16:06
+=============================================================
+
+SESSION: 2020-01-04 20:17:18
+=============================================================
+
+SESSION: 2020-01-04 20:17:45
+=============================================================
+
+SESSION: 2020-01-04 20:20:26
+=============================================================
+
+SESSION: 2020-01-04 20:21:41
+=============================================================
+20:22:13 USER: how many blocks are on the table?
+
+SESSION: 2020-01-06 14:30:28
+=============================================================
+
+SESSION: 2020-01-06 14:32:01
+=============================================================
+
+SESSION: 2020-01-06 14:32:19
+=============================================================
+
+SESSION: 2020-01-06 14:33:24
+=============================================================
+
+SESSION: 2020-01-06 14:36:12
+=============================================================
+
+SESSION: 2020-01-06 14:39:41
+=============================================================
+
+SESSION: 2020-01-06 14:40:02
+=============================================================
+
+SESSION: 2020-01-06 14:43:07
+=============================================================
+
+SESSION: 2020-01-06 14:44:43
+=============================================================
+14:44:52 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:45:01 USER: how many blocks are on the table?
+14:45:03 ULF: (((HOW_MANY.D (PLUR BLOCK.N)) ((PRES BE.V) (ON.P (THE.D TABLE.N)))) ?)
+14:45:10 DAVID:  there are 8 blocks that are on the table .
+14:45:13 USER:  which blocks are touching the starbucks block?
+14:45:14 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?)
+14:45:21 DAVID:  the target block and the twitter block are touching the starbucks block .
+14:45:39 USER:  which blocks are touching the toyota block?
+14:45:41 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Toyota BLOCK.N))))) ?)
+14:45:48 DAVID:  just the mercedes block is touching the toyota block .
+
+SESSION: 2020-01-06 14:46:12
+=============================================================
+14:46:20 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:47:22 USER: what law did i just move?
+14:47:30 DAVID:  i didn't catch what you are referring to.
+14:47:34 USER:  what block did i just move?
+14:47:35 ULF: ((SUB (WHAT.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (JUST.ADV-A (MOVE.V *H)))) ?)
+14:47:46 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2020-01-06 14:58:48
+=============================================================
+14:58:56 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:59:05 USER: which block did i just move?
+14:59:06 ULF: ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (JUST.ADV-A (MOVE.V *H)))) ?)
+14:59:17 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2020-01-10 14:29:25
+=============================================================
+14:29:34 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:29:50 USER: what is the twitter block on the srip block during the last turn?
+14:29:59 DAVID:  you are asking about some twitter block , but i didn't catch what it was.
+14:30:12 USER:  what is the twitter block on the target block during the last turn?
+14:30:13 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (N+PREDS (Twitter BLOCK.N) (ON.P (THE.D (Target BLOCK.N)))))) (ADV-E (DURING.P (THE.D (LAST.A TURN.N)))))) ?)
+14:30:21 DAVID:  there is no block that is on the target block during the last turn .
+14:31:01 USER: there any blocks above the starbucks block initially?
+14:31:10 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+14:31:16 USER: blur any blocks above the starbucks block
+14:31:25 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+14:31:31 USER: where any blocks above the starbucks block initially?
+14:31:40 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+14:31:53 USER:  were any blocks above the starbucks block initially?
+14:31:54 ULF: (((PAST BE.V) (ANY.D (PLUR BLOCK.N)) (ABOVE.P (THE.D (Starbucks BLOCK.N))) INITIALLY.ADV-E) ?)
+14:32:05 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+14:32:18 USER: were any blocks above the starbucks block in the past?
+14:32:19 ULF: (((PAST BE.V) (ANY.D (PLUR BLOCK.N)) (ABOVE.P (THE.D (Starbucks BLOCK.N))) (ADV-E (IN.P (THE.D PAST.N)))) ?)
+14:32:30 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+14:32:50 USER:  was the target block ever to the left of the starbucks block?
+14:32:52 ULF: (((PAST BE.V) (THE.D (Target BLOCK.N)) (EVER.ADV-E (TO_THE_LEFT_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
+14:33:02 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+14:33:21 USER: was there a red block on a red block preview?
+14:33:37 USER:  was there a red block on a red block previously?
+14:34:01 USER:  david
+14:36:06 USER: was there a red block above the chocolate block and the twitter block last turn?
+
+SESSION: 2020-01-10 14:36:24
+=============================================================
+14:36:33 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:36:43 USER: was there a red block above the nvidia block and the target block last tour?
+14:36:58 USER:  where is the target block?
+
+SESSION: 2020-01-10 14:39:02
+=============================================================
+14:39:10 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:39:21 USER: was there a red block above the target block and the twitter block last turn?
+
+SESSION: 2020-01-10 14:41:03
+=============================================================
+14:41:11 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:41:17 USER: where was the target block before i moved it?
+
+SESSION: 2020-01-10 14:41:47
+=============================================================
+14:41:56 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:42:14 USER: where was the twitter block before i moved it?
+14:42:15 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((PAST BE.V) (THE.D (Twitter BLOCK.N)) *H (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) IT.PRO))))))) ?)
+14:42:26 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+14:42:37 USER:  was there a red block above the target block and the twitter block last turn?
+
+SESSION: 2020-01-10 14:43:06
+=============================================================
+14:43:14 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:43:22 USER: which blocks were recently moved?
+14:43:49 USER:  which blocks were recently moved?
+14:43:50 ULF: (((WHICH.D (PLUR BLOCK.N)) (RECENTLY.ADV-E (PAST (PASV MOVE.V)))) ?)
+14:43:54 DAVID:  there is no such block .
+14:44:14 USER: what changed since last turn?
+14:44:15 ULF: (((WHICH.D (PLUR BLOCK.N)) (RECENTLY.ADV-E (PAST (PASV MOVE.V)))) ?)
+14:44:19 DAVID:  there is no such block .
+14:48:22 USER: where was the target block before now?
+14:48:23 ULF: ((WHAT.PRO ((PAST CHANGE.V) (ADV-E (SINCE.P (K (LAST.A TURN.N)))))) ?)
+14:48:27 DAVID:  there is no such block .
+14:48:34 USER: where was the target block before now?
+14:48:57 USER: where is the target block now?
+14:49:24 USER:  where was the target blood before i moved it?
+
+SESSION: 2020-01-10 14:50:28
+=============================================================
+14:50:36 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+14:50:46 USER: how many blocks did i move?
+14:50:47 ULF: ((SUB (HOW_MANY.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?)
+14:50:57 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+
+SESSION: 2020-01-10 15:17:06
+=============================================================
+
+SESSION: 2020-01-10 15:17:55
+=============================================================
+15:18:04 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:18:09 USER: where is the target block?
+15:18:10 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((PRES BE.V) (THE.D (Target BLOCK.N)) *H)) ?)
+15:18:19 DAVID:  the target block is to the left of the starbucks block .
+15:18:33 USER:  which block did i just move?
+15:18:34 ULF: ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (JUST.ADV-A (MOVE.V *H)))) ?)
+15:18:44 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:19:33 USER: has their survive block recently touch the nvidia block.
+15:19:42 DAVID:  you are asking about some survive block , but i didn't catch what it was.
+15:19:46 USER: has the target
+15:19:47 ULF: NIL
+15:19:49 USER: recently touch the starbucks block
+15:19:58 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+15:20:06 USER:  has the target block recently touch the starbucks block.
+15:20:07 ULF: (((THE.D (Target BLOCK.N)) (RECENTLY.ADV-E ((PAST PERF) (TOUCH.V (THE.D (Starbucks BLOCK.N)))))) ?)
+15:20:17 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:20:25 USER:  has the target block recently touched the starbucks block.
+15:20:26 ULF: (((THE.D (Target BLOCK.N)) (RECENTLY.ADV-E ((PAST PERF) (TOUCH.V (THE.D (Starbucks BLOCK.N)))))) ?)
+15:20:37 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:20:57 USER: how many blocks did i move?
+15:20:58 ULF: ((SUB (HOW_MANY.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?)
+15:21:08 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:21:16 USER:  how many blocks did i move from the beginning?
+15:21:17 ULF: ((SUB (HOW_MANY.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (FROM.P (THE.D BEGINNING.N))))) ?)
+15:21:27 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:21:36 USER:  how many blocks?
+15:21:45 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+15:21:50 USER: how many blocks have i moved from the start?
+15:21:59 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+15:22:24 USER:  how many blocks have i moved from the beginning?
+15:22:33 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+15:22:45 USER: how many blocks did i move from the start?
+15:22:46 ULF: ((SUB (HOW_MANY.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (FROM.P (THE.D START.N))))) ?)
+15:22:56 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:23:24 USER:  how many blocks i have moved from the start?
+15:23:33 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+15:23:54 USER: did i put the target block on top of the starbucks block?
+15:24:03 DAVID:  you are asking about some target block , but i didn't catch what it was.
+15:24:20 USER: what did i just put on top of the target block?
+15:24:21 ULF: ((SUB WHAT.PRO ((PAST DO.AUX-S) I.PRO (JUST.ADV-A (PUT.V *H (ON_TOP_OF.P (THE.D (Target BLOCK.N))))))) ?)
+15:24:31 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:25:42 USER: which block did i move from the beginning?
+15:25:44 ULF: ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (FROM.P (THE.D BEGINNING.N))))) ?)
+15:25:54 DAVID:  sorry , i was unable to find an object that satisfies given constraints , please rephrase in a simpler way .
+15:26:08 USER:  which block did i move from top of the target block?
+15:26:17 DAVID:  you are asking about some block , but i didn't catch what it was.
+15:26:21 USER: which block did i move from the top of the target block?
+15:26:30 DAVID:  you are asking about some block , but i didn't catch what it was.
