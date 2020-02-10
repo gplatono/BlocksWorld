@@ -1,7 +1,5 @@
-
-			import numpy as np
+import numpy as np
 import math
-
 import spatial
 from constraint_solver import *
 from entity import Entity
