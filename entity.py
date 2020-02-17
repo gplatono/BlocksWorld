@@ -102,9 +102,11 @@ class Entity(object):
       
         #The fundamental intrinsic vectors
         self.up = np.array([0, 0, 1])
-        self.right = []
         self.front = np.array(self.components[0].get('frontal')) \
             if self.components[0].get('frontal') is not None else self.generate_frontal()
+        print ("FRONT: ", self.components[0].get('frontal'), self.generate_frontal(), self.front)
+        self.right = np.cross(self.front, self.up)
+
         #print (self.name, self.front)
 
         self.radius = self.compute_radius()
@@ -153,9 +155,11 @@ class Entity(object):
     def compute_faces(self):
         """Compute and return the list of faces of the entity."""
         faces = []
+        #print ("CAT: ", self.category)
         if self.category == self.Category.PRIMITIVE:
             for ob in self.components:
                 for face in ob.data.polygons:
+                    print(ob.name, face)
                     faces.append([ob.matrix_world @ ob.data.vertices[i].co for i in face.vertices])
         elif self.category == self.Category.STRUCTURE:
             faces = [f for entity in self.components for f in entity.faces]        
@@ -242,8 +246,10 @@ class Entity(object):
        	self.frontal = frontal
 
     def generate_frontal(self):
+        print ("FACES: ", self.faces)
         for face in self.faces:
-            normal = get_normal(face[0], face[1], face[2])            
+            normal = get_normal(face[0], face[1], face[2])
+            print ("NORMAL: ", normal)
             if math.fabs(normal[2]) < 0.3:
                 return normal
         return []

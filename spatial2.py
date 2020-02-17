@@ -1,7 +1,7 @@
 import numpy as np
 import math
-import spatial
-from constraint_solver import *
+#import spatial
+#from constraint_solver import *
 from entity import Entity
 from geometry_utils import *
 from queue import Queue
@@ -9,6 +9,8 @@ from mathutils import Vector
 # import bpy_extras
 from functools import reduce
 import itertools
+
+observer = None
 
 class Spatial:
     def __init__(self):
@@ -134,15 +136,16 @@ class Spatial:
             red: 1,
             green: 1, }
 
-
 class Node:
     def __init__(self):
         self.arity = 2
         self.connections = []
 
+    def set_connections(self, connections):
+        self.connections = connections
+
     def get_connections(self):
         return self.connections
-
 
 class ConeArea(Node):
     """
@@ -212,8 +215,8 @@ class RightOf_Deictic(Node):
     """Deictic sense of the to-the-right-of relation."""
 
     def compute(self, tr, lm):
-        tr_bbox = get_2d_bbox(vp_project(tr, world.get_observer()))
-        lm_bbox = get_2d_bbox(vp_project(lm, world.get_observer()))
+        tr_bbox = get_2d_bbox(vp_project(tr, observer))
+        lm_bbox = get_2d_bbox(vp_project(lm, observer))
         axial_dist = scaled_axial_distance(tr_bbox, lm_bbox)
         if axial_dist[0] <= 0:
             return 0
@@ -248,7 +251,7 @@ class RightOf_Intrinsic(Node):
         dist = np.linalg.norm(disp_vec)
         disp_vec = disp_vec / dist
 
-        intrinsic_right = lm.right
+        intrinsic_right = np.array(lm.right)
         cos = intrinsic_right.dot(disp_vec)
 
         final_score = math.e ** (- 0.1 * (1 - cos)) * math.e ** (- 0.05 * dist / max(tr.size, lm.size))
@@ -258,20 +261,20 @@ class RightOf_Intrinsic(Node):
 class RightOf(Node):
     """Implementation of the general to-the-right-of relation."""
 
-    def set_conncetions(self):
-        deictic_measure = RightOf_Deictic(Node)
-        extrinsic_measure = RightOf_Extrinsic(Node)
-        intrinsic_measure = RightOf_Intrinsic(Node)
-        Node.connections = [deictic_measure, extrinsic_measure, intrinsic_measure]
-
-    def compute(self, figure, ground=None):
+    def __init__(self):
+        deictic_measure = RightOf_Deictic()
+        extrinsic_measure = RightOf_Extrinsic()
+        intrinsic_measure = RightOf_Intrinsic()
+        self.set_connections([deictic_measure, extrinsic_measure, intrinsic_measure])
+    
+    def compute(self, tr, lm=None):
         ret_val = 0
-        if type(figure) == Entity and type(ground) == Entity:
-            right_connection = Node.get_connections()
-            return max(right_connection[0].compute(figure, ground), right_connection[1].compute(figure, ground),
-                       right_connection[2].compute(figure, ground))
-        elif ground is None:
-            ret_val = np.avg([self.compute(figure, entity) for entity in world.active_context])
+        if type(tr) == Entity and type(lm) == Entity:
+            connections = self.get_connections()
+            return max(connections[0].compute(tr, lm), connections[1].compute(tr, lm),
+                       connections[2].compute(tr, lm))
+        elif lm is None:
+            ret_val = np.avg([self.compute(tr, entity) for entity in world.active_context])
         return ret_val
 
 
@@ -291,16 +294,16 @@ class LeftOf_Intrinsic(Node):
 
 
 class LeftOf(Node):
-    def set_conncetions(self):
-        deictic_measure = LeftOf_Deictic(Node)
-        extrinsic_measure = LeftOf_Extrinsic(Node)
-        intrinsic_measure = LeftOf_Intrinsic(Node)
-        Node.connections = [deictic_measure, extrinsic_measure, intrinsic_measure]
+    def __init__(self):
+        deictic_measure = LeftOf_Deictic()
+        extrinsic_measure = LeftOf_Extrinsic()
+        intrinsic_measure = LeftOf_Intrinsic()
+        self.set_connections([deictic_measure, extrinsic_measure, intrinsic_measure])       
 
     def compute(self, figure, ground=None):
         ret_val = 0
         if type(figure) == Entity and type(ground) == Entity:
-            left_connection = Node.get_connections()
+            left_connection = self.get_connections()
             return max(left_connection[0].compute(figure, ground), left_connection[1].compute(figure, ground),
                        left_connection[2].compute(figure, ground))
         elif ground is None:
