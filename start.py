@@ -18,7 +18,9 @@ if '-bo' not in sys.argv:
 	else:
 		os.system("sbcl --load start.lisp &")
 
-	time.sleep(3.0)
+	os.system("start cmd.exe /c python C:\\Users\\user\\quicklisp\\local-projects\\ulf2english\\python-repl-server.py 8080 \"g:g\"")
+
+	time.sleep(5.0)
 	os.chdir(bw_path)
 else:
 	params.append('-bo')

@@ -53,7 +53,7 @@ class HCIManager(object):
 		self.eta_ulf = self.eta_path + "ulf.lisp"
 		self.eta_answer = self.eta_path + "answer.lisp"
 		self.eta_output = self.eta_path + "output.txt"
-		self.eta_coords = self.eta_path + "coords.lisp"
+		self.eta_perceptions = self.eta_path + "perceptions.lisp"
 
 		self.dialog_log_path = "dialog_log"
 		self.log_file = None
@@ -69,7 +69,9 @@ class HCIManager(object):
 	def send_to_eta(self, mode, text):
 		filename = self.eta_input if mode == "INPUT" else self.eta_answer
 		formatted_msg = "(setq *next-input* \"" + text + "\")" if mode == "INPUT" \
-									else "(setq *next-answer* \'(" + text + " NIL))"
+									else "(setq *next-answer* \'(" + text + "))" if text != "\'None" \
+										else "(setq *next-answer* " + text + ")"
+									#else "(setq *next-answer* \'(" + text + " NIL))"
 		print("SENT TO ETA: ", formatted_msg)
 		with open(filename, 'w') as file:
 			file.write(formatted_msg)
@@ -134,22 +136,62 @@ class HCIManager(object):
 			logf.write("\nSESSION: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
 			logf.write("=============================================================\n")		
 
-	def write_coords(self):
-		last_moved = self.world.get_last_moved()		
-		if last_moved is not None and len(last_moved) > 0:			
-			print ("LAST_MOVED: ", last_moved)		
-			coord_list = ['(|' + item[0] + '| at-coords.p ' + str(int(item[1][0])) + ' ' \
-			+ str(int(item[1][1])) + ' ' + str(int(item[1][2])) + ')' for item in last_moved]
-			coord_str = "(setq *next-coords* \'(" + " ".join(coord_list) + "))"			
-			with open(self.eta_coords, 'w') as f:
-				f.write(coord_str)		
+	def send_perceptions(self):
+		"""
+		(
+		(|Toyota| at-loc.p ($ loc 0 0 0))
+		(|Twitter|) ((past move.v) (from.p-arg ($ loc 0 0 0)) (to.p-arg ($ loc 1 1 1))))
+		)
+
+		(setq next-answer 'None) for no relation satisfying the query """
+		#last_moved = self.world.get_last_moved()
+		def loc_to_str(loc):
+			return ' '.join([str(coord) for coord in loc])
+
+		assert self.world.history is not None and len(self.world.history) > 0
+
+		loc_dict = self.world.history[-1].locations
+		locations = ['(|' + name + '| at-loc.p ($ loc ' + loc_to_str(loc_dict[name]) + '))' for name in loc_dict]
+		moves = self.world.get_moves_after_checkpoint()
+		print ("moved blocks: " + ', '.join([item[0] for item in moves]))
+		moves = ['(|' + item[0] + '| ((past move.v) (from.p-arg ($ loc ' + loc_to_str(item[1]) + ')) (to.p-arg ($ loc ' +\
+							loc_to_str(item[2]) + '))))' for item in moves]
+
+		perceptions = "(setq *next-perceptions* \'(" + " ".join(locations + moves) + "))"
+		#print ("PERCEPTIONS: ", perceptions)
+		with open(self.eta_perceptions, 'w') as f:
+			f.write(perceptions)
+		self.world.make_checkpoint()
+		#if last_moved is not None and len(last_moved) > 0:			
+			#print ("LAST_MOVED: ", last_moved)		
+			#coord_list = ['(|' + item[0] + '| at-loc.p ($ loc ' + str(int(item[1][0])) + ' ' \
+			#+ str(int(item[1][1])) + ' ' + str(int(item[1][2])) + '))' for item in last_moved]
+		
+
+	def get_ulf(self, query_frame, subj_list, obj_list):
+		ret_val = ''
+		rel = query_frame.predicate.content
+		is_neg = query_frame.predicate.neg
+		for mod in query_frame.predicate.mods:
+			is_neg |= type(mod) == TNeg
+		if is_neg:
+			rel = 'not ' + rel
+		print ("ANS DATA: ", subj_list, rel, obj_list)
+		if obj_list != None:
+			for subj in subj_list:
+				for obj in obj_list:
+					ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
+		else: 
+			for subj in subj_list:
+				ret_val += '(|' + subj[0].name + '|)'
+		return ret_val
 
 	def preprocess(self, input):
 		input = input.lower()
 		misspells = [(' book', ' block'), (' blog', ' block'), (' black', ' block'), (' walk', ' block'), (' wok', ' block'), \
 					(' lock', ' block'), (' vlog', ' block'), (' blocked', ' block'), (' glock', ' block'), (' look', ' block'),\
 					(' talk', ' block'), (' cook', ' block'), (' clock', ' block'), (' plug', ' block'), (' logo', ' block'), (' boxer', ' blocks are'), \
-					(' blonde', ' block'), (' blow', ' block'), (' bloke', ' block'),\
+					(' blonde', ' block'), (' blow', ' block'), (' bloke', ' block'), (' dog', ' block'), \
 					(' involved', ' above'), (' about', ' above'), (' patching', ' touching'), (' catching', ' touching'),\
 					(' cashing', ' touching'), (' flashing', ' touching'), (' flushing', ' touching'),(' fashion', ' touching'), (' patch', ' touch'), \
 					(' thatching', ' touching'), (' trash in', ' touching'),
@@ -174,7 +216,9 @@ class HCIManager(object):
 					(' phase', ' face'), (' passing', ' touching'), (' 3 ', ' three '), 
 					(' to bl', ' two bl'), (' to red', ' two red'), (' to gre', ' two gre'), ('what colors', 'what color'),
 					(' rad', ' red'), (' rand', ' red'), 
-					('what\'s ', 'what is ')]
+					('what\'s ', 'what is '),
+					(' sims', ' since'), (' sings', ' since'), (' love', ' block'), (' is starting', ' is touching'), 
+					(' passed', ' has'), (' pass', ' has'), (' paused', ' has')]
 		for misspell, fix in misspells:
 			input = input.replace(misspell, fix)
 		return input
@@ -188,31 +232,19 @@ class HCIManager(object):
 			self.asr_active = True
 			mic_thread.start()
 		
-		#asr_lock = Event()
+
 		self.clear_file(self.eta_ulf)
 		self.clear_file(self.eta_answer)
 		self.clear_file(self.eta_input)
-		#self.clear_file(self.eta_output)
 		self.init_log()
 
 		print ("Starting the processing loop...")
-
-		# face = np.array([[-1, -1, 0], [1, -1, 0], [1, 1, 0], [-1, 1, 0]])
-		# print ("BEGLONG TO FACE: ", spatial.is_in_face(np.array([0, 0, 0.1]), face))
+		
 		while True:
-
-			self.write_coords()
-
+			
 			if self.state == self.STATE.INIT:
 				print ("WAITING...")
 				response = self.read_and_vocalize_from_eta()				
-				#print ("RESP", response)
-				# if response is None:
-				# 	self.send_to_eta("REACTION", "\" EMPTY \"")
-				# 	time.sleep(1.0)
-				# 	#response = self.read_from_eta(mode = "OUTPUT")
-				# 	self.clear_file(self.eta_output)
-				# 	print ("ECHO: ", response)
 				self.state = self.STATE.SYSTEM_GREET
 				continue
 
@@ -228,38 +260,16 @@ class HCIManager(object):
 				#print ("SIZE", self.world.find_entity_by_name("Toyota").size)
 				self.current_input = self.preprocess(self.current_input)
 				self.current_input = self.current_input.replace("is it ", "is that block ")
-
-				# if (re.search(r".*(David).*(give).*(moment|minute)", self.current_input, re.I) \
-				# or re.search(r".*(David|stop).*(stop|David)", self.current_input, re.I)) and self.state != self.STATE.SUSPEND:
-				# 	self.state = self.STATE.SUSPEND
-				# 	self.send_to_eta("INPUT", self.current_input)
-				# 	self.send_to_avatar("USER_SPEECH", self.current_input)
-				# 	self.send_to_avatar("SAY", "Sure, take your time")	
-				# 	# self.log("USER", self.current_input)
-				# 	# self.log("DAVID", "Sure, take your time")				
-				# 	self.speech_lock.release()					
-				# 	print ("DIALOG SUSPENDED...")
-				# 	self.current_input = ""
-				# 	continue					
-				# elif re.search(r"(David)", self.current_input, re.I) and self.state == self.STATE.SUSPEND:
-				# 	self.state = self.STATE.QUESTION_PENDING
-				# 	self.send_to_eta("INPUT", self.current_input)
-				# 	self.send_to_avatar("USER_SPEECH", self.current_input)
-				# 	self.send_to_avatar("SAY", "Yes, what is it?")
-				# 	# self.log("USER", self.current_input)				
-				# 	# self.log("DAVID", "Yes, what is it?")									
-				# 	self.speech_lock.release()
-				# 	print ("DIALOG RESUMED...")
-				# 	self.current_input = ""
-				# 	continue				
-
+				
 				if self.debug_mode == False and self.state != self.STATE.SUSPEND:
 					print ("ENTERING ETA DIALOG EXCHANGE BLOCK...")
 
 					input = self.current_input
-
+					#self.write_coords()
+					time.sleep(0.1)										
 					self.send_to_eta("INPUT", self.current_input)
 					self.send_to_avatar('USER_SPEECH', self.current_input)
+					self.send_perceptions()
 					#self.log("USER", self.current_input)				
 					#print ("SLEEPING...")
 					time.sleep(0.5)
@@ -279,17 +289,11 @@ class HCIManager(object):
 
 					print ("RESPONSE SURFACE: " + response_surface)
 					print ("SENDING REACTION AND WAITING FOR RESPONSE...")
-					time.sleep(0.5)
-					self.send_to_eta("ANSWER", "\"" + response_surface + "\"")					
+					
+					self.send_to_eta("ANSWER", response_surface)					
+					time.sleep(2.0)
 					response = str(self.read_and_vocalize_from_eta())
-					open(self.eta_answer, 'w').close()
-					#response = response.lower()
-					#response = response.replace("you was", "i was")
-					#self.log("DAVID", response)
-					#self.clear_file(self.eta_answer)
-
-					#print ("ORIGINAL INPUT: " + input)
-					#print ("CLEANED ULF: ", ulf)
+					open(self.eta_answer, 'w').close()					
 					
 					if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
 						print ("ENDING THE SESSION...")
@@ -302,7 +306,7 @@ class HCIManager(object):
 
 
 	def process_spatial_request(self, ulf):
-		response_surface = "NIL"
+		response_surface = "\'None"
 		if ulf is not None and ulf != "" and ulf != "NIL":
 			self.send_to_avatar('ULF', ulf)
 			if re.search(r"^\((\:OUT|OUT|OUT:)", ulf):
@@ -322,52 +326,71 @@ class HCIManager(object):
 					query_tree = self.ulf_parser.parse(ulf)					
 					query_frame = QueryFrame(self.current_input, ulf, query_tree)
 					print ("QUERY TYPE: ", query_frame.query_type)
-					if query_frame.query_type != query_frame.QueryType.DESCR and query_frame.query_type != query_frame.QueryType.ATTR_COLOR:
+					if query_frame.query_type == query_frame.QueryType.ATTR_COLOR:
+						pred_vals = process_query(query_frame, self.world.entities)
+						#print ("ANSWER SET: ", pred_vals)
+						answer_set_rel = list(set([arg[0] for (arg, val) in pred_vals]))
+						response_surface = self.get_ulf(query_frame, answer_set_rel, None)
+					else:
 						answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
 						answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
 						if answer_set_ref is not None:
 							answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
-						print ("ANSWER SET: ", answer_set_rel)
-						if query_frame.query_type == query_frame.QueryType.CONFIRM:
-							response_surface = "Yes" if len(answer_set_rel) > 0 else "No"						
-						elif query_frame.query_type == query_frame.QueryType.EXIST:
-							if len(answer_set_rel) > 0:
-								response_surface = "Yes, the " + answer_set_rel[0][0].name + " block."
-							else:
-								response_surface = "No, there is no such block."
-						else:
-							#If asking about the arg0
-							print ("IDENTIFYING BLOCK: ", query_frame.resolve_relatum)						
+						response_surface = self.get_ulf(query_frame, answer_set_rel, answer_set_ref)
 
-							if query_frame.resolve_relatum:
-								response_surface = self.generate_response(query_frame, [item[0] for item in answer_set_rel], [item[1] for item in answer_set_rel])
-							else:
-								response_surface = self.generate_response(query_frame, [item[0] for item in answer_set_ref], [item[1] for item in answer_set_ref])
-					elif query_frame.query_type == query_frame.QueryType.DESCR:																		
-						pred_vals = process_query(query_frame, self.world.entities)
-						print ("ANSWER SET: ", pred_vals)								
-						response_surface = ""
-						for item in pred_vals:
-							if len(item[1][0]) == 2:
-								response_surface += "The " + item[1][0][0].name + " block is " + item[0] + " the " + item[1][0][1].name + " block."
-							else:
-								response_surface += "The " + item[1][0][0].name + " block is " + item[0] + " the " + item[1][0][1].name + " block and the "\
-								+ item[1][0][2].name + " block."
-						response_surface = response_surface.replace("Table block", "Table")
-					elif query_frame.query_type == query_frame.QueryType.ATTR_COLOR:
-						pred_vals = process_query(query_frame, self.world.entities)
-						print ("ANSWER SET: ", pred_vals)								
-						pred_vals = list(set(pred_vals))
-						response_surface = ""
-						if pred_vals == [] or (len(pred_vals) == 1 and pred_vals[0] == None):
-							response_surface = "There is no such block."
-						elif len(pred_vals) == 1:
-							response_surface = "It is " + pred_vals[0]
-						else:
-							response_surface = "They are "
-							for item in pred_vals[:-1]:	
-								response_surface += item + ", "
-							response_surface += "and " + pred_vals[-1]							
+					#print ("ANSWER: ", response_surface)
+
+					# if query_frame.query_type != query_frame.QueryType.DESCR and query_frame.query_type != query_frame.QueryType.ATTR_COLOR:
+					# 	answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
+					# 	answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
+					# 	if answer_set_ref is not None:
+					# 		answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
+					# 	ans = self.get_ulf(answer_set_rel, query_frame.predicate.content, answer_set_ref)
+					# 	print ("ANSWER: ", ans)	
+					# 	return ans
+
+
+					# 	print ("ANSWER SET: ", answer_set_rel)
+					# 	if query_frame.query_type == query_frame.QueryType.CONFIRM:
+					# 		response_surface = "Yes" if len(answer_set_rel) > 0 else "No"						
+					# 	elif query_frame.query_type == query_frame.QueryType.EXIST:
+					# 		if len(answer_set_rel) > 0:
+					# 			response_surface = "Yes, the " + answer_set_rel[0][0].name + " block."
+					# 		else:
+					# 			response_surface = "No, there is no such block."
+					# 	else:
+					# 		#If asking about the arg0
+					# 		print ("IDENTIFYING BLOCK: ", query_frame.resolve_relatum)						
+
+					# 		if query_frame.resolve_relatum:
+					# 			response_surface = self.generate_response(query_frame, [item[0] for item in answer_set_rel], [item[1] for item in answer_set_rel])
+					# 		else:
+					# 			response_surface = self.generate_response(query_frame, [item[0] for item in answer_set_ref], [item[1] for item in answer_set_ref])
+					# elif query_frame.query_type == query_frame.QueryType.DESCR:																		
+					# 	pred_vals = process_query(query_frame, self.world.entities)
+					# 	print ("ANSWER SET: ", pred_vals)								
+					# 	response_surface = ""
+					# 	for item in pred_vals:
+					# 		if len(item[1][0]) == 2:
+					# 			response_surface += "The " + item[1][0][0].name + " block is " + item[0] + " the " + item[1][0][1].name + " block."
+					# 		else:
+					# 			response_surface += "The " + item[1][0][0].name + " block is " + item[0] + " the " + item[1][0][1].name + " block and the "\
+					# 			+ item[1][0][2].name + " block."
+					# 	response_surface = response_surface.replace("Table block", "Table")
+					# elif query_frame.query_type == query_frame.QueryType.ATTR_COLOR:
+					# 	pred_vals = process_query(query_frame, self.world.entities)
+					# 	print ("ANSWER SET: ", pred_vals)								
+					# 	pred_vals = list(set(pred_vals))
+					# 	response_surface = ""
+					# 	if pred_vals == [] or (len(pred_vals) == 1 and pred_vals[0] == None):
+					# 		response_surface = "There is no such block."
+					# 	elif len(pred_vals) == 1:
+					# 		response_surface = "It is " + pred_vals[0]
+					# 	else:
+					# 		response_surface = "They are "
+					# 		for item in pred_vals[:-1]:	
+					# 			response_surface += item + ", "
+					# 		response_surface += "and " + pred_vals[-1]							
 					if POSS_FLAG:
 						response_surface = "POSS-ANS " + response_surface
 				except Exception as e:

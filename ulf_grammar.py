@@ -55,6 +55,7 @@ grammar['have.v'] = lambda x: TPred(x)
 grammar['color.pred'] = lambda x: TPred(x)
 grammar['put.v'] = lambda x: TPred(x)
 grammar['move.v'] = lambda x: TPred(x)
+grammar['of.p'] = lambda x: TPred(x)
 
 grammar['side_by_side.a'] = lambda x: TPred(x)
 grammar['where.a'] = lambda x: TPred(x)
@@ -246,6 +247,7 @@ grammar['|texaco|.n'] = lambda x: TName(x)
 grammar['|target|.n'] = lambda x: TName(x)
 
 grammar['not.adv-s'] = lambda x: TNeg()
+grammar['not'] = lambda x: TNeg()
 grammar['not.adv-a'] = lambda x: TNeg()
 
 grammar['or.cc'] = lambda x: TConj(x)

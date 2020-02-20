@@ -58,12 +58,7 @@ class World(object):
 		self.ModalTimerOp.world = self
 
 		self.moved_blocks = []
-
-		if self.simulation_mode == False:
-			bpy.ops.wm.modal_timer_operator()
-			#self.tracker = Tracker(self)
-			#time.sleep(0.5)
-
+		
 		for obj in self.scene.objects:
 			if obj.get('main') is not None and obj.get('enabled') is None:
 				self.entities.append(Entity(obj))
@@ -77,6 +72,9 @@ class World(object):
 
 		#Create and save the initial state of the world
 		self.history = []
+
+		if self.simulation_mode == False:
+			bpy.ops.wm.modal_timer_operator()		
 
 	def get_block_data(self):
 		url = "http://127.0.0.1:1236/world-api/block-state.json"
@@ -102,10 +100,8 @@ class World(object):
 		well as several other aspects requiring the POV concept,
 		e.g., taking screenshots.
 		"""
-		
-		#lamp = bpy.data.lamps.new("Lamp", type = 'POINT')
+	
 		lamp = bpy.data.lights.new(name="Lamp", type = 'POINT')
-
 		lamp.energy = 30		
 
 		if bpy.data.objects.get("Lamp") is not None:
@@ -113,18 +109,14 @@ class World(object):
 		else:
 			lamp_obj = bpy.data.objects.new("Lamp", lamp)			
 			bpy.context.collection.objects.link(lamp_obj)
-			#bpy.context.view_layer.objects.active = lamp
-			#self.scene.objects.link(lamp_obj)
-
+			
 		cam = bpy.data.cameras.new("Camera")
 		if bpy.data.objects.get("Camera") is not None:
 			cam_ob = bpy.data.objects["Camera"]
 		else:
 			cam_ob = bpy.data.objects.new("Camera", cam)
 			bpy.context.collection.objects.link(cam_ob)
-			#bpy.context.view_layer.objects.active = 
-			#self.scene.objects.link(cam_ob)    
-
+			
 		#lamp_obj.location = (-20, 0, 10)
 		#cam_ob.location = (-15.5, 0, 7)
 		lamp_obj.location = (0, -20, 10)
@@ -261,7 +253,8 @@ class World(object):
 				block = self.block_by_ids[id]              
 				rot1 = np.array([item for item in rotation])
 				rot2 = np.array([item for item in block.rotation_euler])
-				if np.linalg.norm(location - block.location) >= 0.05 or np.linalg.norm(rot1 - rot2) >= 0.05:
+				#Threshold changed from 0.05
+				if np.linalg.norm(location - block.location) >= 0.1 or np.linalg.norm(rot1 - rot2) >= 0.1: #0.05
 					if self.verbose or self.verbose_rotation:
 						if np.linalg.norm(location - block.location) >= 0.1:
 							print ("MOVED BLOCK: ", block.name, location, block.location, np.linalg.norm(location - block.location))
@@ -272,22 +265,24 @@ class World(object):
 					block.rotation_euler = rotation
 				updated_blocks[block] = 1
 			else:
-				id_assigned = False
-				for block in self.blocks:
-					if np.linalg.norm(location - block.location) < 0.05:
-						if self.verbose:
-							print ("NOISE: ", block.name, location, block.location, np.linalg.norm(location - block.location))
-						self.block_by_ids.pop(self.block_to_ids[block], None)
-						self.block_by_ids[id] = block
-						self.block_to_ids[block] = id
-						block.location = location
-						block.rotation_euler = rotation
-						id_assigned = True
-						updated_blocks[block] = 1
-						moved_blocks.append(block.name)
-						break
-				if id_assigned == False:
-					unpaired.append((id, location, rotation))
+				unpaired.append((id, location, rotation))
+			# else:
+			# 	id_assigned = False
+			# 	for block in self.blocks:
+			# 		if np.linalg.norm(location - block.location) < 0.05:
+			# 			if self.verbose:
+			# 				print ("NOISE: ", block.name, location, block.location, np.linalg.norm(location - block.location))
+			# 			self.block_by_ids.pop(self.block_to_ids[block], None)
+			# 			self.block_by_ids[id] = block
+			# 			self.block_to_ids[block] = id
+			# 			block.location = location
+			# 			block.rotation_euler = rotation
+			# 			id_assigned = True
+			# 			updated_blocks[block] = 1
+			# 			moved_blocks.append(block.name)
+			# 			break
+			# 	if id_assigned == False:
+			# 		unpaired.append((id, location, rotation))
 
 		for id, location, rotation in unpaired:
 			min_dist = 10e9
@@ -300,7 +295,7 @@ class World(object):
 						cand = block
 			if cand != None:
 				if self.verbose or self.verbose_rotation:
-					if np.linalg.norm(location - cand.location) >= 0.05:
+					if np.linalg.norm(location - cand.location) >= 0.1:
 						print ("MOVED BLOCK: ", cand.name, location, cand.location, np.linalg.norm(location - cand.location))                
 					else:
 						print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
@@ -308,7 +303,7 @@ class World(object):
 				self.block_by_ids[id] = cand
 				self.block_to_ids[cand] = id
 				updated_blocks[cand] = 1
-				if np.linalg.norm(location - cand.location) >= 0.05 or np.linalg.norm(rot1 - rot2) >= 0.05:
+				if np.linalg.norm(location - cand.location) >= 0.1 or np.linalg.norm(rot1 - rot2) >= 0.1:
 					cand.location = location
 					cand.rotation_euler = rotation
 					moved_blocks.append(cand.name)
@@ -317,6 +312,7 @@ class World(object):
 	def update_state(self):
 		block_data = self.get_block_data()		
 		moved_blocks = self.update(block_data)
+		
 		if len(self.history) == 0:
 			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]		
 
@@ -330,25 +326,32 @@ class World(object):
 			
 			bpy.context.evaluated_depsgraph_get().update()
 			if self.verbose:
-				print ("ENTITY RELOCATED: ", name, ent.name, np.linalg.norm(old_loc - ent.location))
-				print ("OLD LOCATION: ", old_loc)
-				print ("NEW LOCATION: ", ent.location)
+				print ("ENTITY RELOCATED: {} {} {}; OLD LOC: {}; NEW LOC: {}".format(name, ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
+				
 
 		if len(moved_blocks) > 0:
 			self.history.append(self.State(self.entities))
+			if len(self.history) == 1:
+				self.make_checkpoint()
 
-	def get_last_moved(self):
-		if self.history == []:
-			return None
-		elif len(self.history) == 1:
-			return [[key, self.history[0].locations[key]] for key in self.history[0].locations]
-		else:
-			ret_val = []
-			for key in self.history[-1].locations:
-				if key not in self.history[-2].locations or \
-						np.linalg.norm(self.history[-2].locations[key] - self.history[-1].locations[key]) > 0.1:					
-					ret_val.append([key, self.history[-1].locations[key]])
-			return ret_val
+	def make_checkpoint(self):
+		self.checkpoint = self.history[-1]
+
+	def get_moves_after_checkpoint(self):
+		return self.history[-1].state_diff(self.checkpoint)
+
+	# def get_last_moved(self):
+	# 	if self.history == []:
+	# 		return None
+	# 	elif len(self.history) == 1:
+	# 		return [[key, self.history[0].locations[key]] for key in self.history[0].locations]
+	# 	else:
+	# 		ret_val = []
+	# 		for key in self.history[-1].locations:
+	# 			if key not in self.history[-2].locations or \
+	# 					np.linalg.norm(self.history[-2].locations[key] - self.history[-1].locations[key]) > 0.1:					
+	# 				ret_val.append([key, self.history[-1].locations[key]])
+	# 		return ret_val
 
 	def find_entity_by_name(self, name):
 		"""
@@ -388,8 +391,6 @@ class World(object):
 				return self.cancel(context)
 			elif event.type == "TIMER":
 				self.world.update_state()
-				#bpy.context.evaluated_depsgraph_get().update() 				
-				#time.sleep(0.1)				
 									
 			return {"PASS_THROUGH"}
 		
@@ -413,7 +414,15 @@ class World(object):
 			# self.entities = entities
 			# self.state_facts = []
 			# self.compute()
-			# self.relation_dict = {}			
+			# self.relation_dict = {}
+
+		def state_diff(self, s):
+			"""self - s"""
+			result = []
+			for name in self.locations:
+				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.01:
+					result.append([name, self.locations[name], s.locations[name]])
+			return result
 
 		def compute(self):
 			from constraint_solver import func_to_rel_map
@@ -426,4 +435,3 @@ class World(object):
 								val = rel(ent1, ent2)
 								if val > 0.7:
 									self.state_facts.append([func_to_rel_map[rel], ent1, ent2, val])
-									#self.relation_dict[]

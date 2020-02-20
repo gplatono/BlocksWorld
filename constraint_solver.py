@@ -1,6 +1,5 @@
 import spatial
 import itertools
-#from ulf_parser import *
 from ulf_grammar import *
 import numpy as np
 import math
@@ -413,12 +412,16 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 	# print ("RESOLVED REFERENTS:", referents)
 	
 	#For handling "Where" and color requests
-	if predicate_func == spatial.where:		
-		predicate_values = [spatial.where(relatum[0]) for relatum in relata]
-		print ("WHERE PRED VALUES: ", predicate_values)
-		return predicate_values
-	elif predicate_func == color_pred:
-		predicate_values = [color_pred(relatum[0]) for relatum in relata]
+	# if predicate_func == spatial.where:		
+	# 	predicate_values = [spatial.where(relatum[0]) for relatum in relata]
+	# 	print ("WHERE PRED VALUES: ", predicate_values)
+	# 	return predicate_values
+	# elif predicate_func == color_pred:
+	# 	predicate_values = [color_pred(relatum[0]) for relatum in relata]
+	# 	return predicate_values
+	if predicate_func == spatial.where or predicate_func == color_pred:
+		predicate_values = [((relatum, predicate_func(relatum[0])), 1.0) for relatum in relata]
+		print ("WHERE/COLOR PRED VALUES: ", predicate_values)
 		return predicate_values
 
 	#For superlatives	
@@ -581,4 +584,5 @@ def process_query(query, entities):
 	# if query.arg is not None and query.arg.obj_type is not None and query.arg.obj_type.lower() != "table" or\
 	# 	query.relatum is not None and query.relatum.obj_type is not None and query.relatum.obj_type.lower() != "table":
 	relata = [item for item in relata if "table" not in item[0].type_structure]
+	print ("ANSWER SETS: ", relate, referents)
 	return relata, referents

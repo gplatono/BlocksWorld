@@ -104,8 +104,11 @@ class Entity(object):
         self.up = np.array([0, 0, 1])
         self.front = np.array(self.components[0].get('frontal')) \
             if self.components[0].get('frontal') is not None else self.generate_frontal()
-        print ("FRONT: ", self.components[0].get('frontal'), self.generate_frontal(), self.front)
-        self.right = np.cross(self.front, self.up)
+        #print ("FRONT: ", self.components[0].get('frontal'), self.generate_frontal(), self.front)
+        if len(self.front) == len(self.up):
+            self.right = np.cross(self.front, self.up)
+        else:
+            self.right = np.array([0, -1, 0])
 
         #print (self.name, self.front)
 
@@ -159,7 +162,7 @@ class Entity(object):
         if self.category == self.Category.PRIMITIVE:
             for ob in self.components:
                 for face in ob.data.polygons:
-                    print(ob.name, face)
+                    #print(ob.name, face)
                     faces.append([ob.matrix_world @ ob.data.vertices[i].co for i in face.vertices])
         elif self.category == self.Category.STRUCTURE:
             faces = [f for entity in self.components for f in entity.faces]        
@@ -246,12 +249,14 @@ class Entity(object):
        	self.frontal = frontal
 
     def generate_frontal(self):
-        print ("FACES: ", self.faces)
-        for face in self.faces:
-            normal = get_normal(face[0], face[1], face[2])
-            print ("NORMAL: ", normal)
-            if math.fabs(normal[2]) < 0.3:
-                return normal
+        #print ("FACES: ", self.faces)
+        normals = [get_normal(face[0], face[1], face[2]) for face in self.faces]
+        #for face in self.faces:
+        #    normal = get_normal(face[0], face[1], face[2])
+            #print ("NORMAL: ", normal)
+        #    if math.fabs(normal[2]) < 0.3:
+        #        return normal
+        
         return []
 
     #Checks if the entity has a given property
