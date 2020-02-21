@@ -158,7 +158,7 @@ class HCIManager(object):
 							loc_to_str(item[2]) + '))))' for item in moves]
 
 		perceptions = "(setq *next-perceptions* \'(" + " ".join(locations + moves) + "))"
-		#print ("PERCEPTIONS: ", perceptions)
+		print ("PERCEPTIONS: ", perceptions)
 		with open(self.eta_perceptions, 'w') as f:
 			f.write(perceptions)
 		self.world.make_checkpoint()
@@ -179,11 +179,15 @@ class HCIManager(object):
 		if is_neg:
 			rel = 'not ' + rel
 		print ("ANS DATA: ", subj_list, rel, obj_list)
-		if obj_list != None and query_frame.query_type != query_frame.QueryType.ATTR_COLOR:
+		if obj_list != None and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
 			for subj in subj_list:
 				for obj in obj_list:
 					ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
-		else: 
+		elif query_frame.query_type == query_frame.QueryType.DESCR: 
+			item = obj_list[0][0][0]
+			print ("WHERE: ", item)
+			ret_val = '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '|) ' + str(item[1][1]) + ') '
+		else:			
 			for subj in subj_list:
 				ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ')'
 		return ret_val

@@ -256,7 +256,7 @@ class Entity(object):
 			normals = np.average(np.array(normals), axis = 0)
 		else:
 			normals = np.array([0, -1, 0])
-		print ("NORMAL: ", self.name, normals)
+		#print ("NORMAL: ", self.name, normals)
 		#for face in self.faces:
 		#    normal = get_normal(face[0], face[1], face[2])
 			#

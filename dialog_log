@@ -5421,3 +5421,133 @@ SESSION: 2020-02-21 13:37:02
 SESSION: 2020-02-21 13:44:48
 =============================================================
 13:44:57 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2020-02-21 15:14:38
+=============================================================
+15:14:47 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:15:22 USER: how many blocks did i move?
+15:15:28 DAVID:  no .
+15:15:38 USER: how many blocks did i move?
+15:15:45 DAVID:  yes .
+15:15:49 USER: david can you give us a minute?
+15:15:58 DAVID:  sure, let me know when you want to continue.
+15:16:02 USER: oh, i don't know.
+15:16:23 USER:  ask you above even when it's real quick and i still need to receive the you left. this is the stuff. i wanted to mention yesterday.
+15:16:28 USER:  that's good.
+15:16:56 USER: google me to like
+15:17:01 USER:  some way to indicate whether
+15:17:15 USER:  play the system should attend the weather or do you live is just to be displayed or it should actually be processed. so i think we should have another flag.
+15:17:28 USER: who is the first question?
+15:17:32 USER:  how many blocks did i move?
+15:17:41 USER:  i answered yes or no.
+15:18:04 USER:  yes.
+15:18:15 USER:  the answer was the response was.
+15:18:20 USER:  what are the perceptions you said?
+15:18:24 USER: i don't know.
+15:18:29 USER:  i need to bring them.
+
+SESSION: 2020-02-21 15:19:09
+=============================================================
+15:19:18 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:19:23 USER: how many blocks did i move?
+
+SESSION: 2020-02-21 15:20:22
+=============================================================
+15:20:31 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2020-02-21 15:20:47
+=============================================================
+15:20:55 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:21:01 USER: it doesn't seem to be an issue.
+15:21:09 DAVID:  i didn't catch what you are referring to.
+15:21:15 USER: how many blocks are to the left of the twitter block?
+15:21:16 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Twitter BLOCK.N))))) ?)
+
+SESSION: 2020-02-21 15:22:05
+=============================================================
+15:22:14 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:22:22 USER: how many adesa how. moderate money. are they in the
+15:22:28 USER:  but i forgot to change it for this.
+15:22:36 DAVID:  i didn't catch what you are referring to.
+15:22:42 USER: which blocks did i move since the beginning?
+15:22:50 DAVID:  you moved the burger king block .
+15:23:00 USER: which blocks did i move seems the beginning?
+15:23:11 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+15:23:14 USER: which blocks did i move since the beginning?
+15:23:23 DAVID:  you moved the target block and the burger king block .
+15:23:46 USER: which blocks i did not move.
+15:23:56 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+15:24:09 USER: i don't think
+15:24:18 DAVID:  i apologize , i couldn't understand what you said .
+15:24:31 USER: where did target block ever touching the starbucks block?
+15:24:41 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+15:24:47 USER: where are the target block ever touching the starbucks block?
+15:24:48 ULF: (POSS-QUES (((THE.D (Target BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?))
+15:24:56 DAVID:  you're not sure me understood the question correctly , but no .
+15:25:05 USER: what is the target block ever touching the starbucks block?
+15:25:06 ULF: (POSS-QUES (((THE.D (Target BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?))
+15:25:14 DAVID:  you're not sure me understood the question correctly , but no .
+15:25:41 USER: did they move the target block?
+15:25:46 DAVID:  yes .
+15:25:51 USER: did they move the twitter block?
+15:25:57 DAVID:  no .
+15:26:01 USER: have i moved the target block?
+15:26:12 DAVID:  you are asking about some target block , but i didn't catch what it was.
+15:26:16 USER: have i ever moved the target block?
+15:26:26 DAVID:  you are asking about some target block , but i didn't catch what it was.
+
+SESSION: 2020-02-21 15:30:36
+=============================================================
+15:30:44 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:30:48 USER: where is the target block?
+15:30:50 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-02-21 15:41:43
+=============================================================
+15:41:51 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:42:00 USER: how many blocks did i move since the beginning?
+15:42:30 USER:  how many blocks did i move since the beginning?
+15:42:42 DAVID:  you moved no blocks since the beginning . you moved no blocks since the beginning .
+15:42:47 USER: how many blocks did i move?
+15:42:55 DAVID:  you moved no blocks .
+15:43:04 USER:  how many blocks did i move?
+15:43:12 DAVID:  you moved one blocks .
+15:43:18 USER: which block did i move?
+15:43:25 DAVID:  you moved the target block .
+15:43:58 USER: has the blocking block always been touching the starbucks block.
+15:44:08 DAVID:  you are asking about some blocking block , but i didn't catch what it was.
+15:44:16 USER: has the target block always been touching the starbucks block.
+15:44:22 DAVID:  yes .
+15:44:33 USER: is the target block touching the starbucks block?
+15:44:34 ULF: (((THE.D (Target BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?)
+15:44:39 DAVID:  yes .
+15:44:52 USER: is the target block touching the starbucks block?
+15:44:53 ULF: (((THE.D (Target BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?)
+15:44:58 DAVID:  no .
+15:45:05 USER: has the target block always been touching the starbucks block.
+15:45:11 DAVID:  yes .
+15:46:03 USER: that's not answering my question.
+15:46:05 ULF: NIL
+15:46:09 DAVID:  no .
+15:46:13 USER: that's in the circle questions.
+15:46:14 ULF: NIL
+15:46:18 DAVID:  no .
+15:46:25 USER: where is the starbucks block?
+15:46:26 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) *H))) ?)
+15:46:38 USER:  description
+
+SESSION: 2020-02-21 15:48:52
+=============================================================
+15:49:01 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:49:05 USER: where is the target block?
+15:49:06 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-02-21 15:50:37
+=============================================================
+15:50:45 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+15:50:49 USER: where is the target block?
+15:50:50 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+15:50:59 DAVID:  the target block is to the left of the starbucks block .
+15:51:03 USER: where is the starbucks block?
+15:51:04 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) *H))) ?)
+15:51:13 DAVID:  the starbucks block is next to the target block .

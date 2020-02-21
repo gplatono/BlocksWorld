@@ -690,7 +690,7 @@ def where(entity):
     #print ("NEXT TO: ", val, other_best, max_val)
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("next to", val)
+        ret_val = ("next_to.p", val)
 
     if max_val > 0.9:
         return ret_val
@@ -700,7 +700,7 @@ def where(entity):
     #print ("BETWEEN: ", val, other_best, max_val)
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("between", val)
+        ret_val = ("between.p", val)
 
     if max_val > 0.9:
         return ret_val
@@ -709,7 +709,7 @@ def where(entity):
     other_best = max([on(ent, val[0][1]) for ent in entities])
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("on top of", val)
+        ret_val = ("on_top_of.p", val)
 
     if max_val > 0.9:
         return ret_val
@@ -718,7 +718,7 @@ def where(entity):
     other_best = max([under(ent, val[0][1]) for ent in entities])
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("under", val)
+        ret_val = ("under.p", val)
 
     if max_val > 0.9:
         return ret_val
@@ -728,7 +728,7 @@ def where(entity):
     #print ("\nLEFT OF: ", val, other_best, max_val, [(ent, val[0][1], to_the_left_of_deic(ent, val[0][1])) for ent in entities], "\n")
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("to the left of", val)
+        ret_val = ("to_the_left_of.p", val)
 
     if max_val > 0.9:
         return ret_val
@@ -737,7 +737,7 @@ def where(entity):
     other_best = max([in_front_of_deic(ent, val[0][1]) for ent in entities])
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("in front of", val)
+        ret_val = ("in_front_of.p", val)
 
     if max_val > 0.9:
         return ret_val
@@ -746,7 +746,7 @@ def where(entity):
     other_best = max([behind(ent, val[0][1]) for ent in entities])
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("behind", val)
+        ret_val = ("behind.p", val)
 
     if max_val > 0.9:
         return ret_val
@@ -756,7 +756,7 @@ def where(entity):
     #print ("RIGHT OF: ", val, other_best, max_val)
     if val[1] > max_val and val[1] > other_best + 0.07:
         max_val = val[1]
-        ret_val = ("to the right of", val)
+        ret_val = ("to_the_right_of.p", val)
        
     return ret_val
 
