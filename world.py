@@ -10,7 +10,6 @@ from mathutils import Vector
 from mathutils import Quaternion
 from entity import Entity
 from geometry_utils import *
-from bw_tracker import Tracker
 import spatial
 
 class World(object):
@@ -264,25 +263,25 @@ class World(object):
 					block.location = location
 					block.rotation_euler = rotation
 				updated_blocks[block] = 1
-			else:
-				unpaired.append((id, location, rotation))
 			# else:
-			# 	id_assigned = False
-			# 	for block in self.blocks:
-			# 		if np.linalg.norm(location - block.location) < 0.05:
-			# 			if self.verbose:
-			# 				print ("NOISE: ", block.name, location, block.location, np.linalg.norm(location - block.location))
-			# 			self.block_by_ids.pop(self.block_to_ids[block], None)
-			# 			self.block_by_ids[id] = block
-			# 			self.block_to_ids[block] = id
-			# 			block.location = location
-			# 			block.rotation_euler = rotation
-			# 			id_assigned = True
-			# 			updated_blocks[block] = 1
-			# 			moved_blocks.append(block.name)
-			# 			break
-			# 	if id_assigned == False:
-			# 		unpaired.append((id, location, rotation))
+			# 	unpaired.append((id, location, rotation))
+			else:
+				id_assigned = False
+				for block in self.blocks:
+					if np.linalg.norm(location - block.location) < 0.05:
+						if self.verbose:
+							print ("NOISE: ", block.name, location, block.location, np.linalg.norm(location - block.location))
+						self.block_by_ids.pop(self.block_to_ids[block], None)
+						self.block_by_ids[id] = block
+						self.block_to_ids[block] = id
+						block.location = location
+						block.rotation_euler = rotation
+						id_assigned = True
+						updated_blocks[block] = 1
+						moved_blocks.append(block.name)
+						break
+				if id_assigned == False:
+					unpaired.append((id, location, rotation))
 
 		for id, location, rotation in unpaired:
 			min_dist = 10e9

@@ -169,6 +169,8 @@ class HCIManager(object):
 		
 
 	def get_ulf(self, query_frame, subj_list, obj_list):
+		if subj_list is None or obj_list is None or len(subj_list) == 0 or len(obj_list) == 0:
+			return '\'None'
 		ret_val = ''
 		rel = query_frame.predicate.content
 		is_neg = query_frame.predicate.neg
@@ -177,13 +179,13 @@ class HCIManager(object):
 		if is_neg:
 			rel = 'not ' + rel
 		print ("ANS DATA: ", subj_list, rel, obj_list)
-		if obj_list != None:
+		if obj_list != None and query_frame.query_type != query_frame.QueryType.ATTR_COLOR:
 			for subj in subj_list:
 				for obj in obj_list:
 					ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
 		else: 
 			for subj in subj_list:
-				ret_val += '(|' + subj[0].name + '|)'
+				ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ')'
 		return ret_val
 
 	def preprocess(self, input):
@@ -250,14 +252,11 @@ class HCIManager(object):
 
 			self.speech_lock.acquire()
 			if self.current_input != "":
-				#if re.search(r'\b(exit|quit)\b', self.current_input, re.I):
-				#	self.speech_lock.release()
-				#	break
+				
 				if self.state != self.STATE.SUSPEND:
 					self.state = self.STATE.QUESTION_PENDING
 
 				print ("you said: " + self.current_input)
-				#print ("SIZE", self.world.find_entity_by_name("Toyota").size)
 				self.current_input = self.preprocess(self.current_input)
 				self.current_input = self.current_input.replace("is it ", "is that block ")
 				
@@ -265,13 +264,10 @@ class HCIManager(object):
 					print ("ENTERING ETA DIALOG EXCHANGE BLOCK...")
 
 					input = self.current_input
-					#self.write_coords()
 					time.sleep(0.1)										
 					self.send_to_eta("INPUT", self.current_input)
 					self.send_to_avatar('USER_SPEECH', self.current_input)
 					self.send_perceptions()
-					#self.log("USER", self.current_input)				
-					#print ("SLEEPING...")
 					time.sleep(0.5)
 
 					print ("WAITING FOR ULF...")
@@ -287,9 +283,8 @@ class HCIManager(object):
 					#print ("TOUCH:")
 					#print ([(bl, touching(bl, tbl)) for bl in self.world.entities if bl != tbl])
 
-					print ("RESPONSE SURFACE: " + response_surface)
-					print ("SENDING REACTION AND WAITING FOR RESPONSE...")
-					
+					print ("Sending Response to ETA: " + response_surface)
+										
 					self.send_to_eta("ANSWER", response_surface)					
 					time.sleep(2.0)
 					response = str(self.read_and_vocalize_from_eta())
@@ -326,17 +321,17 @@ class HCIManager(object):
 					query_tree = self.ulf_parser.parse(ulf)					
 					query_frame = QueryFrame(self.current_input, ulf, query_tree)
 					print ("QUERY TYPE: ", query_frame.query_type)
-					if query_frame.query_type == query_frame.QueryType.ATTR_COLOR:
-						pred_vals = process_query(query_frame, self.world.entities)
-						#print ("ANSWER SET: ", pred_vals)
-						answer_set_rel = list(set([arg[0] for (arg, val) in pred_vals]))
-						response_surface = self.get_ulf(query_frame, answer_set_rel, None)
-					else:
-						answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
-						answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
-						if answer_set_ref is not None:
-							answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
-						response_surface = self.get_ulf(query_frame, answer_set_rel, answer_set_ref)
+					# if query_frame.query_type == query_frame.QueryType.ATTR_COLOR:
+					# 	pred_vals, answer_set_ref = process_query(query_frame, self.world.entities)
+					# 	answer_set_rel = list(set([arg[0] for (arg, val) in pred_vals]))
+					# 	response_surface = self.get_ulf(query_frame, answer_set_rel, None)
+					# else:
+					answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
+					answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
+
+					if answer_set_ref is not None:
+						answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
+					response_surface = self.get_ulf(query_frame, answer_set_rel, answer_set_ref)
 
 					#print ("ANSWER: ", response_surface)
 

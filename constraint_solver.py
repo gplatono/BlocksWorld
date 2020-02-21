@@ -420,7 +420,7 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 	# 	predicate_values = [color_pred(relatum[0]) for relatum in relata]
 	# 	return predicate_values
 	if predicate_func == spatial.where or predicate_func == color_pred:
-		predicate_values = [((relatum, predicate_func(relatum[0])), 1.0) for relatum in relata]
+		predicate_values = [((relatum[0], predicate_func(relatum[0])), 1.0) for relatum in relata]
 		print ("WHERE/COLOR PRED VALUES: ", predicate_values)
 		return predicate_values
 
@@ -531,17 +531,16 @@ def resolve_predicate(predicate_object):
 	return pred
 
 def process_query(query, entities):
-	#if type(query) != NSentence or (not query.is_question) or query.content == None:
-	#	return None	
 	relata = []
 	referents = []
-	if query.predicate is not None:#type(arg) == NRel or type(arg) == NPred:
+	
+	if query.predicate is not None:
 		print ("\nENTERING NPRED PROCESSING...")
 		pred = query.predicate
 
 		predicate_values = process_predicate(pred, entity_list=entities)
-		if query.query_type == query.QueryType.DESCR or query.query_type == query.QueryType.ATTR_COLOR:
-			return predicate_values		
+		# if query.query_type == query.QueryType.DESCR or query.query_type == query.QueryType.ATTR_COLOR:
+		# 	return predicate_values		
 		if predicate_values is not None and predicate_values != []:
 			relata = [(arg[0], val) for (arg, val) in predicate_values]
 		
@@ -584,5 +583,5 @@ def process_query(query, entities):
 	# if query.arg is not None and query.arg.obj_type is not None and query.arg.obj_type.lower() != "table" or\
 	# 	query.relatum is not None and query.relatum.obj_type is not None and query.relatum.obj_type.lower() != "table":
 	relata = [item for item in relata if "table" not in item[0].type_structure]
-	print ("ANSWER SETS: ", relate, referents)
+	print ("ANSWER SETS: ", relata, referents)
 	return relata, referents

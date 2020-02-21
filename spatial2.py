@@ -279,18 +279,26 @@ class RightOf(Node):
 
 
 class LeftOf_Deictic(Node):
+    def __init__(self):
+        self.set_connections([RightOf_Deictic()])
+
     def compute(self, tr, lm):
-        return RightOf_Deictic.compute(lm, tr)
+        return self.get_connections()[0].compute(tr=lm, lm=tr)
 
 
 class LeftOf_Extrinsic(Node):
-    def compute(self, tr, lm):
-        return RightOf_Extrinsic.compute(lm, tr)
+    def __init__(self):
+        self.set_connections([RightOf_Extrinsic()])
 
+    def compute(self, tr, lm):
+        return self.get_connections()[0].compute(tr=lm, lm=tr)
 
 class LeftOf_Intrinsic(Node):
+    def __init__(self):
+        self.set_connections([RightOf_Intrinsic()])
+
     def compute(self, tr, lm):
-        return RightOf_Intrinsic.compute(lm, tr)
+        return self.get_connections()[0].compute(tr=lm, lm=tr)
 
 
 class LeftOf(Node):
@@ -300,14 +308,14 @@ class LeftOf(Node):
         intrinsic_measure = LeftOf_Intrinsic()
         self.set_connections([deictic_measure, extrinsic_measure, intrinsic_measure])       
 
-    def compute(self, figure, ground=None):
+    def compute(self, tr, lm=None):
         ret_val = 0
-        if type(figure) == Entity and type(ground) == Entity:
-            left_connection = self.get_connections()
-            return max(left_connection[0].compute(figure, ground), left_connection[1].compute(figure, ground),
-                       left_connection[2].compute(figure, ground))
-        elif ground is None:
-            ret_val = np.avg([self.compute(figure, entity) for entity in world.active_context])
+        if type(tr) == Entity and type(lm) == Entity:
+            connections = self.get_connections()
+            return max(connections[0].compute(tr, lm), connections[1].compute(tr, lm),
+                       connections[2].compute(tr, lm))
+        elif lm is None:
+            ret_val = np.avg([self.compute(tr, entity) for entity in world.active_context])
         return ret_val
 
 

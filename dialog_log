@@ -5305,3 +5305,119 @@ SESSION: 2020-02-20 17:54:03
 17:56:07 USER: what color is the block to the left of the starbucks block?
 17:56:09 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (N+PREDS BLOCK.N (TO_THE_LEFT_OF.P (THE.D (Starbucks BLOCK.N))))) ((PRES BE.V) *H))) ?)
 17:56:17 DAVID:  no block is to the left of the starbucks block .
+
+SESSION: 2020-02-21 13:02:57
+=============================================================
+13:03:05 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:03:16 USER: what color is the target block?
+13:03:17 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+13:03:24 DAVID:  the target block is blue .
+13:03:33 USER: what color are the target block and the starbucks block?
+13:03:43 DAVID:  you are asking about some target block , but i didn't catch what it was.
+13:04:48 USER: what color is the block to the left of the starbucks?
+13:04:49 ULF: ((SUB (WHAT.D COLOR.N) ((THE.D BLOCK.N) ((PRES BE.V) (TO_THE_LEFT_OF.P *H)))) ?)
+
+SESSION: 2020-02-21 13:08:16
+=============================================================
+13:08:24 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:08:31 USER: what blocks are touching the starbucks block?
+13:08:32 ULF: (((WHAT.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?)
+
+SESSION: 2020-02-21 13:09:41
+=============================================================
+13:09:50 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:09:59 USER: which blocks are touching the starbucks block?
+13:10:00 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?)
+13:10:08 DAVID:  the target block and the twitter block are touching the starbucks block .
+13:10:16 USER: what color is the target block?
+13:10:17 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-02-21 13:12:09
+=============================================================
+13:12:17 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:12:24 USER: what color is the target block?
+13:12:26 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-02-21 13:14:48
+=============================================================
+13:14:56 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:15:01 USER: what color is the target block?
+13:15:02 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-02-21 13:17:12
+=============================================================
+13:17:21 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:17:26 USER: what color is the starbucks block?
+13:17:28 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) *H))) ?)
+13:17:35 DAVID:  the starbucks block is green .
+13:17:45 USER: what color is the mercedes block?
+13:17:47 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Mercedes BLOCK.N)) ((PRES BE.V) *H))) ?)
+13:18:00 DAVID:  the mercedes block is red .
+13:18:08 USER: what color is the block to the left of the
+13:18:09 ULF: ((SUB (WHAT.D COLOR.N) ((THE.D BLOCK.N) ((PRES BE.V) (TO_THE_LEFT_OF.P *H)))) ?)
+13:18:16 DAVID:  the block isn't to the left of a color .
+13:18:24 USER: what color is the block to the left of the starbucks block?
+13:18:25 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (N+PREDS BLOCK.N (TO_THE_LEFT_OF.P (THE.D (Starbucks BLOCK.N))))) ((PRES BE.V) *H))) ?)
+13:18:35 DAVID:  the block to the left of the starbucks block is blue .
+13:18:56 USER: has the starbucks block always been touching the target block?
+13:19:03 DAVID:  yes .
+13:19:19 USER: is the starbucks block touching the target block?
+13:19:20 ULF: (((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Target BLOCK.N))))) ?)
+13:19:25 DAVID:  yes .
+13:19:39 USER: is the starbucks block touching the charging block?
+13:19:51 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+13:19:58 USER: is the starbucks block at?
+13:20:09 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+13:20:09 USER:  you were asking above some starbucks block, but i didn't catch washing clothes.
+13:20:20 DAVID:  you are asking about some starbucks block , but i didn't catch what it was.
+13:20:32 USER: what block did i just move?
+13:20:41 DAVID:  you moved the starbucks block .
+13:20:50 USER: is the starbucks block touching the target block?
+13:20:51 ULF: (((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Target BLOCK.N))))) ?)
+13:20:56 DAVID:  no .
+13:21:11 USER: has the target block always been touching the starbucks block.
+13:21:17 DAVID:  no .
+13:21:30 USER: what is the target block ever touch the starbucks block?
+13:21:40 DAVID:  you are asking about some target block , but i didn't catch what it was.
+13:22:01 USER: was the target block ever touch the starbucks block?
+13:22:11 DAVID:  you are asking about some target block , but i didn't catch what it was.
+13:22:20 USER: did the target block ever touch the starbucks block?
+13:22:26 DAVID:  no .
+
+SESSION: 2020-02-21 13:24:47
+=============================================================
+13:24:55 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:25:04 USER: which blocks did i move since the beginning?
+13:25:12 DAVID:  you moved the burger king block .
+
+SESSION: 2020-02-21 13:26:02
+=============================================================
+13:26:11 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:26:28 USER: which blocks did i move since the beginning?
+13:26:36 DAVID:  you moved the burger king block .
+
+SESSION: 2020-02-21 13:27:32
+=============================================================
+13:27:40 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+13:27:47 USER: which blocks did i move since the beginning?
+13:27:55 DAVID:  you moved the burger king block .
+13:28:54 USER: how many blocks i did not move?
+13:29:04 DAVID:  you are asking about some blocks , but i didn't catch what it was.
+13:30:31 USER: did i move the target block?
+13:30:36 DAVID:  no .
+13:30:43 USER: did i move the burger king block?
+13:30:49 DAVID:  yes .
+13:33:19 USER: where is the target block?
+13:33:20 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-02-21 13:36:23
+=============================================================
+13:36:31 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2020-02-21 13:37:02
+=============================================================
+13:37:11 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
+
+SESSION: 2020-02-21 13:44:48
+=============================================================
+13:44:57 DAVID:  hi, my name is david. i'm ready to answer your spatial questions.
