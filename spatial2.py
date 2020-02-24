@@ -322,15 +322,15 @@ class LeftOf(Node):
 class InFrontOf_Deictic(Node):
     def compute(self, tr, lm):
         # def in_front_of_extr(a, b, observer):
-        bbox_a = a.bbox
-        max_dim_a = max(bbox_a[7][0] - bbox_a[0][0],
-                        bbox_a[7][1] - bbox_a[0][1],
-                        bbox_a[7][2] - bbox_a[0][2]) + 0.0001
-        dist = get_distance_from_line(world.get_observer().centroid, b.centroid, a.centroid)
+        bbox_tr = tr.bbox
+        max_dim_a = max(bbox_tr[7][0] - bbox_tr[0][0],
+                        bbox_tr[7][1] - bbox_tr[0][1],
+                        bbox_tr[7][2] - bbox_tr[0][2]) + 0.0001
+        dist = get_distance_from_line(world.get_observer().centroid, lm.centroid, tr.centroid)
         # print ("{}, {}, CLOSER: {}, WC_DEIC: {}, WC_EXTR: {}, DIST: {}".format(a.name, b.name, closer_than(a, b, observer), within_cone(b.centroid - observer.centroid, a.centroid - observer.centroid, 0.95), within_cone(b.centroid - a.centroid, Vector((0, -1, 0)) - a.centroid, 0.8), e ** (- 0.1 * get_centroid_distance_scaled(a, b))))
         # print ("WITHIN CONE:")
-        a_bbox = get_2d_bbox(vp_project(a, world.get_observer()))
-        b_bbox = get_2d_bbox(vp_project(b, world.get_observer()))
+        a_bbox = get_2d_bbox(vp_project(tr, world.get_observer()))
+        b_bbox = get_2d_bbox(vp_project(lm, world.get_observer()))
         a_center = projection_bbox_center(a_bbox)
         b_center = projection_bbox_center(b_bbox)
         dist = np.linalg.norm(a_center - b_center)
@@ -339,8 +339,8 @@ class InFrontOf_Deictic(Node):
 
         # print ("BBOX :", a_bbox, b_bbox)
         # print ("PROJ DIST:" ,scaled_proj_dist)
-        a_dist = np.linalg.norm(a.location - world.observer.location)
-        b_dist = np.linalg.norm(b.location - world.observer.location)
+        a_dist = np.linalg.norm(tr.location - world.observer.location)
+        b_dist = np.linalg.norm(lm.location - world.observer.location)
         # print ("SIGM, OVERLAP :  ", sigmoid(b_dist - a_dist, 1, 0.5), math.e ** (-0.5 * scaled_proj_dist))
         return 0.5 * (sigmoid(b_dist - a_dist, 1, 0.5) + math.e ** (-0.5 * scaled_proj_dist))
         # return closer_than(a, b, world.observer) * math.e ** (-0.1 * scaled_dist)
@@ -350,6 +350,81 @@ class InFrontOf_Deictic(Node):
                       0.7 * (max(within_cone(b.centroid - observer.centroid, a.centroid - observer.centroid, 0.95),
                       within_cone(b.centroid - a.centroid, Vector((1, 0, 0)), 0.7)) * \
                       e ** (- 0.2 * get_centroid_distance_scaled(a, b)))#e ** (-dist / max_dim_a))'''
+
+
+class InFrontOf_Extrinsic(Node):
+    def compute(self, tr, lm):
+        # proj_dist = math.fabs(world.front_axis.dot(a.location)) - math.fabs(world.front_axis.dot(b.location))
+        # proj_dist_scaled = proj_dist / max(a.size, b.size)
+        # print ("PROJ_DISTANCE", proj_dist_scaled)
+        return math.e ** (- 0.01 * get_centroid_distance_scaled(tr, lm)) * within_cone(lm.centroid - tr.centroid,
+                                                                                 -world.front_axis, 0.7)
+
+
+class InFrontOf_Intrinsic(Node):
+    def compute(self, tr, lm):
+        return math.e ** (- 0.01 * get_centroid_distance_scaled(tr, lm)) * within_cone(lm.centroid - tr.centroid,
+                                                                                       -lm.front, 0.7)
+
+
+class InFrontOf(Node):
+    def __init__(self):
+        deictic_measure = InFrontOf_Deictic()
+        extrinsic_measure = InFrontOf_Extrinsic()
+        intrinsic_measure = InFrontOf_Intrinsic()
+        self.set_connections([deictic_measure, extrinsic_measure, intrinsic_measure])
+
+    def compute(self, tr, lm=None):
+        ret_val = 0
+        if type(tr) == Entity and type(lm) == Entity:
+            connections = self.get_connections()
+            return max(connections[0].compute(tr, lm), connections[1].compute(tr, lm),
+                       connections[2].compute(tr, lm))
+        elif lm is None:
+            ret_val = np.avg([self.compute(tr, entity) for entity in world.active_context])
+        return ret_val
+
+
+class Behind_Deictic(Node):
+    def __init__(self):
+        self.set_connections([InFrontOf_Deictic()])
+
+    def compute(self, tr, lm):
+        return self.get_connections()[0].compute(tr=lm, lm=tr)
+
+
+class Behind_Extrinsic(Node):
+    def __init__(self):
+        self.set_connections([InFrontOf_Extrinsic()])
+
+    def compute(self, tr, lm):
+        return self.get_connections()[0].compute(tr=lm, lm=tr)
+
+
+class Behind_Intrinsic(Node):
+    def __init__(self):
+        self.set_connections([InFrontOf_Intrinsic()])
+
+    def compute(self, tr, lm):
+        return self.get_connections()[0].compute(tr=lm, lm=tr)
+
+
+class Behind(Node):
+    def __init__(self):
+        deictic_measure = Behind_Deictic()
+        extrinsic_measure = Behind_Extrinsic()
+        intrinsic_measure = Behind_Intrinsic()
+        self.set_connections([deictic_measure, extrinsic_measure, intrinsic_measure])
+
+    def compute(self, tr, lm=None):
+        ret_val = 0
+        if type(tr) == Entity and type(lm) == Entity:
+            connections = self.get_connections()
+            return max(connections[0].compute(tr, lm), connections[1].compute(tr, lm),
+                       connections[2].compute(tr, lm))
+        elif lm is None:
+            ret_val = np.avg([self.compute(tr, entity) for entity in world.active_context])
+        return ret_val
 
 # =======================================================================================================
 # ====================================OLD CODE STARTS HERE===============================================
