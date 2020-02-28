@@ -333,6 +333,10 @@ grammar[("NConjArg", "TPrep")] = lambda x, y: NRel(content=y, children=[x])
 grammar[("NVP", "NRel")] = lambda x, y: y
 grammar[("NVP", "TTherePro")] = lambda x, y: NPred(content = "EXIST")
 
+#grammar[("TTherePro", "NPred")] = lambda x, y: NPred(content = "EXIST", children=y.children, neg = y.neg, mods = y.mods)
+grammar[("TTherePro", "NPred")] = lambda x, y: y.children[0]
+#grammar[("TTherePro", "NPred")] = lambda x, y: NPred(content = y.children[0].mods[1], children = 
+
 grammar[("NSentenceParams", "NRel")] = lambda x, y: y
 
 grammar[("NVP", "TAdj")] = lambda x, y: NRel(y, children=[])

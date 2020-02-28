@@ -55,6 +55,8 @@ class HCIManager(object):
 		self.eta_output = self.eta_path + "output.txt"
 		self.eta_perceptions = self.eta_path + "perceptions.lisp"
 
+
+		self.coords_log_path = "session_coords_data"
 		self.dialog_log_path = "dialog_log"
 		self.log_file = None
 
@@ -101,10 +103,14 @@ class HCIManager(object):
 			responses = [r.strip() for r in msg if r.strip() != ""]
 			print ("RESP RAW: ", responses)
 			for resp in responses:
-				if "#: ANSWER" in resp:
+				if "*" not in resp and ": ANSWER" in resp:
 					result += resp.split(":")[2]
-				elif "#: " in resp and "DO YOU HAVE A SPATIAL QUESTION" not in resp and "NIL" not in resp:
+				elif "*" not in resp and ": " in resp and "DO YOU HAVE A SPATIAL QUESTION" not in resp and "NIL" not in resp:
 					result += resp.split(":")[1]
+				# 	if "#: ANSWER" in resp:
+				# 	result += resp.split(":")[2]
+				# elif "#: " in resp and "DO YOU HAVE A SPATIAL QUESTION" not in resp and "NIL" not in resp:
+				# 	result += resp.split(":")[1]
 
 		return result
 
@@ -115,7 +121,7 @@ class HCIManager(object):
 		response = self.read_from_eta(mode = "OUTPUT")		
 		if response != "" and response is not None:
 			print ("\nFINAL RESPONSE: " + str(response))
-			response = response.lower().replace(' you was', ' i was')
+			#response = response.lower().replace(' you was', ' i was')
 			self.send_to_avatar('SAY', response)
 			self.log("DAVID", response)		
 		return response
@@ -130,6 +136,10 @@ class HCIManager(object):
 		dt_str = dt.strftime("%H:%M:%S")
 		with open(self.dialog_log_path, "a+") as logf:
 			logf.write(dt_str + " " + str(mode) + ": " + str(text) + "\n")
+
+	def log_coords(self, coords):
+		with open(self.coords_log_path, "a+") as logf:
+			logf.write("\n" + coords + "\n")
 
 	def init_log(self):
 		with open(self.dialog_log_path, "a+") as logf:
@@ -159,6 +169,7 @@ class HCIManager(object):
 
 		perceptions = "(setq *next-perceptions* \'(" + " ".join(locations + moves) + "))"
 		print ("PERCEPTIONS: ", perceptions)
+		self.log_coords(perceptions)
 		with open(self.eta_perceptions, 'w') as f:
 			f.write(perceptions)
 		self.world.make_checkpoint()
@@ -169,24 +180,35 @@ class HCIManager(object):
 		
 
 	def get_ulf(self, query_frame, subj_list, obj_list):
-		if subj_list is None or obj_list is None or len(subj_list) == 0 or len(obj_list) == 0:
+		#if subj_list is None or obj_list is None or len(subj_list) == 0 or len(obj_list) == 0:
+		if subj_list is None or len(subj_list) == 0:
 			return '\'None'
 		ret_val = ''
-		rel = query_frame.predicate.content
-		is_neg = query_frame.predicate.neg
-		for mod in query_frame.predicate.mods:
-			is_neg |= type(mod) == TNeg
-		if is_neg:
-			rel = 'not ' + rel
-		print ("ANS DATA: ", subj_list, rel, obj_list)
-		if obj_list != None and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
+		if query_frame.predicate is not None:
+			rel = query_frame.predicate.content
+			is_neg = query_frame.predicate.neg
+			for mod in query_frame.predicate.mods:
+				is_neg |= type(mod) == TNeg
+			if is_neg:
+				rel = 'not ' + rel
+			print ("ANS DATA: ", subj_list, rel, obj_list)
+		print ("ANS DATA: ", subj_list, obj_list)
+		if obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
 			for subj in subj_list:
-				for obj in obj_list:
-					ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
+				if type(subj[0]) == Entity:
+					for obj in obj_list:
+						if type(obj[0][0]) == Entity:					
+							ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
+						else:
+							ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ') '
 		elif query_frame.query_type == query_frame.QueryType.DESCR: 
-			item = obj_list[0][0][0]
-			print ("WHERE: ", item)
-			ret_val = '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '|) ' + str(item[1][1]) + ') '
+			for item in obj_list:
+				item = item[0][0]
+				print ("WHERE: ", item)
+				if len(item[1][0]) == 2:
+					ret_val += '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '|) ' + str(item[1][1]) + ') '
+				elif len(item[1][0]) == 3:
+					ret_val += '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '| |' + item[1][0][2].name + '|) ' + str(item[1][1]) + ') '
 		else:			
 			for subj in subj_list:
 				ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ')'
@@ -223,7 +245,7 @@ class HCIManager(object):
 					(' to bl', ' two bl'), (' to red', ' two red'), (' to gre', ' two gre'), ('what colors', 'what color'),
 					(' rad', ' red'), (' rand', ' red'), 
 					('what\'s ', 'what is '),
-					(' sims', ' since'), (' sings', ' since'), (' love', ' block'), (' is starting', ' is touching'), 
+					(' sims', ' since'), (' sings', ' since'), (' love', ' block'), (' globe', ' block'), (' is starting', ' is touching'), 
 					(' passed', ' has'), (' pass', ' has'), (' paused', ' has')]
 		for misspell, fix in misspells:
 			input = input.replace(misspell, fix)
@@ -242,6 +264,7 @@ class HCIManager(object):
 		self.clear_file(self.eta_ulf)
 		self.clear_file(self.eta_answer)
 		self.clear_file(self.eta_input)
+		self.clear_file(self.coords_log_path)
 		self.init_log()
 
 		print ("Starting the processing loop...")
@@ -278,19 +301,22 @@ class HCIManager(object):
 					ulf = self.read_from_eta(mode = "ULF")
 					
 					print ("RETURNED ULF FROM ETA: ", ulf)
-					response_surface = self.process_spatial_request(ulf)
-					#bkg = self.world.find_entity_by_name('Burger King')
-					#tbl = self.world.find_entity_by_name('Table')
-					#tar = self.world.find_entity_by_name('Target')
-					#stb = self.world.find_entity_by_name('Starbucks')
-					#print ("HIGHER THAN ", spatial.higher_than(tar, stb), spatial.higher_than(stb, tar), spatial.at_same_height(stb, tar))
-					#print ("TOUCH:")
-					#print ([(bl, touching(bl, tbl)) for bl in self.world.entities if bl != tbl])
-
-					print ("Sending Response to ETA: " + response_surface)
-										
-					self.send_to_eta("ANSWER", response_surface)					
-					time.sleep(2.0)
+					if ulf is not None and ulf != "":
+						self.send_to_avatar('ULF', ulf)
+						if 'NON-QUERY' not in ulf.upper():
+							response_surface = self.process_spatial_request(ulf)							
+							print ("Sending Response to ETA: " + response_surface)										
+							self.send_to_eta("ANSWER", response_surface)
+							#time.sleep(2.0)
+							#bkg = self.world.find_entity_by_name('Burger King')
+							#tbl = self.world.find_entity_by_name('Table')
+							#tar = self.world.find_entity_by_name('Target')
+							#stb = self.world.find_entity_by_name('Starbucks')
+							#print ("HIGHER THAN ", spatial.higher_than(tar, stb), spatial.higher_than(stb, tar), spatial.at_same_height(stb, tar))
+							#print ("TOUCH:")
+							#print ([(bl, touching(bl, tbl)) for bl in self.world.entities if bl != tbl])
+					time.sleep(2.5)
+					
 					response = str(self.read_and_vocalize_from_eta())
 					open(self.eta_answer, 'w').close()					
 					
@@ -307,7 +333,7 @@ class HCIManager(object):
 	def process_spatial_request(self, ulf):
 		response_surface = "\'None"
 		if ulf is not None and ulf != "" and ulf != "NIL":
-			self.send_to_avatar('ULF', ulf)
+			#self.send_to_avatar('ULF', ulf)
 			if re.search(r"^\((\:OUT|OUT|OUT:)", ulf):
 				if "(OUT " in ulf:
 					ulf = (ulf.split("(OUT ")[1])[:-1]
@@ -394,7 +420,7 @@ class HCIManager(object):
 						response_surface = "POSS-ANS " + response_surface
 				except Exception as e:
 					query_frame = QueryFrame(None, None, None)					
-					response_surface = self.generate_response(query_frame, [], [])
+					response_surface = "\'None"#self.generate_response(query_frame, [], [])
 					#print (str(e))
 					traceback.print_exc()
 

@@ -200,7 +200,7 @@ def near_raw(a, b):
     fr_size = get_frame_size(entities)
     raw_metric = math.e ** (- 0.1 * dist)
     '''0.5 * (1 - min(1, dist / avg_dist + 0.01) +'''
-    print ("RAW NEAR: ", a, b, raw_metric * (1 - raw_metric / fr_size))
+    #print ("RAW NEAR: ", a, b, raw_metric * (1 - raw_metric / fr_size))
     return raw_metric * (1 - raw_metric / fr_size)
 
 entities = None
@@ -248,7 +248,7 @@ def near(a, b):
 #Inputs: a, b, c - entities
 #Return value: real number from [0, 1]
 def between(a, b, c):
-    print ("ENTERING THE BETWEEN...", a, b, c)
+    #print ("ENTERING THE BETWEEN...", a, b, c)
     bbox_a = a.bbox
     bbox_b = a.bbox
     bbox_c = c.bbox
@@ -267,8 +267,9 @@ def between(a, b, c):
     dist_coeff = math.exp(-0.05 * scaled_dist)
     #print ("3")
     #print ("\nFINAL VALUE BETWEEN: ", a , b, c, math.exp(- math.fabs(-1 - cos)))
-    print ("BETWEEN DIST FACT: ", dist_coeff)
-    ret_val = math.exp(- math.fabs(-1 - cos)) * dist_coeff        
+    #print ("BETWEEN DIST FACT: ", dist_coeff)
+    ret_val = math.exp(- 0.5 * math.fabs(-1 - cos)) * dist_coeff
+    print ("BETWEEN: ", a.name, b.name, c.name, ret_val)
     return ret_val
 
 
@@ -294,7 +295,7 @@ def supporting(a, b):
         e_h = entity.centroid[2]
         if (e_h - a_h) / a.size >= 0.8 and (b_h - e_h) / b.size >= 0.8:
             indirect_support = max(indirect_support, min(supporting(a, entity), supporting(entity, b)))
-    print ("SUPPORT: ", direct_support, indirect_support)
+    #print ("SUPPORT: ", direct_support, indirect_support)
     return max(direct_support, indirect_support)
 
 #Computes the "on" relation
@@ -305,10 +306,10 @@ def on(a, b):
         return 0
     proj_dist = np.linalg.norm(np.array([a.location[0] - b.location[0], a.location[1] - b.location[1]]))
     proj_dist_scaled = proj_dist / (max(a.size, b.size) + 0.01)
-    print ("LOCA: ", proj_dist_scaled)
+    #print ("LOCA: ", proj_dist_scaled)
     hor_offset = math.e ** (-0.3 * proj_dist_scaled)
     #print ("PROJ DIST: ", a, b, hor_offset)
-    print ("ON METRICS: ", touching(a, b), above(a, b), hor_offset, touching(a, b) * above(a, b) * hor_offset)
+    #print ("ON METRICS: ", touching(a, b), above(a, b), hor_offset, touching(a, b) * above(a, b) * hor_offset)
     ret_val =  touching(a, b) * above(a, b) if hor_offset < 0.8 else above(a, b) #* touching(a, b)
     #print ("ON METRICS: ", touching(a, b), above(a, b), hor_offset, touching(a, b) * above(a, b) * hor_offset)
     #ret_val = max(ret_val, supporting(b, a))
@@ -406,7 +407,7 @@ def in_front_of(a, b):
         return 0
     front_deic = in_front_of_deic(a, b)
     front_extr = in_front_of_extr(a, b)
-    print ("IN_FRONT_OF: ", a, b, front_deic, front_extr)
+    #print ("IN_FRONT_OF: ", a, b, front_deic, front_extr)
     return max(front_deic, front_extr)
 
 #Enable SVA
@@ -454,7 +455,7 @@ def touching(a, b):
     rad_b = max(bbox_b[7][0] - bbox_b[0][0], \
                 bbox_b[7][1] - bbox_b[0][1], \
                 bbox_b[7][2] - bbox_b[0][2]) / 2
-    print (a, b)
+    #print (a, b)
     '''for point in bbox_a:
         if point_distance(point, center_b) < rad_b:
             return 1
@@ -490,9 +491,9 @@ def touching(a, b):
         else:
             ret_val = math.exp(- 2 * mesh_dist)
     else:
-        print (0.3 * math.exp(- 2 * mesh_dist) + 0.7 * (shared_volume > 0))
+        #print (0.3 * math.exp(- 2 * mesh_dist) + 0.7 * (shared_volume > 0))
         ret_val = 0.3 * math.exp(- 2 * mesh_dist) + 0.7 * (shared_volume > 0)
-    print ("Touching " + a.name + ", " + b.name + ": " + str(ret_val))
+    #print ("Touching " + a.name + ", " + b.name + ": " + str(ret_val))
     return ret_val
 
 
@@ -612,7 +613,7 @@ def same_oriented(a, b):
     b_fr = b.front
     angle = math.fabs(np.dot(a_fr, b_fr))
     ret_val = math.e ** (- 1.5 * (angle * (1 - angle)))
-    print ("ORIENTATION: ", ret_val)
+    #print ("ORIENTATION: ", ret_val)
     return ret_val
 
 def facing(a, b):
@@ -628,7 +629,7 @@ def facing(a, b):
     #for bl in entities:
     #    if between(bl, a, b) > 0.8:
             
-    print ("FACING: ", a_facing, b_facing, ret_val)
+    #print ("FACING: ", a_facing, b_facing, ret_val)
     return ret_val
 
 def clear(obj):
@@ -681,82 +682,99 @@ def where(entity):
         val.sort(key = lambda x: x[1], reverse=True)
         return val[0]
 
+    pred_list = [at, between, on, under, to_the_left_of_deic, to_the_right_of_deic, in_front_of_deic, behind]
+    pred_to_str = {at: 'next_to.p', between: 'between.p', on: 'on_top_of.p', under: 'under.p', 
+    to_the_left_of_deic: 'to_the_left_of.p', to_the_right_of_deic: 'to_the_right_of.p', in_front_of_deic: 'in_front_of.p',
+    behind: 'behind.p'}
+
     #print ('WHERE PROC: ', entities, entity_pairs)
     max_val = 0
     ret_val = None
+
+    for pred in pred_list:
+        val = get_vals(pred)
+        other_best = max([pred(ent, val[0][1]) for ent in entities]) if pred != between else \
+                    max([pred(ent, val[0][1], val[0][2]) for ent in entities])
+        if val[1] > max_val and val[1] > other_best + 0.05:
+            max_val = val[1]
+            ret_val = (pred_to_str[pred], val)
+
+        if max_val > 0.8:
+            return ret_val
+
     
-    val = get_vals(at)
-    other_best = max([at(ent, val[0][1]) for ent in entities])
-    #print ("NEXT TO: ", val, other_best, max_val)
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("next_to.p", val)
+    # val = get_vals(at)
+    # other_best = max([at(ent, val[0][1]) for ent in entities])
+    # #print ("NEXT TO: ", val, other_best, max_val)
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("next_to.p", val)
 
-    if max_val > 0.9:
-        return ret_val
+    # if max_val > 0.9:
+    #     return ret_val
 
-    val = get_vals(between)
-    other_best = max([between(ent, val[0][1], val[0][2]) for ent in entities])
-    #print ("BETWEEN: ", val, other_best, max_val)
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("between.p", val)
+    # val = get_vals(between)
+    # other_best = max([between(ent, val[0][1], val[0][2]) for ent in entities])
+    # #print ("BETWEEN: ", val, other_best, max_val)
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("between.p", val)
 
-    if max_val > 0.9:
-        return ret_val
+    # if max_val > 0.9:
+    #     return ret_val
 
-    val = get_vals(on)
-    other_best = max([on(ent, val[0][1]) for ent in entities])
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("on_top_of.p", val)
+    # val = get_vals(on)
+    # other_best = max([on(ent, val[0][1]) for ent in entities])
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("on_top_of.p", val)
 
-    if max_val > 0.9:
-        return ret_val
+    # if max_val > 0.9:
+    #     return ret_val
 
-    val = get_vals(under)
-    other_best = max([under(ent, val[0][1]) for ent in entities])
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("under.p", val)
+    # val = get_vals(under)
+    # other_best = max([under(ent, val[0][1]) for ent in entities])
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("under.p", val)
 
-    if max_val > 0.9:
-        return ret_val
+    # if max_val > 0.9:
+    #     return ret_val
         
-    val = get_vals(to_the_left_of_deic)
-    other_best = max([to_the_left_of_deic(ent, val[0][1]) for ent in entities])
-    #print ("\nLEFT OF: ", val, other_best, max_val, [(ent, val[0][1], to_the_left_of_deic(ent, val[0][1])) for ent in entities], "\n")
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("to_the_left_of.p", val)
+    # val = get_vals(to_the_left_of_deic)
+    # other_best = max([to_the_left_of_deic(ent, val[0][1]) for ent in entities])
+    # #print ("\nLEFT OF: ", val, other_best, max_val, [(ent, val[0][1], to_the_left_of_deic(ent, val[0][1])) for ent in entities], "\n")
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("to_the_left_of.p", val)
 
-    if max_val > 0.9:
-        return ret_val
+    # if max_val > 0.9:
+    #     return ret_val
         
-    val = get_vals(in_front_of_deic)
-    other_best = max([in_front_of_deic(ent, val[0][1]) for ent in entities])
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("in_front_of.p", val)
+    # val = get_vals(in_front_of_deic)
+    # other_best = max([in_front_of_deic(ent, val[0][1]) for ent in entities])
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("in_front_of.p", val)
 
-    if max_val > 0.9:
-        return ret_val
+    # if max_val > 0.9:
+    #     return ret_val
         
-    val = get_vals(behind)
-    other_best = max([behind(ent, val[0][1]) for ent in entities])
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("behind.p", val)
+    # val = get_vals(behind)
+    # other_best = max([behind(ent, val[0][1]) for ent in entities])
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("behind.p", val)
 
-    if max_val > 0.9:
-        return ret_val
+    # if max_val > 0.9:
+    #     return ret_val
 
-    val = get_vals(to_the_right_of_deic)
-    other_best = max([to_the_right_of_deic(ent, val[0][1]) for ent in entities])
-    #print ("RIGHT OF: ", val, other_best, max_val)
-    if val[1] > max_val and val[1] > other_best + 0.07:
-        max_val = val[1]
-        ret_val = ("to_the_right_of.p", val)
+    # val = get_vals(to_the_right_of_deic)
+    # other_best = max([to_the_right_of_deic(ent, val[0][1]) for ent in entities])
+    # #print ("RIGHT OF: ", val, other_best, max_val)
+    # if val[1] > max_val and val[1] > other_best + 0.07:
+    #     max_val = val[1]
+    #     ret_val = ("to_the_right_of.p", val)
        
     return ret_val
 

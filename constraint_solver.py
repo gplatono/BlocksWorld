@@ -3,6 +3,7 @@ import itertools
 from ulf_grammar import *
 import numpy as np
 import math
+from entity import Entity
 
 global_entities = []
 world = None
@@ -228,12 +229,7 @@ def form_arg_tuples(args, arity):
 		cert_dict[item[0]] = item[1]
 	bare_args = [item[0] for item in args]	
 	tuples = list(itertools.combinations(bare_args, arity))
-	ret_val = [(tup, np.average([cert_dict[item] for item in tup])) for tup in tuples]
-	# print ("TUPLES: ", arity)
-	# print ("BARE ARGS: ", bare_args)
-	# print ("TUPLE LIST: ", tuples)
-	# print ("ARGS: ", args)
-	# print ("PROC ARGS: ", ret_val)
+	ret_val = [(tup, np.average([cert_dict[item] for item in tup])) for tup in tuples]	
 	return ret_val
 
 def filter_by_numeral(numeral, entities):
@@ -420,7 +416,7 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 	# 	predicate_values = [color_pred(relatum[0]) for relatum in relata]
 	# 	return predicate_values
 	if predicate_func == spatial.where or predicate_func == color_pred:
-		predicate_values = [((relatum[0], predicate_func(relatum[0])), 1.0) for relatum in relata]
+		predicate_values = [((relatum[0], predicate_func(relatum[0])), 1.0) for relatum in relata]		
 		print ("WHERE/COLOR PRED VALUES: ", predicate_values)
 		return predicate_values
 
@@ -451,16 +447,7 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 				else:
 					predicate_values = []
 
-			#predicate_values = [predicate_values[0]]
-		
-	print ("FINAL ARGLISTS RETURNED FROM PRED: ",  predicate_values)
-
-	
-	#from response_generator import ResponseGenerator
-	#resp = ResponseGenerator()
-	#resp = resp.generate_response(ret_val)
-	#print ("RET_VAL", ret_val)
-	#print ("RESP", resp)
+	print ("FINAL ARGLISTS RETURNED FROM PRED: ",  predicate_values)	
 	return predicate_values
 
 def resolve_argument(arg_object, entities):
@@ -551,7 +538,7 @@ def process_query(query, entities):
 					if query.arg1_singular:
 						referents = [referents[0]]
 			
-	elif query.arg is not None:#type(arg) == NArg:
+	elif query.arg is not None:#type(arg) == NArg:		
 		print ("\nENTERING TOP LEVEL ARG PROCESSING...")
 		arg = query.arg
 		relata = resolve_argument(arg, entities)
@@ -585,3 +572,58 @@ def process_query(query, entities):
 	relata = [item for item in relata if "table" not in item[0].type_structure]
 	print ("ANSWER SETS: ", relata, referents)
 	return relata, referents
+
+
+class Response():
+	def __init__(self, predicate_values, predicate):
+		self.pred_values = predicate_values
+		self.predicate = predicate
+		self.ulf = ""
+		
+
+		self.relation = None
+		self.subj = []
+		self.obj = []
+		if query_frame.predicate is not None:
+			self.relation = query_frame.predicate.content
+			is_neg = query_frame.predicate.neg
+			for mod in query_frame.predicate.mods:
+				is_neg |= type(mod) == TNeg
+			if is_neg:
+				self.relation = 'not ' + self.relation
+		if relata is not None:
+			for item in relata:
+				if type(item) == tuple and len(item) > 0 and type(item[0]) == Entity:
+					self.subj.append([item[0].name, str(item[1])])
+		if referents is not None:
+			for item in referents:
+				if type(item) == tuple and len(item) > 0 and type(item[0]) == Entity:
+					self.obj.append([item[0].name, str(item[1])])
+
+
+	def get_ulf(self):
+		ulf = ""
+		if self.predicate != spatial.where and self.predicate != color_pred:
+			for item in self.predicate_values:
+				ulf +=  ""
+		if subj_list is None or len(subj_list) == 0:
+			return '\'None'
+		ret_val = ''
+		
+		print ("ANS DATA: ", subj_list, rel, obj_list)
+		print ("ANS DATA: ", subj_list, obj_list)
+		if obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
+			for subj in subj_list:
+				for obj in obj_list:
+					ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
+		elif query_frame.query_type == query_frame.QueryType.DESCR: 
+			item = obj_list[0][0][0]
+			print ("WHERE: ", item)
+			if len(item[1][0]) == 2:
+				ret_val = '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '|) ' + str(item[1][1]) + ') '
+			elif len(item[1][0]) == 3:
+				ret_val = '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '| |' + item[1][0][2].name + '|) ' + str(item[1][1]) + ') '
+		else:			
+			for subj in subj_list:
+				ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ')'
+		return ret_val

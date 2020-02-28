@@ -42,7 +42,7 @@ class QueryFrame(object):
 		print (self.ulf)
 		print (self.raw)
 
-		self.is_question = query_parse_tree.is_question
+		#self.is_question = query_parse_tree.is_question
 
 		self.YN_FLAG = False
 		self.COUNT_FLAG = False

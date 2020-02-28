@@ -30,7 +30,8 @@ class World(object):
 		self.front_axis = np.array([0, -1.0, 0])
 		self.up_axis = np.array([0, 0, 1.0])
 		#Sizes of BW objects in meters
-		self.block_edge = 1.0#0.155
+		self.block_edge = 1.0
+		#self.block_edge = 0.155
 		self.table_edge = 1.53
 		self.bw_multiplier = 1.0 / 0.155
 		self.kinectLeft = (-0.75, 0.27, 0.6)
