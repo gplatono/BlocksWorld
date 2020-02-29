@@ -324,7 +324,7 @@ def on(a, b):
     #print ("ON {}, {}, {}".format(ret_val, get_proj_intersection(a, b), v_offset(a, b)))
     #ret_val = max(ret_val, 0.5 * (above(a, b) + touching(a, b)))
     #print ("ON {}".format(ret_val))
-    for ob in b.constituents:
+    for ob in b.components:
         ob_ent = Entity(ob)
         if ob.get('working_surface') is not None or ob.get('planar') is not None:
             ret_val = max(ret_val, 0.5 * (v_offset(a, ob_ent) + get_proj_intersection(a, ob_ent)))

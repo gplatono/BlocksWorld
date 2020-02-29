@@ -252,11 +252,11 @@ class World(object):
 			if id in self.block_by_ids:
 				block = self.block_by_ids[id]              
 				rot1 = np.array([item for item in rotation])
-				rot2 = np.array([item for item in block.rotation_euler])
+				rot2 = np.array([item for item in block.rotation_euler])				
 				#Threshold changed from 0.05
-				if np.linalg.norm(location - block.location) >= 0.1 or np.linalg.norm(rot1 - rot2) >= 0.1: #0.05
+				if np.linalg.norm(location - block.location) >= 0.2 or np.linalg.norm(rot1 - rot2) >= 0.4: #0.05
 					if self.verbose or self.verbose_rotation:
-						if np.linalg.norm(location - block.location) >= 0.1:
+						if np.linalg.norm(location - block.location) >= 0.2:
 							print ("MOVED BLOCK: ", block.name, location, block.location, np.linalg.norm(location - block.location))
 						else:
 							print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
@@ -269,7 +269,7 @@ class World(object):
 			else:
 				id_assigned = False
 				for block in self.blocks:
-					if np.linalg.norm(location - block.location) < 0.05:
+					if np.linalg.norm(location - block.location) < 0.1:
 						if self.verbose:
 							print ("NOISE: ", block.name, location, block.location, np.linalg.norm(location - block.location))
 						self.block_by_ids.pop(self.block_to_ids[block], None)
@@ -279,7 +279,7 @@ class World(object):
 						block.rotation_euler = rotation
 						id_assigned = True
 						updated_blocks[block] = 1
-						moved_blocks.append(block.name)
+						#moved_blocks.append(block.name)
 						break
 				if id_assigned == False:
 					unpaired.append((id, location, rotation))
@@ -295,7 +295,7 @@ class World(object):
 						cand = block
 			if cand != None:
 				if self.verbose or self.verbose_rotation:
-					if np.linalg.norm(location - cand.location) >= 0.1:
+					if np.linalg.norm(location - cand.location) >= 0.2:
 						print ("MOVED BLOCK: ", cand.name, location, cand.location, np.linalg.norm(location - cand.location))                
 					else:
 						print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
@@ -303,7 +303,7 @@ class World(object):
 				self.block_by_ids[id] = cand
 				self.block_to_ids[cand] = id
 				updated_blocks[cand] = 1
-				if np.linalg.norm(location - cand.location) >= 0.1 or np.linalg.norm(rot1 - rot2) >= 0.1:
+				if np.linalg.norm(location - cand.location) >= 0.2 or np.linalg.norm(rot1 - rot2) >= 0.4:
 					cand.location = location
 					cand.rotation_euler = rotation
 					moved_blocks.append(cand.name)
@@ -314,20 +314,24 @@ class World(object):
 		moved_blocks = self.update(block_data)
 		
 		if len(self.history) == 0:
-			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]		
+			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]
+
+		#print (moved_blocks)
 
 		for name in moved_blocks:
 			ent = self.find_entity_by_name(name)
-			old_loc = ent.location                    
-			self.entities.remove(ent)
+			# old_loc = ent.location                    
+			# self.entities.remove(ent)
 			
-			ent = Entity(bpy.data.objects[name])
-			self.entities.append(ent)
+			# ent = Entity(bpy.data.objects[name])
+			# self.entities.append(ent)
+			ent.update()
 			
 			bpy.context.evaluated_depsgraph_get().update()
+			#print ("ENTITY {} IS RELOCATED BY DIST {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
 			if self.verbose:
-				print ("ENTITY RELOCATED: {} {} {}; OLD LOC: {}; NEW LOC: {}".format(name, ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
-				
+				print ("ENTITY RELOCATED: {} {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
+			
 
 		if len(moved_blocks) > 0:
 			self.history.append(self.State(self.entities))

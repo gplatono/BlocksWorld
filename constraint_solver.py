@@ -575,15 +575,10 @@ def process_query(query, entities):
 
 
 class Response():
-	def __init__(self, predicate_values, predicate):
+	def __init__(self, predicate_values, predicate, query_frame):
 		self.pred_values = predicate_values
 		self.predicate = predicate
-		self.ulf = ""
-		
-
 		self.relation = None
-		self.subj = []
-		self.obj = []
 		if query_frame.predicate is not None:
 			self.relation = query_frame.predicate.content
 			is_neg = query_frame.predicate.neg
@@ -591,39 +586,35 @@ class Response():
 				is_neg |= type(mod) == TNeg
 			if is_neg:
 				self.relation = 'not ' + self.relation
-		if relata is not None:
-			for item in relata:
-				if type(item) == tuple and len(item) > 0 and type(item[0]) == Entity:
-					self.subj.append([item[0].name, str(item[1])])
-		if referents is not None:
-			for item in referents:
-				if type(item) == tuple and len(item) > 0 and type(item[0]) == Entity:
-					self.obj.append([item[0].name, str(item[1])])
+		self.ulf = ""
 
+		for item in predicate_values:
+			args = item[0]
+			val = "{:.4f}".format(item[1])
+			
+			self.ulf += '((|'  + args[0].name + '| '
+			if self.relation is not None:
+				self.ulf += self.relation
+			for obj in args[1:]:
+				if type(obj) == Entity:
+					self.ulf += ' |' + obj.name + '|'
+			self.ulf += ') ' + val + ')'
 
-	def get_ulf(self):
-		ulf = ""
-		if self.predicate != spatial.where and self.predicate != color_pred:
-			for item in self.predicate_values:
-				ulf +=  ""
-		if subj_list is None or len(subj_list) == 0:
-			return '\'None'
-		ret_val = ''
-		
-		print ("ANS DATA: ", subj_list, rel, obj_list)
-		print ("ANS DATA: ", subj_list, obj_list)
-		if obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
-			for subj in subj_list:
-				for obj in obj_list:
-					ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
-		elif query_frame.query_type == query_frame.QueryType.DESCR: 
-			item = obj_list[0][0][0]
-			print ("WHERE: ", item)
-			if len(item[1][0]) == 2:
-				ret_val = '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '|) ' + str(item[1][1]) + ') '
-			elif len(item[1][0]) == 3:
-				ret_val = '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '| |' + item[1][0][2].name + '|) ' + str(item[1][1]) + ') '
-		else:			
-			for subj in subj_list:
-				ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ')'
-		return ret_val
+		# self.relation = None
+		# self.subj = []
+		# self.obj = []
+		# if query_frame.predicate is not None:
+		# 	self.relation = query_frame.predicate.content
+		# 	is_neg = query_frame.predicate.neg
+		# 	for mod in query_frame.predicate.mods:
+		# 		is_neg |= type(mod) == TNeg
+		# 	if is_neg:
+		# 		self.relation = 'not ' + self.relation
+		# if relata is not None:
+		# 	for item in relata:
+		# 		if type(item) == tuple and len(item) > 0 and type(item[0]) == Entity:
+		# 			self.subj.append([item[0].name, str(item[1])])
+		# if referents is not None:
+		# 	for item in referents:
+		# 		if type(item) == tuple and len(item) > 0 and type(item[0]) == Entity:
+		# 			self.obj.append([item[0].name, str(item[1])])

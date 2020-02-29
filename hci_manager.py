@@ -184,6 +184,7 @@ class HCIManager(object):
 		if subj_list is None or len(subj_list) == 0:
 			return '\'None'
 		ret_val = ''
+		rel = None
 		if query_frame.predicate is not None:
 			rel = query_frame.predicate.content
 			is_neg = query_frame.predicate.neg
@@ -193,7 +194,7 @@ class HCIManager(object):
 				rel = 'not ' + rel
 			print ("ANS DATA: ", subj_list, rel, obj_list)
 		print ("ANS DATA: ", subj_list, obj_list)
-		if obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
+		if rel is not None and type(rel) != TCopulaBe and obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
 			for subj in subj_list:
 				if type(subj[0]) == Entity:
 					for obj in obj_list:

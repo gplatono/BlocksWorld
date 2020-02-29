@@ -39,7 +39,7 @@ class Entity(object):
 			#Defining the entity
 			main_object = components
 			self.components = [main_object]            
-			self.constituents = [main_object]
+			#self.constituents = [main_object]
 
 			#Filling in the constituent objects starting with the parent
 			queue = [main_object]
@@ -48,7 +48,7 @@ class Entity(object):
 				queue.pop(0)
 				for ob in Entity.scene.objects:                
 					if ob.parent == parent and ob.type == "MESH":
-						self.constituents.append(ob)
+						#self.constituents.append(ob)
 						self.components.append(ob)
 						queue.append(ob)
 			#Name of the entity
@@ -56,11 +56,11 @@ class Entity(object):
 
 		elif type(components) == list and components != [] and type(components[0]) == Entity:
 			self.category = self.Category.STRUCTURE
-			self.constituents = [item for entity in components for item in entity.constituents]
+			self.components = [item for entity in components for item in entity.components]
 			self.name = 'struct=(' + '+'.join([item.name for item in self.components]) + ')'
 		elif type(components) == list or type(components) == np.ndarray:
 			self.category = self.Category.REGION
-			self.constituents = [components]
+			self.components = [components]
 
 		#The type structure
 		#Each object belong to hierarchy of types, e.g.,
@@ -118,11 +118,61 @@ class Entity(object):
 	   
 		#The parent offset
 		self.parent_offset = self.compute_parent_offset()
-
+		self.ordering = self.induce_linear_order()
 		#Color of the entity
 		self.color_mod = self.get_color_mod()
 
-		self.ordering = self.induce_linear_order()
+	def compute_geometry(self):
+		#Compute mesh-related data
+		self.vertex_set = self.compute_vertex_set()
+		self.faces = self.compute_faces()
+
+		#The coordiante span of the entity. In other words,
+		#the minimum and maximum coordinates of entity's points
+		self.span = self.compute_span()
+
+		#Separate values for the span of the entity, for easier access
+		self.x_max = self.span[1]
+		self.x_min = self.span[0]
+		self.y_max = self.span[3]
+		self.y_min = self.span[2]
+		self.z_max = self.span[5]
+		self.z_min = self.span[4]
+
+		#The bounding box, stored as a list of triples of vertex coordinates
+		self.bbox = self.compute_bbox()
+
+		#Bounding box's centroid
+		self.bbox_centroid = self.compute_bbox_centroid()
+
+		#Dimensions of the entity in the format
+		#[xmax - xmin, ymax - ymin, zmax - zmin]
+		self.dimensions = self.compute_dimensions()
+
+		#Entity's mesh centroid
+		self.centroid = self.compute_centroid()
+
+		self.location = self.centroid
+	  
+		#The fundamental intrinsic vectors
+		self.up = np.array([0, 0, 1])
+		self.front = np.array(self.components[0].get('frontal')) \
+			if self.components[0].get('frontal') is not None else self.generate_frontal()
+		#print ("FRONT: ", self.components[0].get('frontal'), self.generate_frontal(), self.front)
+		if len(self.front) == len(self.up):
+			self.right = np.cross(self.front, self.up)
+		else:
+			self.right = np.array([0, -1, 0])
+
+		#print (self.name, self.front)
+
+		self.radius = self.compute_radius()
+		self.volume = self.compute_volume()
+		self.size = self.compute_size()
+	   
+		#The parent offset
+		self.parent_offset = self.compute_parent_offset()
+		self.ordering = self.induce_linear_order()	
 	   
 	def set_type_structure(self, type_structure):        
 		self.type_structure = type_structure
@@ -130,8 +180,8 @@ class Entity(object):
 	def compute_type_structure(self):
 		"""Return the hierachy of types of the entity."""
 		if self.category == self.Category.PRIMITIVE:
-			if self.constituents[0].get('id') is not None:
-				self.type_structure = self.constituents[0]['id'].split(".")
+			if self.components[0].get('id') is not None:
+				self.type_structure = self.components[0]['id'].split(".")
 			else:
 				self.type_structure = None
 		else:
@@ -229,14 +279,14 @@ class Entity(object):
 	def compute_parent_offset(self):
 		"""Compute and return the offset of the entity relative to the location of its head object."""
 		if self.category == self.Category.PRIMITIVE or self.category == self.Category.STRUCTURE:
-			return self.constituents[0].location.x - self.span[0], self.constituents[0].location.y - self.span[2], self.constituents[0].location.z - self.span[4]
+			return self.components[0].location.x - self.span[0], self.components[0].location.y - self.span[2], self.components[0].location.z - self.span[4]
 		else:
 			return None
 
 	def get_color_mod(self):
 		"""Returns the color of the entity."""
-		if self.category == self.Category.PRIMITIVE and self.constituents[0].get('color_mod') is not None:
-			return self.constituents[0]['color_mod'].lower()
+		if self.category == self.Category.PRIMITIVE and self.components[0].get('color_mod') is not None:
+			return self.components[0]['color_mod'].lower()
 		else:
 			return None
 		
@@ -267,7 +317,7 @@ class Entity(object):
 
 	#Checks if the entity has a given property
 	def get(self, property):
-		return self.constituents[0].get(property)
+		return self.components[0].get(property)
 
 	#Coomputes the distance from a point to closest face of the entity
 	def get_closest_face_distance(self, point):
@@ -333,58 +383,7 @@ class Entity(object):
 		self.update()        
 
 	def update(self):
-		print ("UPDATING " + self.name + "...")        
-		#Compute mesh-related data
-		self.vertex_set = self.compute_vertex_set()
-		self.faces = self.compute_faces()
-
-		#The coordiante span of the entity. In other words,
-		#the minimum and maximum coordinates of entity's points
-		self.span = self.compute_span()
-
-		#Separate values for the span of the entity, for easier access
-		self.x_max = self.span[1]
-		self.x_min = self.span[0]
-		self.y_max = self.span[3]
-		self.y_min = self.span[2]
-		self.z_max = self.span[5]
-		self.z_min = self.span[4]
-
-		#The bounding box, stored as a list of triples of vertex coordinates
-		self.bbox = self.compute_bbox()
-
-		#Bounding box's centroid
-		self.bbox_centroid = self.compute_bbox_centroid()
-
-		#Dimensions of the entity in the format
-		#[xmax - xmin, ymax - ymin, zmax - zmin]
-		#self.dimensions = self.compute_dimensions()
-
-		#Entity's mesh centroid
-		self.centroid = self.compute_centroid()
-
-		self.location = self.centroid
-	  
-		#The fundamental intrinsic vectors
-		self.up = []
-		self.right = []
-		self.front = np.array(self.components[0].get('frontal')) \
-			if self.components[0].get('frontal') is not None else []
-
-		#self.radius = self.compute_radius()
-		#self.volume = self.compute_volume()
-		#self.size = self.compute_size()
-	   
-		#The parent offset
-		#self.parent_offset = self.compute_parent_offset()
-
-		#Color of the entity
-		#self.color_mod = self.get_color_mod()
-
-		#self.ordering = self.induce_linear_order()
-		#print ("Entity Location: " + str(self.location))
-		#print ("Const name: " + self.components[0].name)
-		print ("Mesh loc: " + str(self.components[0].location))
+		self.compute_geometry()
 
 	def get_component_vectors(self):
 		centroid = np.average([item.location for item in self.components])
