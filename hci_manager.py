@@ -194,7 +194,7 @@ class HCIManager(object):
 				rel = 'not ' + rel
 			print ("ANS DATA: ", subj_list, rel, obj_list)
 		print ("ANS DATA: ", subj_list, obj_list)
-		if rel is not None and type(rel) != TCopulaBe and obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR:
+		if rel is not None and type(rel) != TCopulaBe and obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR and query_frame.query_type != query_frame.QueryType.COUNT:
 			for subj in subj_list:
 				if type(subj[0]) == Entity:
 					for obj in obj_list:
@@ -226,7 +226,9 @@ class HCIManager(object):
 					(' thatching', ' touching'), (' trash in', ' touching'),
 					(' in a cup', ' on top'), (' after the right', ' are to the right'), \
 					(' merced us', ' mercedes'), (' messages', ' mercedes'), (' mercer does', ' mercedes'), (' merced is', ' mercedes'), \
-					(' critter', ' twitter'), (' butcher', ' twitter'), (' treetop', ' twitter'), \
+					(' critter', ' twitter'), (' butcher', ' twitter'), (' treetop', ' twitter'), (' toilet', ' twitter'), \
+					(' trader', ' twitter'),
+					(' front mount', ' frontmost'),
 					(' talking block', ' target block'), (' chopping', ' target'), (' testicle', ' texaco'),\
 					(' merciless', ' mercedes'), \
 					(' mug', ' block'), (' the find', ' behind'),

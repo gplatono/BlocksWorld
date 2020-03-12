@@ -156,7 +156,10 @@ class QueryFrame(object):
 		if self.arg is not None:
 			return self.arg.plur
 		else: 
-			return self.predicate.children[0].plur
+			if type(self.predicate.children[0]) == NArg:
+				return self.predicate.children[0].plur
+			else:
+				return True
 
 	def is_singular(self, arg):
 		if type(arg) == NArg:

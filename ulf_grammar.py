@@ -252,7 +252,7 @@ grammar['not.adv-a'] = lambda x: TNeg()
 
 grammar['or.cc'] = lambda x: TConj(x)
 grammar['and.cc'] = lambda x: TConj(x)
-
+grammar['set-of'] = lambda x: TConj(x)
 
 grammar[("TName", "TName")] = lambda x, y: TName(content=x.content + " " + y.content)
 

@@ -238,7 +238,7 @@ def filter_by_numeral(numeral, entities):
 	determined by the numeral.
 
 	"""
-	print ("NUMERAL: ", numeral)
+	#print ("NUMERAL: ", numeral)
 	num = 1
 	if numeral.content == "two.d" or numeral.content == "two.a":
 		num = 2
@@ -415,6 +415,10 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 	# elif predicate_func == color_pred:
 	# 	predicate_values = [color_pred(relatum[0]) for relatum in relata]
 	# 	return predicate_values
+
+	if predicate_func == spatial.between and len(referents) > 0 and type(referents[0][0]) != tuple:
+		referents = form_arg_tuples(referents, 2)
+
 	if predicate_func == spatial.where or predicate_func == color_pred:
 		predicate_values = [((relatum[0], predicate_func(relatum[0])), 1.0) for relatum in relata]		
 		print ("WHERE/COLOR PRED VALUES: ", predicate_values)

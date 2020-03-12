@@ -317,21 +317,22 @@ class World(object):
 			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]
 
 		#print (moved_blocks)
-
-		for name in moved_blocks:
-			ent = self.find_entity_by_name(name)
-			# old_loc = ent.location                    
-			# self.entities.remove(ent)
-			
-			# ent = Entity(bpy.data.objects[name])
-			# self.entities.append(ent)
+		for ent in self.entities:
 			ent.update()
+		# for name in moved_blocks:
+		# 	ent = self.find_entity_by_name(name)
+		# 	# old_loc = ent.location                    
+		# 	# self.entities.remove(ent)
 			
-			bpy.context.evaluated_depsgraph_get().update()
-			#print ("ENTITY {} IS RELOCATED BY DIST {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
-			if self.verbose:
-				print ("ENTITY RELOCATED: {} {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
+		# 	# ent = Entity(bpy.data.objects[name])
+		# 	# self.entities.append(ent)
+		# 	ent.update()
 			
+		
+		# 	#print ("ENTITY {} IS RELOCATED BY DIST {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
+		# 	if self.verbose:
+		# 		print ("ENTITY RELOCATED: {} {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
+		bpy.context.evaluated_depsgraph_get().update()
 
 		if len(moved_blocks) > 0:
 			self.history.append(self.State(self.entities))

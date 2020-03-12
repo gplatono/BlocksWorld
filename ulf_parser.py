@@ -34,6 +34,7 @@ class ULFParser(object):
         ulf = ulf.replace("}", "")
         ulf = ulf.replace("(of.p (what.d color.n))", "color.pred")
         ulf = ulf.replace("does.v", "(pres be.v)")
+        ulf = ulf.replace("(each.d other.n)", "each_other.pro")
         if re.search(r'^\(\(\(pres be.v\) there.pro', ulf) is not None:
             ulf = ulf.replace("(pres be.v) there.pro", "exist.pred")
         return ulf
