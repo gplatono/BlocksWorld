@@ -446,7 +446,7 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 			predicate_values = [(arg, val) for (arg, val) in predicate_values if val >= 0.7]
 		else:
 			if len(predicate_values) > 1:
-				if predicate_values[0][1] > predicate_values[1][1] + 0.2:
+				if predicate_values[0][1] > predicate_values[1][1] + 0.3:
 					predicate_values = [predicate_values[0]]
 				else:
 					predicate_values = []

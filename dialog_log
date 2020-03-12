@@ -7010,190 +7010,6 @@ SESSION: 2020-02-29 17:06:23
 17:28:41 USER: yeah, i'm doing something that has a direct relevance to a person and i'm trying to optimize my relevance essentially other than trying to optimize how well i do at a specific task.
 17:29:19 USER:  that might not ever see that people might not ever see even systems when they came up with this system works faster by great. i will take that as an ai writer and i will absorb it into my auger then right now my algorithm block smaller.
 
-SESSION: 2020-03-08 19:12:07
-=============================================================
-19:12:16 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-19:12:41 USER: which blocks i never moved.
-19:12:52 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
-19:13:14 USER: which blocks i never moved.
-19:13:25 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
-19:13:33 USER: which blocks have i moved?
-19:13:34 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) (I.PRO ((PAST PERF) (MOVE.V *H)))) ?))
-19:13:41 DAVID:  YOU HAVEN'T MOVED ANY BLOCKS .
-19:13:48 USER: which blocks i have not moved.
-19:13:58 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
-19:14:03 USER: which blocks i have never moved.
-19:14:14 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
-19:16:26 USER: when did i move the target block?
-19:16:28 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V (THE.D (Target BLOCK.N)) (ADV-E *H)))) ?))
-19:16:35 DAVID:  YOU DIDN'T MOVE THE TARGET BLOCK .
-19:17:23 USER: what block did i put on twitter block?
-19:17:34 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-19:17:38 USER: which
-19:17:47 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
-19:17:48 USER:  i apologize. i couldn't understand what you said.
-19:17:58 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
-19:18:08 USER: which block did i pull on the twitter block?
-19:18:19 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-19:18:25 USER: which block did i put on the twitter block?
-19:18:26 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (PUT.V *H (ADV-E (ON.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Twitter BLOCK.N)))))))))) ?))
-19:18:34 DAVID:  YOU DIDN'T PUT ANY BLOCK .
-19:18:40 USER: which blocks did i move?
-19:18:41 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-19:18:49 DAVID:  YOU DIDN'T MOVE ANY BLOCKS .
-19:19:01 USER: which blocks did i move?
-19:19:10 DAVID:  YOU MOVED THE TARGET BLOCK .
-19:19:16 USER: which block did i put on the twitter block?
-19:19:17 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (PUT.V *H (ADV-E (ON.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Twitter BLOCK.N)))))))))) ?))
-19:19:23 DAVID:  YOU DIDN'T PUT ANY BLOCK .
-19:19:31 USER: when did they move the target block?
-19:19:33 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) THEY.PRO (MOVE.V (THE.D (Target BLOCK.N)) (ADV-E *H)))) ?))
-19:19:41 DAVID:  THEY MOVE THE TARGET BLOCK SEVEN MINUTES AGO .
-19:20:27 USER: when did they move the target block?
-19:20:28 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) THEY.PRO (MOVE.V (THE.D (Target BLOCK.N)) (ADV-E *H)))) ?))
-19:20:37 DAVID:  THEY MOVE THE TARGET BLOCK ONE MINUTE AGO .
-
-SESSION: 2020-03-08 19:25:29
-=============================================================
-19:25:37 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-19:25:47 USER: which blocks i have never moved.
-
-SESSION: 2020-03-10 20:08:02
-=============================================================
-20:08:10 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-20:08:18 USER: what blocks did i never move?
-20:08:20 ULF: (NON-QUERY ((SUB (WHAT.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (NEVER.ADV-E (MOVE.V *H)))) ?))
-20:08:39 DAVID:  YOU NEVER MOVED THE TARGET BLOCK , THE STARBUCKS BLOCK , THE TWITTER BLOCK , THE TEXACO BLOCK , THE MCDONALDS BLOCK , THE MERCEDES BLOCK , THE TOYOTA BLOCK , AND THE BURGER KING BLOCK .
-20:08:57 USER: what blocks did i not move?
-20:08:59 ULF: (NON-QUERY ((SUB (WHAT.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (NOT (MOVE.V *H)))) ?))
-
-SESSION: 2020-03-11 14:27:50
-=============================================================
-14:27:58 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-
-SESSION: 2020-03-11 14:28:58
-=============================================================
-14:29:06 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-14:29:28 USER: what block did i move?
-14:29:29 ULF: (NON-QUERY ((SUB (WHAT.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-14:29:35 DAVID:  YOU MOVED THE TARGET BLOCK .
-14:29:39 USER: when did i move it?
-14:29:40 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V IT.PRO (ADV-E *H)))) ?))
-14:30:36 USER: what block did i move?
-
-SESSION: 2020-03-11 14:31:10
-=============================================================
-14:31:19 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-14:31:34 USER: what block did i move?
-14:31:35 ULF: (NON-QUERY ((SUB (WHAT.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-14:31:42 DAVID:  YOU DIDN'T MOVE ANY BLOCK .
-14:31:46 USER: what block did i move?
-14:31:47 ULF: (NON-QUERY ((SUB (WHAT.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-14:31:54 DAVID:  YOU DIDN'T MOVE ANY BLOCK .
-
-SESSION: 2020-03-11 14:41:52
-=============================================================
-14:42:00 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-14:42:22 USER: which block did i move?
-14:42:23 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-14:42:29 DAVID:  YOU MOVED THE TARGET BLOCK .
-14:42:34 USER: when did they move the target block?
-14:42:35 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) THEY.PRO (MOVE.V (THE.D (Target BLOCK.N)) (ADV-E *H)))) ?))
-14:42:43 DAVID:  THEY MOVE THE TARGET BLOCK THIRTEEN SECONDS AGO .
-14:43:22 USER: which blocks did i move?
-14:43:23 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-14:43:31 DAVID:  YOU MOVED THE BURGER KING BLOCK .
-14:43:35 USER: how many blocks did i move?
-14:43:36 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-14:43:42 DAVID:  YOU MOVED ONE BLOCK .
-14:43:48 USER: how many blocks did i move since the beginning?
-14:43:50 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
-14:43:57 DAVID:  YOU MOVED TWO BLOCKS .
-14:44:03 USER: which blocks did i move since the beginning?
-14:44:12 DAVID:  YOU MOVED THE TARGET BLOCK AND THE BURGER KING BLOCK .
-14:44:20 USER: did i move the target block before the burger king block?
-14:44:21 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
-14:44:27 DAVID:  NO .
-14:45:22 USER: did they move the burger king block before the target block?
-14:45:23 ULF: (NON-QUERY (((PAST DO.AUX-S) THEY.PRO (MOVE.V (THE.D (Burger King BLOCK.N)) (BEFORE.P (THE.D (Target BLOCK.N))))) ?))
-14:45:28 DAVID:  NO .
-14:46:19 USER: where was the target block before i moved it?
-14:46:31 DAVID:  THE TARGET BLOCK WAS NEXT TO THE STARBUCKS BLOCK AND TOUCHING THE STARBUCKS BLOCK .
-14:46:37 USER: what is the target block now?
-14:46:38 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PAST BE.V) *H (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Target BLOCK.N)))))))))) ?))
-14:46:48 DAVID:  YOU ARE ASKING ABOUT SOME TARGET BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-14:46:52 USER: where is the target block now
-14:46:53 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
-14:47:02 DAVID:  THE TARGET BLOCK IS ON TOP OF THE STARBUCKS BLOCK .
-14:47:17 USER: which blocks are between green blocks?
-14:47:18 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P (K (GREEN.A (PLUR BLOCK.N)))))) ?)
-14:47:26 DAVID:  NO BLOCKS ARE BETWEEN GREEN BLOCKS .
-
-SESSION: 2020-03-11 16:40:40
-=============================================================
-16:40:48 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-16:40:56 USER: how many blocks are between red blocks?
-16:40:57 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P (K (RED.A (PLUR BLOCK.N)))))) ?)
-16:41:05 DAVID:  TWO BLOCKS ARE BETWEEN RED BLOCKS .
-16:41:32 USER: which blocks are touching green block?
-16:41:33 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (K (GREEN.A BLOCK.N))))) ?)
-16:41:47 DAVID:  THE MERCEDES BLOCK , THE TARGET BLOCK , THE TEXACO BLOCK , THE TOYOTA BLOCK , AND THE TWITTER BLOCK ARE TOUCHING GREEN BLOCK .
-16:42:26 USER: which blocks are under the target block?
-16:42:27 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (UNDER.P (THE.D (Target BLOCK.N))))) ?)
-16:42:35 DAVID:  NO BLOCKS ARE UNDER THE TARGET BLOCK .
-16:42:43 USER: which blocks are beneath the target block?
-16:42:54 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
-16:52:07 USER: which are the central blocks?
-16:52:18 DAVID:  YOU ARE ASKING ABOUT SOME CENTRAL BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
-
-SESSION: 2020-03-11 16:58:41
-=============================================================
-16:58:50 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-16:59:05 USER: which blocks are central?
-16:59:07 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) CENTRAL.A)) ?)
-16:59:26 DAVID:  THE MERCEDES BLOCK , THE TARGET BLOCK , THE STARBUCKS BLOCK , THE TEXACO BLOCK , THE MCDONALD ' S BLOCK , THE BURGER KING BLOCK , THE TOYOTA BLOCK , AND THE TWITTER BLOCK ARE CENTRAL .
-
-SESSION: 2020-03-11 19:08:09
-=============================================================
-19:08:17 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-19:08:51 USER: which blocks are touching the starbucks block?
-19:08:52 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Starbucks BLOCK.N))))) ?)
-19:09:02 DAVID:  THE TWITTER BLOCK AND THE TARGET BLOCK ARE TOUCHING THE STARBUCKS BLOCK .
-19:09:05 USER: how many blocks?
-19:09:15 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
-19:09:16 USER:  you are asking above unblocks, but i didn't catch what it was.
-19:09:25 DAVID:  I DIDN'T CATCH WHAT YOU ARE REFERRING TO.
-19:09:31 USER: how many blocks are to the left of the twitter block?
-19:09:32 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TO_THE_LEFT_OF.P (THE.D (Twitter BLOCK.N))))) ?)
-19:09:41 DAVID:  TWO BLOCKS ARE TO THE LEFT OF THE TWITTER BLOCK .
-19:09:47 USER: is there a block on top of the starbucks block?
-19:09:49 ULF: ((THERE.PRO ((PRES BE.V) (A.D (N+PREDS BLOCK.N (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N))))))) ?)
-19:09:55 DAVID:  NO .
-19:10:06 USER: what block did i move?
-19:10:07 ULF: (NON-QUERY ((SUB (WHAT.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
-19:10:13 DAVID:  YOU MOVED THE TARGET BLOCK .
-19:10:19 USER: is the target block on top of the starbucks block?
-19:10:20 ULF: (((THE.D (Target BLOCK.N)) ((PRES BE.V) (ON_TOP_OF.P (THE.D (Starbucks BLOCK.N))))) ?)
-19:10:27 DAVID:  YES .
-19:10:33 USER: where was the target block before i moved it?
-19:10:34 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PAST BE.V) *H (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Target BLOCK.N)))))))))) ?))
-19:10:44 DAVID:  THE TARGET BLOCK WAS NEXT TO THE STARBUCKS BLOCK AND TOUCHING THE STARBUCKS BLOCK .
-19:10:54 USER: where is the target block?
-19:10:55 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
-19:11:04 DAVID:  THE TARGET BLOCK IS ON TOP OF THE MCDONALD ' S BLOCK .
-19:11:10 USER: where was the target blood before i moved it?
-19:11:11 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PAST BE.V) *H (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Target BLOCK.N)))))))))) ?))
-19:11:21 DAVID:  THE TARGET BLOCK WAS TOUCHING THE STARBUCKS AND TWITTER BLOCKS .
-19:11:37 USER: how many blocks did i move since the beginning?
-19:11:38 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
-19:11:44 DAVID:  YOU MOVED TWO BLOCKS .
-19:11:50 USER: what was the law?
-19:12:00 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
-19:12:00 USER:  i apologize. i couldn't understand what you said.
-19:12:10 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
-19:12:15 USER: which block i moved last?
-19:12:25 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-
 SESSION: 2020-03-11 19:15:01
 =============================================================
 19:15:09 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
@@ -7404,73 +7220,510 @@ SESSION: 2020-03-11 19:15:01
 19:52:00 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
 19:52:06 DAVID:  YOU MOVED THE TARGET BLOCK .
 
-SESSION: 2020-03-11 19:57:01
+SESSION: 2020-03-12 15:43:25
 =============================================================
-19:57:10 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-19:57:20 USER: is target touching starbucks?
-19:57:21 ULF: NIL
-19:57:27 DAVID:  NO .
-19:57:37 USER: is the target block touching starbucks block?
-19:57:47 DAVID:  YOU ARE ASKING ABOUT SOME TARGET BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+15:43:34 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+15:43:55 USER: did i miss the target block?
+15:44:06 DAVID:  YOU ARE ASKING ABOUT SOME TARGET BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+15:44:10 USER: did i ever move the target block?
+15:44:11 ULF: (NON-QUERY (((PAST DO.AUX-S) I.PRO (EVER.ADV-E (MOVE.V (THE.D (Target BLOCK.N))))) ?))
+15:44:18 DAVID:  YES .
+15:44:23 USER: did i move the target block?
+15:44:24 ULF: (NON-QUERY (((PAST DO.AUX-S) I.PRO (MOVE.V (THE.D (Target BLOCK.N)))) ?))
+15:44:31 DAVID:  NO .
+15:44:37 USER: when did i move the target block?
+15:44:38 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V (THE.D (Target BLOCK.N)) (ADV-E *H)))) ?))
+15:44:46 DAVID:  YOU DIDN'T MOVE THE TARGET BLOCK .
+15:44:50 USER: where is the target block?
+15:44:51 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+15:45:00 DAVID:  THE TARGET BLOCK IS TO THE LEFT OF THE STARBUCKS BLOCK .
+15:45:11 USER: where is the target block now?
+15:45:12 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+15:45:21 DAVID:  THE TARGET BLOCK IS BEHIND THE STARBUCKS BLOCK .
+15:45:26 USER: where was the target blood before i moved it?
+15:45:27 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PAST BE.V) *H (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Target BLOCK.N)))))))))) ?))
+15:45:38 DAVID:  THE TARGET BLOCK WAS ADJACENT TO THE STARBUCKS BLOCK AND NEXT TO THE STARBUCKS BLOCK .
+15:45:44 USER: how many blocks did i move since the beginning?
+15:45:45 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
+15:45:52 DAVID:  YOU MOVED THREE BLOCKS .
+15:45:58 USER: which block did i move to the beginning?
+15:46:09 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+15:46:15 USER: which blocks have i moved since the beginning?
+15:46:17 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) (I.PRO ((PAST PERF) (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N))))))) ?))
+15:46:28 DAVID:  YOU HAVE MOVED THE BURGER KING BLOCK , THE TOYOTA BLOCK , AND THE TARGET BLOCK .
+15:46:48 USER: where was it before teddy? it was an adjacent to the starbucks block and next to the starbucks block.
 
-SESSION: 2020-03-11 19:58:24
+SESSION: 2020-03-12 15:48:39
 =============================================================
-19:58:32 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-19:58:40 USER: which block did i move most recently?
-19:58:50 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-19:59:27 USER: which block did i move last?
-19:59:29 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H LAST.ADV-E))) ?))
+15:48:47 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+15:49:26 USER: how many blocks are between the target block and the texaco block?
+15:49:28 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (BETWEEN.P ((THE.D (Target BLOCK.N)) AND.CC (THE.D (Texaco BLOCK.N)))))) ?)
+15:49:37 DAVID:  ONE BLOCK IS BETWEEN THE TARGET BLOCK AND THE TEXACO BLOCK .
+15:49:48 USER: how many blocks were between the target block and a texaco block at the beginning?
+15:49:49 ULF: (NON-QUERY ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST BE.V) (BETWEEN.P ((THE.D (Target BLOCK.N)) AND.CC (A.D (Texaco BLOCK.N)))) (ADV-E (AT.P (THE.D BEGINNING.N))))) ?))
+15:49:59 DAVID:  NO BLOCKS WERE BETWEEN THE TARGET BLOCK AND A TEXACO BLOCK .
+15:50:43 USER: how many blue blocks are touching the table?
+15:50:45 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (BLUE.A (PLUR BLOCK.N))) ((PRES BE.V) (TOUCHING.P (THE.D TABLE.N)))) ?)
+15:50:53 DAVID:  TWO BLUE BLOCKS ARE TOUCHING THE TABLE .
+15:50:59 USER: which blue block is not touching the table?
+15:51:00 ULF: (((WHICH.D (BLUE.A BLOCK.N)) ((PRES BE.V) NOT (TOUCHING.P (THE.D TABLE.N)))) ?)
+15:51:09 DAVID:  THE TOYOTA BLOCK ISN'T TOUCHING THE TABLE .
+15:51:25 USER: are there any red blocks that are not touching the table?
+15:51:36 DAVID:  YOU ARE ASKING ABOUT SOME RED BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+15:52:16 USER: which red blocks are not touching the table?
+15:52:17 ULF: (((WHICH.D (RED.A (PLUR BLOCK.N))) ((PRES BE.V) NOT (TOUCHING.P (THE.D TABLE.N)))) ?)
+15:52:25 DAVID:  ALL RED BLOCKS ARE TOUCHING THE TABLE .
+15:52:37 USER: how above now?
+15:52:47 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+15:53:15 USER: is there a green block between the texaco block in the toyota block?
+15:53:36 USER: how many blocks are on top of the mcdonald's block?
+15:53:38 ULF: (((PRES BE.V) THERE.PRO (A.D (N+PREDS (GREEN.A BLOCK.N) (BETWEEN.P (THE.D (Texaco BLOCK.N))))) (ADV-E (IN.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Toyota BLOCK.N)))))))) ?)
+15:53:44 DAVID:  NO .
+15:53:57 USER: how many blocks are on top of the mcdonald's block?
+15:53:58 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (ON_TOP_OF.P (THE.D (McDonalds BLOCK.N))))) ?)
+15:54:06 DAVID:  ONE BLOCK IS ON TOP OF THE MCDONALDS BLOCK .
+15:54:15 USER: how many blocks are above the mcdonald's block?
+15:54:16 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (ABOVE.P (THE.D (McDonalds BLOCK.N))))) ?)
+15:54:24 DAVID:  TWO BLOCKS ARE ON TOP OF THE MCDONALDS BLOCK .
+15:55:16 USER: which block is closest to the toyota block?
+15:55:27 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+15:55:38 USER: which blocks are near the toyota place?
+15:55:49 DAVID:  I HEARD YOU MENTION SOME BLOCKS , BUT DIDN'T HEAR THE REST.
+15:56:00 USER: which blocks are touching the toyota?
+15:56:11 DAVID:  I COULDN'T HEAR WHAT YOU SAID APART FROM MENTIONING SOME BLOCKS .
+15:56:19 USER: which blocks are touching the toyota block?
+15:56:20 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Toyota BLOCK.N))))) ?)
+15:56:27 DAVID:  ONE BLOCK IS ABOVE THE MCDONALDS BLOCK .
 
-SESSION: 2020-03-11 19:59:54
+SESSION: 2020-03-12 15:57:45
 =============================================================
-20:00:02 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-20:00:11 USER: which block did i move last?
-20:00:12 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H LAST.ADV-E))) ?))
+15:57:53 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+15:58:17 USER: which blocks are near the toyota block?
+15:58:18 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (NEAR.P (THE.D (Toyota BLOCK.N))))) ?)
+15:58:28 DAVID:  THE MERCEDES BLOCK AND THE BURGER KING BLOCK ARE NEAR THE TOYOTA BLOCK .
+15:59:30 USER: what block did i just move?
+15:59:31 ULF: (NON-QUERY ((SUB (WHAT.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (JUST.ADV-E (MOVE.V *H)))) ?))
+15:59:38 DAVID:  YOU MOVED THE TOYOTA BLOCK .
+15:59:57 USER: is the burger king block touching the mcdonald's block?
+15:59:59 ULF: (((THE.D (Burger King BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (McDonalds BLOCK.N))))) ?)
+16:00:04 DAVID:  NO .
+16:00:28 USER: is the mcdonalds block touching the burger king block?
+16:00:29 ULF: (((THE.D (McDonalds BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Burger King BLOCK.N))))) ?)
+16:00:35 DAVID:  YES .
+16:01:15 USER: is mcdonald's block touching the burger king block?
+16:01:26 DAVID:  YOU ARE ASKING ABOUT SOME BURGER_KING BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:01:32 USER: is the mcdonalds block touching the burger king block?
+16:01:34 ULF: (((THE.D (McDonalds BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Burger King BLOCK.N))))) ?)
+16:01:40 DAVID:  POSSIBLY YES .
+16:01:53 USER: is the mcdonalds block touching the burger king block?
+16:01:54 ULF: (((THE.D (McDonalds BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Burger King BLOCK.N))))) ?)
+16:02:00 DAVID:  NO .
+16:02:08 USER: was the mcdonald's block touching the burger king block?
+16:02:09 ULF: (NON-QUERY (((THE.D (McDonalds BLOCK.N)) ((PAST BE.V) (TOUCHING.P (THE.D (Burger King BLOCK.N))))) ?))
+16:02:16 DAVID:  NO .
+16:02:24 USER: which blocks did i just move?
+16:02:25 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (JUST.ADV-E (MOVE.V *H)))) ?))
+16:02:33 DAVID:  YOU MOVED THE MCDONALD ' S BLOCK .
+16:02:38 USER: where was the mcdonald's block?
+16:02:39 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (McDonalds BLOCK.N)) ((PAST BE.V) *H))) ?))
+16:02:48 DAVID:  I DON'T KNOW WHERE THE MCDONALDS BLOCK WAS .
+16:03:06 USER: where was the mcdonald's block before i moved it?
+16:03:07 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (McDonalds BLOCK.N)) ((PAST BE.V) *H (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (McDonalds BLOCK.N)))))))))) ?))
+16:03:56 USER: start bar server crashed.
+16:04:01 USER: the dallas maverick ring
 
-SESSION: 2020-03-11 20:00:48
+SESSION: 2020-03-12 16:04:54
 =============================================================
-20:00:56 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-20:01:07 USER: what block i moved last?
-20:01:17 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-20:01:31 USER: what was the last some that i moved?
-20:01:39 DAVID:  I DIDN'T CATCH WHAT YOU ARE REFERRING TO.
-20:01:44 USER: what was the last?
-20:01:52 DAVID:  I DIDN'T CATCH WHAT YOU ARE REFERRING TO.
-20:01:53 USER:  i didn't catch what you were referring to.
-20:02:02 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
-20:02:10 USER: what was the last block that i moved?
-20:02:22 DAVID:  YOU ARE ASKING ABOUT SOME LAST BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-20:02:35 USER: which block i moved first.
-20:02:46 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-20:03:34 USER: what color is the mcdonald's block?
-20:03:35 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (McDonalds BLOCK.N)) ((PRES BE.V) *H))) ?)
-20:03:41 DAVID:  THE MCDONALDS BLOCK BE .
-20:04:25 USER: what color is the target block?
-20:04:27 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
-20:04:34 DAVID:  THE TARGET BLOCK IS BLUE .
-20:04:39 USER: what color is the twitter block?
-20:04:40 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Twitter BLOCK.N)) ((PRES BE.V) *H))) ?)
-20:04:47 DAVID:  THE TWITTER BLOCK IS RED .
-20:04:53 USER:  what color is the mcdonald's block?
-20:04:54 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (McDonalds BLOCK.N)) ((PRES BE.V) *H))) ?)
-20:05:00 DAVID:  THE MCDONALDS BLOCK BE .
-20:05:08 USER: what color is the toyota block?
-20:05:09 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
-20:05:18 DAVID:  THE TOYOTA BLOCK IS BLUE .
-20:05:24 USER: what color is the starbucks block?
-20:05:25 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) *H))) ?)
-20:05:34 DAVID:  THE STARBUCKS BLOCK IS GREEN .
-20:05:39 USER: what is the color of the twitter block?
-20:05:50 DAVID:  YOU ARE ASKING ABOUT SOME TWITTER BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:05:03 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+16:05:58 USER: what color was the last block i moved?
+16:06:09 DAVID:  YOU ARE ASKING ABOUT SOME LAST BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:06:52 USER: which block is not touching the table?
+16:06:53 ULF: (((WHICH.D BLOCK.N) ((PRES BE.V) NOT (TOUCHING.P (THE.D TABLE.N)))) ?)
+16:07:02 DAVID:  THE BURGER KING BLOCK ISN'T TOUCHING THE TABLE .
+16:07:15 USER: what color are the blocks that are not touching the table?
+16:07:53 USER: what color are the blocks that are not touching the table?
+16:07:54 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (N+PREDS (PLUR BLOCK.N) (THAT.REL ((PRES BE.V) (NOT (TOUCHING.P (THE.D TABLE.N))))))) ((PRES BE.V) *H))) ?)
+16:08:05 DAVID:  THE BLOCKS THAT AREN'T TOUCHING THE TABLE ARE RED , GREEN , AND BLUE .
+16:08:35 USER: what color are the blocks that are touching the table?
+16:08:37 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (N+PREDS (PLUR BLOCK.N) (THAT.REL ((PRES BE.V) (NOT (TOUCHING.P (THE.D TABLE.N))))))) ((PRES BE.V) *H))) ?)
+16:08:47 DAVID:  THE BLOCKS THAT AREN'T TOUCHING THE TABLE ARE GREEN , RED , AND BLUE .
+16:09:05 USER: what color are the blocks that are touching the table?
+16:09:06 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (N+PREDS (PLUR BLOCK.N) (THAT.REL ((PRES BE.V) (TOUCHING.P (THE.D TABLE.N)))))) ((PRES BE.V) *H))) ?)
+16:09:16 DAVID:  THE BLOCKS THAT ARE TOUCHING THE TABLE BE .
+16:09:46 USER: how many red blocks are touching a green block?
+16:09:47 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (N+PREDS (PLUR BLOCK.N) (THAT.REL ((PRES BE.V) (TOUCHING.P (THE.D TABLE.N)))))) ((PRES BE.V) *H))) ?)
+16:09:55 DAVID:  THE BLOCKS THAT ARE TOUCHING THE TABLE BE .
+16:10:02 USER: how many red blocks are touching a green block?
+16:10:03 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (RED.A (PLUR BLOCK.N))) ((PRES BE.V) (TOUCHING.P (A.D (GREEN.A BLOCK.N))))) ?)
+16:10:12 DAVID:  TWO RED BLOCKS ARE TOUCHING A GREEN BLOCK .
+16:10:25 USER: how many green blocks are touching a green?
+16:10:27 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (RED.A (PLUR BLOCK.N))) ((PRES BE.V) (TOUCHING.P (A.D (GREEN.A BLOCK.N))))) ?)
+16:10:41 DAVID:  ONE RED BLOCK IS TOUCHING A GREEN BLOCK . YOU ARE ASKING ABOUT SOME GREEN BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+16:10:45 USER: how many green blocks are touching green blocks?
+16:10:46 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (GREEN.A (PLUR BLOCK.N))) ((PRES BE.V) (TOUCHING.P (K (GREEN.A (PLUR BLOCK.N)))))) ?)
+16:10:55 DAVID:  THREE GREEN BLOCKS ARE TOUCHING GREEN BLOCKS .
+16:11:11 USER: which block is closest to the target block?
+16:11:22 DAVID:  I HEARD YOU MENTION SOME BLOCK , BUT DIDN'T HEAR THE REST.
+16:11:33 USER: which block is closest to the target block?
+16:11:44 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:11:47 USER: which block is on top?
+16:11:48 ULF: (((WHICH.D BLOCK.N) ((PRES BE.V) (ON.P (K TOP.N)))) ?)
+16:11:56 DAVID:  NO BLOCK IS ON TOP .
+16:12:09 USER: what is the topmost block?
+16:12:10 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N TOP.A BLOCK.N))))) ?)
+16:12:19 DAVID:  THE STARBUCKS BLOCK IS THE TOPPEST BLOCK .
+16:12:30 USER: which block is the toppest block?
+16:12:41 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:12:51 USER: which is the highest block?
+16:12:52 ULF: ((WHICH.PRO ((PRES BE.V) (= (THE.D (MOST-N HIGH.A BLOCK.N))))) ?)
+16:12:59 DAVID:  THE TEXACO BLOCK IS THE HIGHEST BLOCK .
+16:13:34 USER: how many blocks are touching the toyota block?
+16:13:35 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Toyota BLOCK.N))))) ?)
+16:13:42 DAVID:  FOUR BLOCKS ARE TOUCHING THE TOYOTA BLOCK .
+16:14:20 USER: before i moved it how many blocks were touching the twitter block?
+16:14:30 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+16:14:35 USER: how many blocks were touching the twitter block?
+16:14:37 ULF: (NON-QUERY ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?))
+16:14:45 DAVID:  ONE BLOCK WAS TOUCHING THE TWITTER BLOCK .
+16:15:01 USER: how many blocks were touching the twitter block?
+16:15:02 ULF: (NON-QUERY ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?))
+16:15:10 DAVID:  ONE BLOCK WAS TOUCHING THE TWITTER BLOCK .
+16:15:14 USER: how many blocks are touching twitter block?
+16:15:16 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?)
+16:15:24 DAVID:  NO BLOCKS ARE TOUCHING THE TWITTER BLOCK .
+16:17:06 USER: i can't get it back.
+16:17:17 DAVID:  SORRY, I AM NOT HANDLING MODAL QUESTIONS YET.
+16:18:48 USER: how many blue blocks are between the mcdonald's block and the burger king block?
+16:19:15 USER:  how many blue blocks are between the mcdonald's block and the burger king block?
+16:19:16 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (BLUE.A (PLUR BLOCK.N))) ((PRES BE.V) (BETWEEN.P ((THE.D (McDonalds BLOCK.N)) AND.CC (THE.D (Burger King BLOCK.N)))))) ?)
+16:19:26 DAVID:  ONE BLUE BLOCK IS BETWEEN THE MCDONALDS BLOCK AND THE BURGER KING BLOCK .
+16:19:46 USER: how many blue blocks are between the mcdonald's block in the burger king block?
+16:19:47 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (BLUE.A (PLUR BLOCK.N))) ((PRES BE.V) (BETWEEN.P ((THE.D (McDonalds BLOCK.N)) AND.CC (THE.D (Burger King BLOCK.N)))))) ?)
+16:19:57 DAVID:  TWO BLUE BLOCKS ARE BETWEEN THE MCDONALDS BLOCK AND THE BURGER KING BLOCK .
+16:20:08 USER: how many blue blocks were in between the mcdonald's block and b burger king block before i moved to target block?
+16:20:09 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (BLUE.A (PLUR BLOCK.N))) ((PRES BE.V) (BETWEEN.P (THE.D (McDonalds BLOCK.N))) (ADV-E (IN.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Burger King BLOCK.N))))))))) ?)
+16:20:25 DAVID:  NO BLUE BLOCKS ARE BETWEEN THE MCDONALDS BLOCK . SORRY, YOU ARE ASKING ABOUT SOME BLUE BLOCKS BEING BETWEEN OBJECTS , BUT I DIDN'T REALLY CATCH WHAT IT WAS.
+16:21:09 USER: what is the leftmost block?
+16:21:10 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+16:21:19 DAVID:  THE MCDONALDS BLOCK IS THE LEFTMOST BLOCK .
+16:21:30 USER: which block is the leftmost block?
+16:21:32 ULF: (POSS-QUES ((WHICH.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?))
+16:21:43 DAVID:  I AM NOT SURE THAT I UNDERSTOOD THE QUESTION CORRECTLY , BUT SOME AREN'T THE LEFTMOST BLOCK .
+16:22:02 USER: which block is the leftmost block?
+16:22:04 ULF: (POSS-QUES ((WHICH.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?))
+16:22:15 DAVID:  I AM NOT SURE THAT I UNDERSTOOD THE QUESTION CORRECTLY , BUT SOME AREN'T THE LEFTMOST BLOCK .
+16:22:19 USER: what is the most left block?
+16:22:21 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+16:22:28 DAVID:  THE STARBUCKS BLOCK IS THE LEFTMOST BLOCK .
+16:22:56 USER: what was the leftmost block before i move the starbucks block?
+16:22:57 ULF: (NON-QUERY ((WHAT.PRO ((PAST BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))) (ADV-E (BEFORE.P (KE (I.PRO ((PRES MOVE.V) (THE.D (Starbucks BLOCK.N))))))))) ?))
+16:23:04 DAVID:  NOTHING WAS THE LEFTMOST BLOCK .
+16:23:48 USER: which two blocks are closest to the front of the table.
+16:23:59 DAVID:  YOU ARE ASKING ABOUT SOME TWO BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+16:24:11 USER: how many blocks are behind the mercedes block?
+16:24:12 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (BEHIND.P (THE.D (Mercedes BLOCK.N))))) ?)
+16:24:21 DAVID:  TWO BLOCKS ARE BEHIND THE MERCEDES BLOCK .
+16:24:35 USER: which two blocks were behind the mercedes block?
+16:24:36 ULF: (NON-QUERY (((WHICH.D (TWO.A (PLUR BLOCK.N))) ((PAST BE.V) (BEHIND.P (THE.D (Mercedes BLOCK.N))))) ?))
+16:24:54 DAVID:  THE TARGET BLOCK , THE TEXACO BLOCK , THE BURGER KING BLOCK , THE MCDONALD ' S BLOCK , THE TABLE BLOCK , THE TWITTER BLOCK , AND THE STARBUCKS BLOCK WERE BEHIND THE MERCEDES BLOCK .
+16:25:17 USER: where is the table block?
+16:25:29 DAVID:  YOU ARE ASKING ABOUT SOME TABLE BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:25:46 USER: which block is nearest mercedes block?
+16:25:47 ULF: (POSS-QUES ((WHICH.PRO ((PRES BE.V) (= (THE.D (NEAREST.A (Mercedes BLOCK.N)))))) ?))
+16:26:00 DAVID:  I AM NOT SURE THAT I UNDERSTOOD THE QUESTION CORRECTLY , BUT SOME AREN'T THE NEAREST MERCEDES BLOCK .
+16:26:06 USER: which block is closest to the mercedes block?
+16:26:16 DAVID:  I HEARD YOU MENTION SOME BLOCK , BUT DIDN'T HEAR THE REST.
+16:26:24 USER: what is near the twitter block?
+16:26:25 ULF: ((WHAT.PRO ((PRES BE.V) (NEAR.P (THE.D (Twitter BLOCK.N))))) ?)
+16:26:34 DAVID:  THE STARBUCKS BLOCK IS NEAR THE TWITTER BLOCK .
+16:26:41 USER: how many blocks are near the twitter block?
+16:26:42 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (NEAR.P (THE.D (Twitter BLOCK.N))))) ?)
+16:26:49 DAVID:  THREE BLOCKS ARE NEAR THE TWITTER BLOCK .
+16:27:21 USER: how many blocks were near the twitter block before i moved it?
+16:27:30 DAVID:  ONE BLOCK WAS NEAR THE TWITTER BLOCK .
+16:27:45 USER: which block was near the twitter block?
+16:27:46 ULF: (NON-QUERY (((WHICH.D BLOCK.N) ((PAST BE.V) (NEAR.P (THE.D (Twitter BLOCK.N))))) ?))
+16:28:06 DAVID:  THE TARGET BLOCK , THE TEXACO BLOCK , THE BURGER KING BLOCK , THE TABLE BLOCK , THE MCDONALD ' S BLOCK , THE TOYOTA BLOCK , THE MERCEDES BLOCK , AND THE STARBUCKS BLOCK WERE NEAR THE TWITTER BLOCK .
+16:28:38 USER: which green block is not touching a green block?
+16:28:39 ULF: (((WHICH.D (GREEN.A BLOCK.N)) ((PRES BE.V) NOT (TOUCHING.P (A.D (GREEN.A BLOCK.N))))) ?)
+16:28:48 DAVID:  THE STARBUCKS BLOCK ISN'T TOUCHING A GREEN BLOCK .
+16:28:54 USER: what is the leftmost block?
+16:28:55 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+16:29:02 DAVID:  THE STARBUCKS BLOCK IS THE LEFTMOST BLOCK .
+16:29:18 USER: which green block isn't touching any green block?
+16:29:19 ULF: (((WHICH.D (GREEN.A BLOCK.N)) ((PRES BE.V) NOT (TOUCHING.P (ANY.D (GREEN.A BLOCK.N))))) ?)
+16:29:28 DAVID:  THE STARBUCKS BLOCK ISN'T TOUCHING ANY GREEN BLOCK .
+16:29:35 USER: is the burger king block touching the green block?
+16:29:37 ULF: (((THE.D (Burger King BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (GREEN.A BLOCK.N))))) ?)
+16:29:43 DAVID:  NO .
+16:30:27 USER: how many blocks are touching the twitter block?
+16:30:28 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?)
+16:30:36 DAVID:  THREE BLOCKS ARE TOUCHING THE TWITTER BLOCK .
+16:30:52 USER: which blocks were touching the twitter block?
+16:30:53 ULF: (NON-QUERY (((WHICH.D (PLUR BLOCK.N)) ((PAST BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?))
+16:31:04 DAVID:  THE TARGET BLOCK , THE TEXACO BLOCK , AND THE TOYOTA BLOCK WERE TOUCHING THE TWITTER BLOCK .
+16:31:14 USER: which blocks are no longer touching the twitter block?
+16:31:15 ULF: (POSS-QUES (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Twitter BLOCK.N))))) ?))
+16:31:28 DAVID:  I AM NOT SURE THAT I UNDERSTOOD THE QUESTION CORRECTLY , BUT NO BLOCKS ARE TOUCHING THE TWITTER BLOCK .
+16:32:13 USER: where is the twitter block?
+16:32:15 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Twitter BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:32:22 DAVID:  THE TWITTER BLOCK IS ON TOP OF THE MERCEDES BLOCK .
+16:32:33 USER: was the twitter block ever touching the toyota block?
+16:32:35 ULF: (NON-QUERY (((THE.D (Twitter BLOCK.N)) ((PAST BE.V) (EVER.ADV-E (TOUCHING.P (THE.D (Toyota BLOCK.N)))))) ?))
+16:32:41 DAVID:  NO .
+16:32:47 USER: was the twitter block ever touching the texaco block?
+16:32:48 ULF: (NON-QUERY (((THE.D (Twitter BLOCK.N)) ((PAST BE.V) (EVER.ADV-E (TOUCHING.P (THE.D (Texaco BLOCK.N)))))) ?))
+16:32:53 DAVID:  YES .
+16:33:30 USER: when did i move to twitter block?
+16:33:39 DAVID:  YOU'RE NOT SURE WHAT MY QUESTION IS REFERRING TO.
+16:33:53 USER: when did i move a twitter block?
+16:33:54 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V (A.D (Twitter BLOCK.N)) (ADV-E *H)))) ?))
+16:34:02 DAVID:  YOU MOVE A TWITTER BLOCK ONE MINUTE AGO .
+16:34:12 USER: when did i move the twitter block more than a minute ago?
+16:34:22 DAVID:  YOU ARE ASKING ABOUT SOME TWITTER BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:34:29 USER: where was the twitter block 2 moves ago?
+16:34:40 DAVID:  I HEARD YOU MENTION SOME TWITTER BLOCK , BUT DIDN'T HEAR THE REST.
+16:34:59 USER: where is the twitter block?
+16:35:00 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Twitter BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:35:15 DAVID:  POSSIBLY THE TWITTER BLOCK IS ON TOP OF THE MCDONALDS BLOCK .
+16:35:25 USER: where is the target block?
+16:35:26 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:36:20 DAVID:  THE TARGET BLOCK IS NEXT TO THE TEXACO BLOCK .
+16:36:28 USER: where is the target block?
+16:36:29 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:36:51 DAVID:  THE TARGET BLOCK IS NEXT TO THE TEXACO BLOCK .
+16:37:01 USER: david
+16:37:09 DAVID:  HELLO AGAIN.
+16:37:18 USER: where is the target block?
+16:37:19 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:37:39 DAVID:  THE TARGET BLOCK IS NEXT TO THE TEXACO BLOCK .
+16:37:46 USER: hey, can you give us a minute, please?
+16:37:56 DAVID:  SURE, LET ME KNOW WHEN YOU WANT TO CONTINUE.
+16:38:02 USER: david
+16:38:10 DAVID:  HELLO AGAIN.
+16:38:17 USER: where is the target block?
+16:38:18 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:38:39 DAVID:  THE TARGET BLOCK IS NEXT TO THE TEXACO BLOCK .
+16:38:52 USER:  how many blocks are on top of the burger king block?
+16:38:53 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (ON_TOP_OF.P (THE.D (Burger King BLOCK.N))))) ?)
+16:39:02 DAVID:  ONE BLOCK IS ON TOP OF THE BURGER KING BLOCK .
+16:39:05 USER: where is the toyota block?
+16:39:06 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:39:15 DAVID:  THE TOYOTA BLOCK IS ON TOP OF THE TARGET BLOCK .
+16:39:21 USER: what is below it?
+16:39:22 ULF: ((WHAT.PRO ((PRES BE.V) (BELOW.P (THE.D (Toyota BLOCK.N))))) ?)
+16:39:32 DAVID:  THE TARGET BLOCK AND THE BURGER KING BLOCK ARE BELOW THE TOYOTA BLOCK .
+16:39:36 USER: where is the target block?
+16:39:38 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:40:03 DAVID:  THE TARGET BLOCK IS NEXT TO THE TEXACO BLOCK .
+16:40:11 USER: where's the texaco block?
+16:40:23 DAVID:  YOU ARE ASKING ABOUT SOME TEXACO BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:40:26 USER: where are the green blocks?
+16:40:27 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (GREEN.A (PLUR BLOCK.N))) ((PRES BE.V) *H))) ?)
+16:40:37 DAVID:  I DON'T KNOW WHERE THE GREEN BLOCKS ARE .
+16:40:51 USER: where are the blue blocks?
+16:40:52 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (BLUE.A (PLUR BLOCK.N))) ((PRES BE.V) *H))) ?)
+16:41:04 DAVID:  THE BLUE BLOCKS ARE NEXT TO THE TARGET AND TEXACO BLOCKS AND ON TOP OF THE TARGET BLOCK .
+16:41:16 USER: where are the green blocks?
+16:41:17 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (GREEN.A (PLUR BLOCK.N))) ((PRES BE.V) *H))) ?)
+16:41:25 DAVID:  I DON'T KNOW WHERE THE GREEN BLOCKS ARE .
+16:42:59 USER: what is the highest red block?
+16:43:01 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N HIGH.A (RED.A BLOCK.N)))))) ?)
+16:43:08 DAVID:  THE TWITTER BLOCK IS THE HIGHEST RED BLOCK .
+16:43:12 USER: what is the highest blue block?
+16:43:13 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N HIGH.A (BLUE.A BLOCK.N)))))) ?)
+16:43:22 DAVID:  THE TOYOTA BLOCK IS THE HIGHEST BLUE BLOCK .
+16:43:27 USER: what is the highest green block?
+16:43:28 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N HIGH.A (GREEN.A BLOCK.N)))))) ?)
+16:43:37 DAVID:  NOTHING IS THE HIGHEST GREEN BLOCK .
+16:44:00 USER: what was the highest green block before i moved the burger king block?
+16:44:10 DAVID:  THE STARBUCKS BLOCK WAS THE HIGHEST GREEN BLOCK .
+16:44:23 USER: how many blocks?
+16:44:25 ULF: (NON-QUERY ((WHAT.PRO ((PAST BE.V) (= (THE.D (MOST-N HIGH.A (GREEN.A BLOCK.N)))) (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Burger King BLOCK.N))))))))) ?))
+16:44:34 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+16:44:35 USER:  you are asking above some blocks, but i didn't catch what it was.
+16:44:45 DAVID:  I HEARD YOU MENTION SOME BLOCKS , BUT DIDN'T HEAR THE REST.
+16:44:50 USER: how many blocks are touching the table?
+16:44:51 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D TABLE.N)))) ?)
+16:44:59 DAVID:  FOUR BLOCKS ARE TOUCHING THE TABLE .
+16:45:07 USER: how many blocks were touching the table before i moved the burger king block?
+16:45:08 ULF: (NON-QUERY ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST BE.V) (TOUCHING.P (THE.D TABLE.N)) (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Burger King BLOCK.N))))))))) ?))
+16:45:15 DAVID:  ONE BLOCK WAS TOUCHING THE TABLE .
+16:45:36 USER: how many blocks were touching the table when i moved the burger king block?
+16:45:46 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+16:45:57 USER: are there any blocks between the mercedes block and the toyota block?
+16:46:14 USER:  are there any block?
+16:46:15 ULF: (((PRES BE.V) THERE.PRO (ANY.D (N+PREDS (PLUR BLOCK.N) (BETWEEN.P (SET-OF (THE.D (Mercedes BLOCK.N)) (THE.D (Toyota BLOCK.N))))))) ?)
+16:46:26 DAVID:  NO . I HEARD YOU MENTION SOME BLOCK , BUT DIDN'T HEAR THE REST.
+16:46:33 USER: are there any blocks between the mercedes block in the toyota block?
+16:46:53 USER:  are there any blocks between the mercedes block and the toyota block?
+16:46:55 ULF: (((PRES BE.V) THERE.PRO (ANY.D (N+PREDS (PLUR BLOCK.N) (BETWEEN.P (THE.D (Mercedes BLOCK.N))))) (ADV-E (IN.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Toyota BLOCK.N)))))))) ?)
+16:47:00 DAVID:  NO .
+16:47:08 USER: are there any blocks above it?
+16:47:10 ULF: (((PRES BE.V) THERE.PRO (ANY.D (N+PREDS (PLUR BLOCK.N) (BETWEEN.P (SET-OF (THE.D (Mercedes BLOCK.N)) (THE.D (Toyota BLOCK.N))))))) ?)
+16:47:15 DAVID:  NO .
+16:47:35 USER: which block is between the mercedes block and the toyota block?
+16:47:36 ULF: ((THERE.PRO ((PRES BE.V) (ANY.D (N+PREDS (PLUR BLOCK.N) (ABOVE.P (ANY.D (N+PREDS (PLUR BLOCK.N) (BETWEEN.P (THE.D (Mercedes BLOCK.N)))))))))) ?)
+16:47:42 DAVID:  NO .
+16:47:57 USER: which block is between the mercedes block and of the toyota block?
+16:47:58 ULF: (((WHICH.D BLOCK.N) ((PRES BE.V) (BETWEEN.P ((THE.D (Mercedes BLOCK.N)) AND.CC (THE.D (Toyota BLOCK.N)))))) ?)
+16:48:15 DAVID:  THE BURGER KING BLOCK IS BETWEEN THE MERCEDES BLOCK AND THE TOYOTA BLOCK . SORRY, YOU ARE ASKING ABOUT SOME BLOCK BEING BETWEEN OBJECTS , BUT I DIDN'T REALLY CATCH WHAT IT WAS.
+16:48:31 USER: which block is between the mercedes block and the toyota block?
+16:48:32 ULF: (((WHICH.D BLOCK.N) ((PRES BE.V) (BETWEEN.P ((THE.D (Mercedes BLOCK.N)) AND.CC (THE.D (Toyota BLOCK.N)))))) ?)
+16:48:42 DAVID:  THE BURGER KING BLOCK IS BETWEEN THE MERCEDES BLOCK AND THE TOYOTA BLOCK .
+16:48:52 USER: how many green blocks are below the mercedes block?
+16:48:53 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (GREEN.A (PLUR BLOCK.N))) ((PRES BE.V) (BELOW.P (THE.D (Mercedes BLOCK.N))))) ?)
+16:49:01 DAVID:  TWO GREEN BLOCKS ARE BELOW THE MERCEDES BLOCK .
+16:49:13 USER: which green blocks were below the mercedes block?
+16:49:14 ULF: (NON-QUERY (((WHICH.D (GREEN.A (PLUR BLOCK.N))) ((PAST BE.V) (BELOW.P (THE.D (Mercedes BLOCK.N))))) ?))
+16:49:22 DAVID:  NO GREEN BLOCKS WERE BELOW THE MERCEDES BLOCK .
+16:49:28 USER: which green blocks are below the mercedes block?
+16:49:29 ULF: (((WHICH.D (GREEN.A (PLUR BLOCK.N))) ((PRES BE.V) (BELOW.P (THE.D (Mercedes BLOCK.N))))) ?)
+16:49:41 DAVID:  THE MCDONALDS BLOCK , THE STARBUCKS BLOCK , AND THE BURGER KING BLOCK ARE BELOW THE MERCEDES BLOCK .
+16:50:24 USER: what is between the starbucks block and the toyota block?
+16:50:38 USER:  what is between the starbucks block and the toyota block?
+16:50:39 ULF: ((WHAT.PRO ((PRES BE.V) (BETWEEN.P ((THE.D (Starbucks BLOCK.N)) AND.CC (THE.D (Toyota BLOCK.N)))))) ?)
+16:50:49 DAVID:  THE BURGER KING BLOCK IS BETWEEN THE STARBUCKS BLOCK AND THE TOYOTA BLOCK .
+16:51:13 USER: which blocks did i just move?
+16:51:14 ULF: ((WHAT.PRO ((PRES BE.V) (BETWEEN.P ((THE.D (Starbucks BLOCK.N)) AND.CC (THE.D (Toyota BLOCK.N)))))) ?)
+16:51:28 DAVID:  THE BURGER KING BLOCK IS BETWEEN THE STARBUCKS BLOCK AND THE TOYOTA BLOCK . YOU MOVED THE STARBUCKS BLOCK .
+16:51:49 USER: what is below it?
+16:51:51 ULF: ((WHAT.PRO ((PRES BE.V) (BELOW.P IT.PRO))) ?)
+16:51:58 DAVID:  NOTHING IS BELOW IT .
+16:52:29 USER: what color is the highest block?
+16:52:30 ULF: ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (MOST-N HIGH.A BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:52:38 DAVID:  THE HIGHEST BLOCK IS RED .
+16:53:08 USER: what color was the highest block?
+16:53:09 ULF: (NON-QUERY ((SUB (OF.P (WHAT.D COLOR.N)) ((THE.D (MOST-N HIGH.A BLOCK.N)) ((PAST BE.V) *H))) ?))
+16:53:17 DAVID:  NO BLOCK WAS THE HIGHEST BLOCK .
+16:53:31 USER: what are the highest blocks right now?
+16:53:32 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N HIGH.A (PLUR BLOCK.N)))) RIGHT.ADV-A)) ?)
+16:53:39 DAVID:  NOTHING IS THE HIGHEST BLOCKS RIGHT .
+16:53:56 USER: what is the frontmost block?
+16:53:58 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N FRONT.A BLOCK.N))))) ?)
+16:54:06 DAVID:  THE MERCEDES BLOCK IS THE FRONTEST BLOCK .
+16:54:17 USER: where was the mercedes block before i moved it?
+16:54:18 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Mercedes BLOCK.N)) ((PAST BE.V) *H (ADV-E (BEFORE.P (KE (I.PRO ((PAST MOVE.V) (THE.D (Mercedes BLOCK.N)))))))))) ?))
+16:54:29 DAVID:  THE MERCEDES BLOCK WAS ADJACENT TO THE MCDONALD ' S BLOCK AND NEXT TO THE MCDONALD ' S BLOCK .
+16:54:35 USER: where did the starbucks block start?
+16:54:45 DAVID:  YOU ARE ASKING ABOUT SOME STARBUCKS BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+16:54:51 USER: where did the starbucks block start?
+16:55:02 DAVID:  I HEARD YOU MENTION SOME STARBUCKS BLOCK , BUT DIDN'T HEAR THE REST.
+16:55:06 USER: where was the starbucks block in the beginning?
+16:55:18 DAVID:  THE STARBUCKS BLOCK WAS ADJACENT TO THE BURGER KING BLOCK AND NEXT TO THE BURGER KING BLOCK .
+16:55:33 USER: how many blocks are touching the texaco block?
+16:55:34 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?)
+16:55:43 DAVID:  THREE BLOCKS ARE TOUCHING THE TEXACO BLOCK .
+16:55:51 USER: how many blocks are touching it?
+16:55:52 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?)
+16:56:01 DAVID:  TWO BLOCKS ARE TOUCHING THE TEXACO BLOCK .
+16:56:09 USER: how many blocks are touching it now?
+16:56:11 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?)
+16:56:19 DAVID:  ONE BLOCK IS TOUCHING THE TEXACO BLOCK .
+16:56:31 USER: how many blocks were touching it 1 minute ago?
+16:56:42 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+16:56:53 USER: where is that block now?
+16:56:54 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THAT.D BLOCK.N) ((PRES BE.V) *H))) ?)
+16:57:01 DAVID:  I DON'T KNOW WHERE THAT BLOCK IS .
+16:57:09 USER: where is the texaco block?
+16:57:10 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Texaco BLOCK.N)) ((PRES BE.V) *H))) ?)
+16:57:19 DAVID:  THE TEXACO BLOCK IS ON TOP OF THE MERCEDES BLOCK .
 
-SESSION: 2020-03-11 20:12:10
+SESSION: 2020-03-12 18:13:47
 =============================================================
-20:12:19 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
-20:12:24 USER: what is the topmost block?
-20:12:26 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N TOP.A BLOCK.N))))) ?)
-20:12:54 USER:  what is the front mount block?
-20:13:08 DAVID:  NOTHING IS THE TOPPEST BLOCK . YOU ARE ASKING ABOUT SOME FRONT MOUNT BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
-20:13:34 USER: what is the frontmost block?
-20:13:35 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N FRONT.A BLOCK.N))))) ?)
-20:13:42 DAVID:  NOTHING IS THE FRONTEST BLOCK .
-20:13:56 USER: which block is in the middle?
+18:13:55 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:14:29 USER: where is the target block now?
+18:14:30 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+18:14:41 DAVID:  THE TARGET BLOCK IS TO THE LEFT OF THE TEXACO BLOCK .
+18:14:49 USER: where is the target block right now?
+18:14:50 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H RIGHT.ADV-A))) ?)
+18:15:00 DAVID:  THE TARGET BLOCK IS TO THE LEFT OF THE TEXACO BLOCK RIGHT .
+18:15:06 USER: david what is the target block?
+18:15:17 DAVID:  YOU ARE ASKING ABOUT SOME TARGET BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+18:15:25 USER: david what is the leftmost block?
+18:15:26 ULF: ((WHAT.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?)
+18:15:33 DAVID:  THE TARGET BLOCK IS THE LEFTMOST BLOCK .
+18:15:38 USER: david where is
+18:15:47 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+18:15:53 USER: david what is the toyota block?
+18:16:04 DAVID:  YOU ARE ASKING ABOUT SOME TOYOTA BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+18:16:10 USER: david where is the toyota block?
+18:16:11 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+18:16:20 DAVID:  THE TOYOTA BLOCK IS TO THE RIGHT OF THE BURGER KING BLOCK .
+18:16:29 USER: where is the toyota block right now?
+18:16:30 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H RIGHT.ADV-A))) ?)
+18:16:39 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK RIGHT .
+18:18:27 USER: where was the target block of the start?
+18:18:38 DAVID:  YOU ARE ASKING ABOUT SOME TARGET BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+18:18:43 USER: where was the target block at the start?
+18:18:55 DAVID:  THE TARGET BLOCK WAS NEXT TO THE TEXACO BLOCK AND TOUCHING THE TEXACO BLOCK .
+18:19:11 USER: where was the target block?
+18:19:12 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PAST BE.V) *H))) ?))
+18:19:22 DAVID:  THE TARGET BLOCK WAS NEXT TO THE TEXACO BLOCK AND TOUCHING THE TEXACO BLOCK .
+18:22:08 USER: how many blocks are above the twitter block?
+18:22:09 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (ABOVE.P (THE.D (Twitter BLOCK.N))))) ?)
+18:22:18 DAVID:  NO BLOCKS ARE ABOVE THE TWITTER BLOCK .
+18:22:27 USER: how many blocks are above the texaco block?
+18:22:28 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) (ABOVE.P (THE.D (Texaco BLOCK.N))))) ?)
+18:22:36 DAVID:  ONE BLOCK IS ABOVE THE TEXACO BLOCK .
+18:30:19 USER: what was the target block?
+18:30:30 DAVID:  YOU ARE ASKING ABOUT SOME TARGET BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+18:30:35 USER: was the target block touching the texaco block?
+18:30:36 ULF: (NON-QUERY (((THE.D (Target BLOCK.N)) ((PAST BE.V) (TOUCHING.P (THE.D (Texaco BLOCK.N))))) ?))
+18:30:43 DAVID:  YES .
+18:31:01 USER: where are the green blocks?
+18:31:02 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (GREEN.A (PLUR BLOCK.N))) ((PRES BE.V) *H))) ?)
+18:31:16 DAVID:  THE GREEN BLOCKS ARE BETWEEN THE MCDONALDS BLOCK AND THE TWITTER BLOCK AND NEXT TO THE TOYOTA AND MERCEDES BLOCKS .
+18:38:01 USER: which blocks are near the target block?
+18:38:03 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (NEAR.P (THE.D (Target BLOCK.N))))) ?)
+18:38:11 DAVID:  THE TEXACO BLOCK IS NEAR THE TARGET BLOCK .
+18:38:28 USER: which blocks are near the target block?
+18:38:29 ULF: (((WHICH.D (PLUR BLOCK.N)) ((PRES BE.V) (NEAR.P (THE.D (Target BLOCK.N))))) ?)
+18:38:45 DAVID:  POSSIBLY THE MCDONALDS BLOCK , THE STARBUCKS BLOCK , THE MERCEDES BLOCK , THE TWITTER BLOCK , AND THE BURGER KING BLOCK ARE NEAR THE TARGET BLOCK .
+18:38:51 USER: which blocks were near the target block before i moved it?
+18:39:12 DAVID:  THE MCDONALD ' S BLOCK , THE STARBUCKS BLOCK , THE MERCEDES BLOCK , THE TWITTER BLOCK , THE BURGER KING BLOCK , THE TEXACO BLOCK , THE TOYOTA BLOCK , AND THE TABLE BLOCK WERE NEAR THE TARGET BLOCK .
+
+SESSION: 2020-03-12 18:42:51
+=============================================================
+
+SESSION: 2020-03-12 18:43:13
+=============================================================
+18:43:21 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:43:33 USER: which block is the?
+18:43:44 DAVID:  YOU ARE ASKING ABOUT SOME BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+18:43:50 USER: which block is the leftmost block?
+18:43:51 ULF: (POSS-QUES ((WHICH.PRO ((PRES BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?))
+18:44:02 DAVID:  I AM NOT SURE THAT I UNDERSTOOD THE QUESTION CORRECTLY , BUT SOME AREN'T THE LEFTMOST BLOCK .
+18:46:11 USER: what was the leftmost block?
+18:46:12 ULF: (NON-QUERY ((WHAT.PRO ((PAST BE.V) (= (THE.D (MOST-N LEFT.A BLOCK.N))))) ?))
+18:46:19 DAVID:  NOTHING WAS THE LEFTMOST BLOCK .
+18:47:08 USER: where is the target block?
+18:47:09 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+18:47:18 DAVID:  THE TARGET BLOCK IS ON TOP OF THE MCDONALDS BLOCK .
+18:47:24 USER: where was the target block?
+18:47:25 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PAST BE.V) *H))) ?))
+18:47:35 DAVID:  THE TARGET BLOCK WAS TOUCHING THE TEXACO AND MCDONALD ' S BLOCKS .
+18:50:39 USER: where was the target block one move ago
+18:50:41 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PAST BE.V) *H (ADV-E (SUB (ONE.D MOVE.N) (AGO.P *H)))))) ?))
+18:50:50 DAVID:  THE TARGET BLOCK WAS TOUCHING THE TEXACO AND MCDONALD ' S BLOCKS .
+18:51:10 USER: where was the target block to moves before?
+18:51:21 DAVID:  YOU ARE ASKING ABOUT SOME TARGET BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+18:52:16 USER: where was the target block to moves before?
+18:52:44 DAVID:  I HEARD YOU MENTION SOME TARGET BLOCK , BUT DIDN'T HEAR THE REST.
+18:52:51 USER: where was the target block one move before?
+
+SESSION: 2020-03-12 18:53:27
+=============================================================
+18:53:35 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-03-12 18:54:00
+=============================================================
+18:54:09 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-03-12 18:54:24
+=============================================================
+18:54:32 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-03-12 18:55:03
+=============================================================
+18:55:11 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.

@@ -173,12 +173,7 @@ class HCIManager(object):
 		with open(self.eta_perceptions, 'w') as f:
 			f.write(perceptions)
 		self.world.make_checkpoint()
-		#if last_moved is not None and len(last_moved) > 0:			
-			#print ("LAST_MOVED: ", last_moved)		
-			#coord_list = ['(|' + item[0] + '| at-loc.p ($ loc ' + str(int(item[1][0])) + ' ' \
-			#+ str(int(item[1][1])) + ' ' + str(int(item[1][2])) + '))' for item in last_moved]
-		
-
+	
 	def get_ulf(self, query_frame, subj_list, obj_list):
 		#if subj_list is None or obj_list is None or len(subj_list) == 0 or len(obj_list) == 0:
 		if subj_list is None or len(subj_list) == 0:
@@ -195,7 +190,7 @@ class HCIManager(object):
 			print ("ANS DATA: ", subj_list, rel, obj_list)
 		print ("ANS DATA: ", subj_list, obj_list)
 		if rel is not None and type(rel) != TCopulaBe and obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR and query_frame.query_type != query_frame.QueryType.COUNT:
-			for subj in subj_list:
+			for subj in subj_list:				
 				if type(subj[0]) == Entity:
 					for obj in obj_list:
 						if type(obj[0][0]) == Entity:					
@@ -213,6 +208,7 @@ class HCIManager(object):
 		else:			
 			for subj in subj_list:
 				ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ')'
+		ret_val = ret_val.replace('McDonald\'s', 'McDonalds')
 		return ret_val
 
 	def preprocess(self, input):
@@ -223,11 +219,10 @@ class HCIManager(object):
 					(' blonde', ' block'), (' blow', ' block'), (' bloke', ' block'), (' dog', ' block'), \
 					(' involved', ' above'), (' about', ' above'), (' patching', ' touching'), (' catching', ' touching'),\
 					(' cashing', ' touching'), (' flashing', ' touching'), (' flushing', ' touching'),(' fashion', ' touching'), (' patch', ' touch'), \
-					(' thatching', ' touching'), (' trash in', ' touching'),
-					(' in a cup', ' on top'), (' after the right', ' are to the right'), \
+					(' thatching', ' touching'), (' trash in', ' touching'), (' tracking', ' touching'),
+					(' in a cup', ' on top'), (' after the right', ' are to the right'), 
 					(' merced us', ' mercedes'), (' messages', ' mercedes'), (' mercer does', ' mercedes'), (' merced is', ' mercedes'), \
-					(' critter', ' twitter'), (' butcher', ' twitter'), (' treetop', ' twitter'), (' toilet', ' twitter'), \
-					(' trader', ' twitter'),
+					(' critter', ' twitter'), (' butcher', ' twitter'), (' treetop', ' twitter'), (' toilet', ' twitter'), (' trader', ' twitter'),
 					(' front mount', ' frontmost'),
 					(' talking block', ' target block'), (' chopping', ' target'), (' testicle', ' texaco'),\
 					(' merciless', ' mercedes'), \
@@ -249,7 +244,9 @@ class HCIManager(object):
 					(' rad', ' red'), (' rand', ' red'), 
 					('what\'s ', 'what is '),
 					(' sims', ' since'), (' sings', ' since'), (' love', ' block'), (' globe', ' block'), (' is starting', ' is touching'), 
-					(' passed', ' has'), (' pass', ' has'), (' paused', ' has')]
+					(' passed', ' has'), (' pass', ' has'), (' paused', ' has'),
+					(' did they', ' did i'), (' have they', ' have i'),
+					(' 2 ', ' two '), (' 3 ', ' three '), (' to moves', ' two moves')]
 		for misspell, fix in misspells:
 			input = input.replace(misspell, fix)
 		return input
