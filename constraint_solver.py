@@ -296,12 +296,12 @@ def compute_predicate(predicate, relata, referents):
 					ref = ((ref[0],), ref[1])
 
 				if predicate != ident and len(set(rel[0]).intersection(set(ref[0]))) > 0:					
-					print ("INTERSECT: ", rel, ref)
+					#print ("INTERSECT: ", rel, ref)
 					if len(ref[0]) < 5:
 						continue
 					else:
 						filtered = tuple([item for item in ref[0] if item not in rel[0]])
-						print ("FILTERED: ", filtered)
+						#print ("FILTERED: ", filtered)
 						ref = (filtered, ref[1])
 				ref_tuples = list(itertools.combinations(ref[0], r = arity[predicate] - 1))
 				ref_cert = ref[1]
@@ -390,6 +390,7 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 	"""
 	#print ("ENTERING PREDICATE PROCESSING: ", predicate)
 	predicate_func = resolve_predicate(predicate)
+	pred_str = predicate.content
 	pred_arity = arity[predicate_func]
 	modifiers = predicate.mods
 	print ("\nPREDICATE COMPONENTS: ", predicate, modifiers)
@@ -451,7 +452,9 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 				else:
 					predicate_values = []
 
-	print ("FINAL ARGLISTS RETURNED FROM PRED: ",  predicate_values)	
+	print ("FINAL ARGLISTS RETURNED FROM PRED: ",  predicate_values)
+
+
 	return predicate_values
 
 def resolve_argument(arg_object, entities):
@@ -583,7 +586,7 @@ class Response():
 		self.pred_values = predicate_values
 		self.predicate = predicate
 		self.relation = None
-		if query_frame.predicate is not None:
+		if query_frame.predicate is not None and type(query_frame.predicate.content) != TCopulaBe:
 			self.relation = query_frame.predicate.content
 			is_neg = query_frame.predicate.neg
 			for mod in query_frame.predicate.mods:

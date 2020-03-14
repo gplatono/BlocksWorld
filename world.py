@@ -244,6 +244,7 @@ class World(object):
 		moved_blocks = []
 		updated_blocks = {}
 		unpaired = []
+		unpaired_blocks = [bl for bl in self.blocks]
 
 		for block in self.blocks:
 			updated_blocks[block] = 0
@@ -254,7 +255,7 @@ class World(object):
 				rot1 = np.array([item for item in rotation])
 				rot2 = np.array([item for item in block.rotation_euler])				
 				#Threshold changed from 0.05
-				if np.linalg.norm(location - block.location) >= 0.2 or np.linalg.norm(rot1 - rot2) >= 0.4: #0.05
+				if np.linalg.norm(location - block.location) >= 0.2: # or np.linalg.norm(rot1 - rot2) >= 0.4: #0.05
 					if self.verbose or self.verbose_rotation:
 						if np.linalg.norm(location - block.location) >= 0.2:
 							print ("MOVED BLOCK: ", block.name, location, block.location, np.linalg.norm(location - block.location))
@@ -262,7 +263,7 @@ class World(object):
 							print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
 					moved_blocks.append(block.name)
 					block.location = location
-					block.rotation_euler = rotation
+					#block.rotation_euler = rotation
 				updated_blocks[block] = 1
 			# else:
 			# 	unpaired.append((id, location, rotation))
@@ -276,7 +277,7 @@ class World(object):
 						self.block_by_ids[id] = block
 						self.block_to_ids[block] = id
 						block.location = location
-						block.rotation_euler = rotation
+						#block.rotation_euler = rotation
 						id_assigned = True
 						updated_blocks[block] = 1
 						#moved_blocks.append(block.name)
@@ -303,9 +304,9 @@ class World(object):
 				self.block_by_ids[id] = cand
 				self.block_to_ids[cand] = id
 				updated_blocks[cand] = 1
-				if np.linalg.norm(location - cand.location) >= 0.2 or np.linalg.norm(rot1 - rot2) >= 0.4:
+				if np.linalg.norm(location - cand.location) >= 0.2:# or np.linalg.norm(rot1 - rot2) >= 0.4:
 					cand.location = location
-					cand.rotation_euler = rotation
+					#cand.rotation_euler = rotation
 					moved_blocks.append(cand.name)
 		return moved_blocks
 
@@ -316,7 +317,6 @@ class World(object):
 		if len(self.history) == 0:
 			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]
 
-		#print (moved_blocks)
 		for ent in self.entities:
 			ent.update()
 		# for name in moved_blocks:
@@ -340,10 +340,15 @@ class World(object):
 				self.make_checkpoint()
 
 	def make_checkpoint(self):
-		self.checkpoint = self.history[-1]
+		#self.checkpoint = self.history[-1]
+		self.checkpoint = len(self.history)-1
 
 	def get_moves_after_checkpoint(self):
-		return self.history[-1].state_diff(self.checkpoint)
+		result = []
+		for i in range(self.checkpoint+1, len(self.history)):
+			result += self.history[i].state_diff(self.history[i-1])
+		#return self.history[-1].state_diff(self.checkpoint)
+		return result
 
 	# def get_last_moved(self):
 	# 	if self.history == []:
@@ -425,7 +430,8 @@ class World(object):
 			"""self - s"""
 			result = []
 			for name in self.locations:
-				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.01:
+				print ("MOVE DIST: ", np.linalg.norm(self.locations[name] - s.locations[name]))
+				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.2:					
 					result.append([name, self.locations[name], s.locations[name]])
 			return result
 

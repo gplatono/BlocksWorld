@@ -224,6 +224,8 @@ class HCIManager(object):
 					(' merced us', ' mercedes'), (' messages', ' mercedes'), (' mercer does', ' mercedes'), (' merced is', ' mercedes'), \
 					(' critter', ' twitter'), (' butcher', ' twitter'), (' treetop', ' twitter'), (' toilet', ' twitter'), (' trader', ' twitter'),
 					(' front mount', ' frontmost'),
+					(' grimlock', ' green block'),
+					(' where\'s', ' where is'),
 					(' talking block', ' target block'), (' chopping', ' target'), (' testicle', ' texaco'),\
 					(' merciless', ' mercedes'), \
 					(' mug', ' block'), (' the find', ' behind'),
