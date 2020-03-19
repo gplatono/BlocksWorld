@@ -72,6 +72,7 @@ class World(object):
 
 		#Create and save the initial state of the world
 		self.history = []
+		self.move_queue = []
 
 		if self.simulation_mode == False:
 			bpy.ops.wm.modal_timer_operator()		
@@ -83,8 +84,8 @@ class World(object):
 		block_data = []        
 
 		for segment in json_data['BlockStates']:
-			position = self.bw_multiplier * np.array([float(x) for x in segment['Position'].split(",")])
-			rotation = Quaternion([float(x) for x in segment['Rotation'].split(",")]).to_euler()
+			position = self.bw_multiplier * np.array([round(float(x), 2) for x in segment['Position'].split(",")])
+			rotation = Quaternion([round(float(x), 2) for x in segment['Rotation'].split(",")]).to_euler()
 			block_data.append((segment['ID'], position, rotation))            
 
 		return block_data
@@ -249,15 +250,17 @@ class World(object):
 		for block in self.blocks:
 			updated_blocks[block] = 0
 
+
+
 		for id, location, rotation in block_data:
 			if id in self.block_by_ids:
 				block = self.block_by_ids[id]              
 				rot1 = np.array([item for item in rotation])
 				rot2 = np.array([item for item in block.rotation_euler])				
 				#Threshold changed from 0.05
-				if np.linalg.norm(location - block.location) >= 0.2: # or np.linalg.norm(rot1 - rot2) >= 0.4: #0.05
+				if np.linalg.norm(location - block.location) >= 0.1: # or np.linalg.norm(rot1 - rot2) >= 0.4: #0.05
 					if self.verbose or self.verbose_rotation:
-						if np.linalg.norm(location - block.location) >= 0.2:
+						if np.linalg.norm(location - block.location) >= 0.1:
 							print ("MOVED BLOCK: ", block.name, location, block.location, np.linalg.norm(location - block.location))
 						else:
 							print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
@@ -296,7 +299,7 @@ class World(object):
 						cand = block
 			if cand != None:
 				if self.verbose or self.verbose_rotation:
-					if np.linalg.norm(location - cand.location) >= 0.2:
+					if np.linalg.norm(location - cand.location) >= 0.1:
 						print ("MOVED BLOCK: ", cand.name, location, cand.location, np.linalg.norm(location - cand.location))                
 					else:
 						print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
@@ -304,7 +307,7 @@ class World(object):
 				self.block_by_ids[id] = cand
 				self.block_to_ids[cand] = id
 				updated_blocks[cand] = 1
-				if np.linalg.norm(location - cand.location) >= 0.2:# or np.linalg.norm(rot1 - rot2) >= 0.4:
+				if np.linalg.norm(location - cand.location) >= 0.3:# or np.linalg.norm(rot1 - rot2) >= 0.4:
 					cand.location = location
 					#cand.rotation_euler = rotation
 					moved_blocks.append(cand.name)
@@ -313,6 +316,8 @@ class World(object):
 	def update_state(self):
 		block_data = self.get_block_data()		
 		moved_blocks = self.update(block_data)
+
+		print ("MOVED BLOCKS: ", moved_blocks)
 		
 		if len(self.history) == 0:
 			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]
@@ -420,18 +425,15 @@ class World(object):
 		def __init__(self, entities):
 			self.locations = {}
 			for ent in entities:
-				self.locations[ent.name] = ent.location
-			# self.entities = entities
-			# self.state_facts = []
-			# self.compute()
-			# self.relation_dict = {}
-
+				self.locations[ent.name] = np.round(ent.location, 3)
+			
 		def state_diff(self, s):
 			"""self - s"""
 			result = []
 			for name in self.locations:
-				print ("MOVE DIST: ", np.linalg.norm(self.locations[name] - s.locations[name]))
-				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.2:					
+				if np.linalg.norm(self.locations[name] - s.locations[name]) > 0:					
+					print ("MOVE DIST: {}, {}".format(name, np.linalg.norm(self.locations[name] - s.locations[name])))
+				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.3:					
 					result.append([name, self.locations[name], s.locations[name]])
 			return result
 

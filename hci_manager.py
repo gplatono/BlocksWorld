@@ -163,7 +163,7 @@ class HCIManager(object):
 		loc_dict = self.world.history[-1].locations
 		locations = ['(|' + name + '| at-loc.p ($ loc ' + loc_to_str(loc_dict[name]) + '))' for name in loc_dict]
 		moves = self.world.get_moves_after_checkpoint()
-		print ("moved blocks: " + ', '.join([item[0] for item in moves]))
+		#print ("moved blocks: " + ', '.join([item[0] for item in moves]))
 		moves = ['(|' + item[0] + '| ((past move.v) (from.p-arg ($ loc ' + loc_to_str(item[1]) + ')) (to.p-arg ($ loc ' +\
 							loc_to_str(item[2]) + '))))' for item in moves]
 
@@ -226,6 +226,7 @@ class HCIManager(object):
 					(' front mount', ' frontmost'),
 					(' grimlock', ' green block'),
 					(' where\'s', ' where is'),
+					(' attaching', ' touching'),
 					(' talking block', ' target block'), (' chopping', ' target'), (' testicle', ' texaco'),\
 					(' merciless', ' mercedes'), \
 					(' mug', ' block'), (' the find', ' behind'),
