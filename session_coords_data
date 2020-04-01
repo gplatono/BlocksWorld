@@ -1,2 +1,0 @@
-
-(setq *next-perceptions* '((|Mercedes| at-loc.p ($ loc 1.419 -3.032 0.581)) (|Target| at-loc.p ($ loc -3.419 -2.774 0.581)) (|Starbucks| at-loc.p ($ loc -2.452 -2.903 0.581)) (|Texaco| at-loc.p ($ loc -0.581 -3.032 0.581)) (|McDonald's| at-loc.p ($ loc 0.452 -3.032 0.581)) (|Table| at-loc.p ($ loc -0.055 0.048 -0.064)) (|Burger King| at-loc.p ($ loc 3.548 -2.903 0.581)) (|Toyota| at-loc.p ($ loc 2.516 -2.968 0.581)) (|Twitter| at-loc.p ($ loc -1.419 -3.032 0.581))))
