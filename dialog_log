@@ -8714,3 +8714,37 @@ SESSION: 2020-04-06 18:59:19
 18:59:35 USER: where is the toyota block?
 18:59:36 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
 18:59:41 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-06 19:12:02
+=============================================================
+19:12:10 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:12:14 USER: where is the target block?
+19:12:16 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:12:26 DAVID:  THE TARGET BLOCK IS TO THE LEFT OF THE STARBUCKS BLOCK .
+
+SESSION: 2020-04-06 19:13:04
+=============================================================
+19:13:12 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:13:26 USER: where is the target block?
+19:13:52 USER: where is the target block?
+19:13:53 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:14:02 DAVID:  THE TARGET BLOCK IS TO THE LEFT OF THE STARBUCKS BLOCK .
+19:14:26 USER: which block is between the starbucks block and the texaco block?
+19:14:27 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:14:36 DAVID:  THE TARGET BLOCK IS TO THE LEFT OF THE STARBUCKS BLOCK .
+
+SESSION: 2020-04-06 19:14:54
+=============================================================
+19:15:03 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:15:11 USER: where is the toyota block?
+19:15:12 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:15:21 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+19:15:32 USER: how many blocks are red?
+19:15:33 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) RED.A)) ?)
+19:15:40 DAVID:  TWO BLOCKS ARE RED .
+19:16:19 USER: which blocks did i move?
+19:16:20 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+19:16:27 DAVID:  YOU MOVED THE TARGET BLOCK .
+19:16:52 USER: how many blocks did i move since the beginning?
+19:16:53 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
+19:17:00 DAVID:  YOU MOVED TWO BLOCKS .
