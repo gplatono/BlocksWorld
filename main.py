@@ -41,7 +41,7 @@ settings = {}
 for line in conf_list:
 	setting = line.split("=")[0]
 	val = line.split("=")[1]
-	if setting == "DEBUG_MODE" or setting == "SIMULATION_MODE":
+	if setting == "DEBUG_MODE" or setting == "SIMULATION_MODE" or setting == "TEXT_MODE":
 		val = (val == "1")
 	settings[setting] = val
 
@@ -246,12 +246,17 @@ def main():
 			if space.type == 'VIEW_3D':
 				space.shading.type = my_shading
 
-	print ("Entering the main loop...")
+	#print ("Entering the main loop...")
 	if '-s' in sys.argv:
+		print ("Starting in the simulation mode (no Kinect input)...")
 		settings['SIMULATION_MODE'] = True
 
 	if '-d' in sys.argv:
 		settings['DEVELOPMENT_MODE'] = True
+
+	if '-t' in sys.argv:
+		print ("Text mode enabled (text input, no ASR)...")
+		settings['TEXT_MODE'] = True
 
 	if '-bo' in sys.argv:
 		settings['DEVELOPMENT_MODE'] = True
@@ -290,7 +295,7 @@ def main():
 
 
 	if '-bo' not in sys.argv:        
-		hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'])
+		hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'], text_mode=settings['TEXT_MODE'])
 
 		if hci_manager.debug_mode == True:
 			run_debug(world, hci_manager)

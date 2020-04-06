@@ -10,7 +10,7 @@ from mathutils import Vector
 from mathutils import Quaternion
 from entity import Entity
 from geometry_utils import *
-import spatial
+#import spatial
 
 class World(object):
 	"""
@@ -43,19 +43,14 @@ class World(object):
 		self.scene_setup()
 
 		self.verbose = False
-		self.verbose_rotation = False
+		self.verbose_rotation = False		
 		
-		block_data = self.get_block_data()
-		block_data.sort(key = lambda x : x[1][0])
-		for idx in range(len(block_data)):
-			id, location, rotation = block_data[idx]
-			self.block_to_ids[self.blocks[idx]] = id
-			self.block_by_ids[id] = self.blocks[idx]
-			self.blocks[idx].location = location
-			self.blocks[idx].rotation_euler = rotation
-
+		bpy.utils.register_class(self.ProcessInputOp)
 		bpy.utils.register_class(self.ModalTimerOp)
+		self.ProcessInputOp.world = self
 		self.ModalTimerOp.world = self
+
+		bpy.ops.view3d.process_input()
 
 		self.moved_blocks = []
 		
@@ -75,7 +70,20 @@ class World(object):
 		self.move_queue = []
 
 		if self.simulation_mode == False:
-			bpy.ops.wm.modal_timer_operator()		
+			block_data = self.get_block_data()
+			block_data.sort(key = lambda x : x[1][0])
+			for idx in range(len(block_data)):
+				id, location, rotation = block_data[idx]
+				self.block_to_ids[self.blocks[idx]] = id
+				self.block_by_ids[id] = self.blocks[idx]
+				self.blocks[idx].location = location
+				self.blocks[idx].rotation_euler = rotation
+
+			bpy.ops.wm.modal_timer_operator()	
+		else:
+			self.history.append(self.State(self.entities))
+			if len(self.history) == 1:
+				self.make_checkpoint()	
 
 	def get_block_data(self):
 		url = "http://127.0.0.1:1236/world-api/block-state.json"
@@ -420,8 +428,41 @@ class World(object):
 			context.window_manager.event_timer_remove(self._timer)
 			return {"CANCELLED"}
 
-	class State:
+	class ProcessInputOp(bpy.types.Operator):
+		"""Process input while Control key is pressed."""
+		#bl_idname = 'view3d.process_input'
+		bl_idname = 'view3d.process_input'
+		bl_label = 'ProcessInput'
+		bl_options = {'REGISTER'}
+		world = None
 
+		def modal(self, context, event):			
+			if event.type == 'ESC':			
+				return {'FINISHED'}
+			elif event.type == 'G':
+				print("G pressed...")
+			elif event.type == 'LEFTMOUSE':
+				for ent in self.world.entities:
+					ent.update()
+				self.world.history.append(self.world.State(self.world.entities))
+				if len(self.world.history) > 1:
+					print (self.world.history[-1].state_diff(self.world.history[-2]))
+				
+			elif event.ctrl:
+				pass # Input processing code.
+
+			return {'PASS_THROUGH'}
+
+		def execute(self, context):
+			context.window_manager.modal_handler_add(self)
+			return {'RUNNING_MODAL'}
+
+		# def invoke(self, context, event):
+		# 	print ("MODAL2")
+		# 	context.window_manager.modal_handler_add(self)
+		# 	return {'RUNNING_MODAL'}
+
+	class State:
 		def __init__(self, entities):
 			self.locations = {}
 			for ent in entities:

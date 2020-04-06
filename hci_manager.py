@@ -29,12 +29,13 @@ class HCIManager(object):
 		END = 5
 		SUSPEND = 6
 
-	def __init__(self, world, debug_mode = False):
+	def __init__(self, world, debug_mode = False, text_mode = False):
 
 		#Stores the context of the conversation. For future use.
 		self.context = None
 
 		self.debug_mode = debug_mode
+		self.text_mode = text_mode
 
 		#Current state = initial state
 		self.state = self.STATE.INIT
@@ -256,7 +257,9 @@ class HCIManager(object):
 
 	def start(self):
 		"""Initiate the listening loop."""
-		if self.debug_mode == False:
+
+		#self.debug_mode = True
+		if self.text_mode == False:
 			print ("Starting the listening thread...")
 			mic_thread = Thread(target = self.mic_loop)
 			#mic_thread.setDaemon(True)
@@ -280,6 +283,9 @@ class HCIManager(object):
 				self.state = self.STATE.SYSTEM_GREET
 				continue
 
+			if self.text_mode:
+				self.current_input = input()
+
 			self.speech_lock.acquire()
 			if self.current_input != "":
 				
@@ -288,13 +294,13 @@ class HCIManager(object):
 
 				print ("you said: " + self.current_input)
 				self.current_input = self.preprocess(self.current_input)
-				self.current_input = self.current_input.replace("is it ", "is that block ")
+				#self.current_input = self.current_input.replace("is it ", "is that block ")
 				
 				if self.debug_mode == False and self.state != self.STATE.SUSPEND:
-					print ("ENTERING ETA DIALOG EXCHANGE BLOCK...")
+					print ("ENTERING ETA EXCHANGE BLOCK...")
 
-					input = self.current_input
-					time.sleep(0.1)										
+					#input = self.current_input
+					#time.sleep(0.1)										
 					self.send_to_eta("INPUT", self.current_input)
 					self.send_to_avatar('USER_SPEECH', self.current_input)
 					self.send_perceptions()
