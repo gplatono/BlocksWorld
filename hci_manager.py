@@ -121,9 +121,12 @@ class HCIManager(object):
 	def read_and_vocalize_from_eta(self):
 		response = self.read_from_eta(mode = "OUTPUT")		
 		if response != "" and response is not None:
-			print ("\nFINAL RESPONSE: " + str(response))
+			print ("\nANSWER: " + str(response))
 			#response = response.lower().replace(' you was', ' i was')
-			self.send_to_avatar('SAY', response)
+			if self.text_mode == False:
+				self.send_to_avatar('SAY', response)
+			else:
+				print ("Go on...")
 			self.log("DAVID", response)		
 		return response
 
@@ -273,14 +276,16 @@ class HCIManager(object):
 		self.clear_file(self.coords_log_path)
 		self.init_log()
 
-		print ("Starting the processing loop...")
+		print ("\n==========================================================")
+		print ("Starting the dialog loop...")
+		print ("==========================================================\n")
 		
 		while True:
 			
-			if self.state == self.STATE.INIT:
-				print ("WAITING...")
+			if self.state == self.STATE.INIT:				
 				response = self.read_and_vocalize_from_eta()				
 				self.state = self.STATE.SYSTEM_GREET
+				print ("Go ahead, ask a question...")
 				continue
 
 			if self.text_mode:
@@ -297,7 +302,7 @@ class HCIManager(object):
 				#self.current_input = self.current_input.replace("is it ", "is that block ")
 				
 				if self.debug_mode == False and self.state != self.STATE.SUSPEND:
-					print ("ENTERING ETA EXCHANGE BLOCK...")
+					#print ("ENTERING ETA EXCHANGE BLOCK...")
 
 					#input = self.current_input
 					#time.sleep(0.1)										
@@ -306,7 +311,7 @@ class HCIManager(object):
 					self.send_perceptions()
 					time.sleep(0.5)
 
-					print ("WAITING FOR ULF...")
+					#print ("WAITING FOR ULF...")
 					ulf = self.read_from_eta(mode = "ULF")
 					
 					print ("RETURNED ULF FROM ETA: ", ulf)
@@ -441,7 +446,7 @@ class HCIManager(object):
 		#print ("SENDING TO AVATAR " + mode + " " + text)
 		if mode == 'SAY':
 			self.asr_active = False			
-			print ("DAVID IS TALKING...")
+			print ("WAIT, DAVID IS TALKING...")
 			#time.sleep(1.0)
 			req = requests.get(self.avatar_speech_servlet + "?say=" + text)
 			time.sleep(1.0)

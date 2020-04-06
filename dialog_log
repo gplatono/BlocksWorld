@@ -8748,3 +8748,33 @@ SESSION: 2020-04-06 19:14:54
 19:16:52 USER: how many blocks did i move since the beginning?
 19:16:53 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
 19:17:00 DAVID:  YOU MOVED TWO BLOCKS .
+
+SESSION: 2020-04-06 19:26:07
+=============================================================
+19:26:08 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:26:35 USER: where is the toyota block?
+
+SESSION: 2020-04-06 19:27:11
+=============================================================
+19:27:12 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-06 19:28:49
+=============================================================
+19:28:57 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-06 19:35:17
+=============================================================
+19:35:18 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:35:45 USER: where is the toyota block?
+19:35:47 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:35:50 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+
+SESSION: 2020-04-06 19:37:51
+=============================================================
+19:37:52 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:38:08 USER: how many blocks  are red?
+19:38:09 ULF: ((((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PRES BE.V) RED.A)) ?)
+19:38:12 DAVID:  TWO BLOCKS ARE RED .
+19:38:29 USER: how many blocks have i moved?
+19:38:30 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) (I.PRO ((PAST PERF) (MOVE.V *H)))) ?))
+19:38:33 DAVID:  YOU HAVEN'T MOVED ANY BLOCKS .
