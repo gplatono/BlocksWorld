@@ -8778,3 +8778,59 @@ SESSION: 2020-04-06 19:37:51
 19:38:29 USER: how many blocks have i moved?
 19:38:30 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) (I.PRO ((PAST PERF) (MOVE.V *H)))) ?))
 19:38:33 DAVID:  YOU HAVEN'T MOVED ANY BLOCKS .
+
+SESSION: 2020-04-07 17:35:57
+=============================================================
+
+SESSION: 2020-04-07 17:40:50
+=============================================================
+
+SESSION: 2020-04-07 17:41:47
+=============================================================
+
+SESSION: 2020-04-07 18:23:57
+=============================================================
+18:23:57 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:24:20 USER: where is the toyota block?
+18:24:21 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+18:24:58 USER: where is the texaco block?
+18:24:59 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Texaco BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-04-07 18:29:30
+=============================================================
+18:29:31 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:29:59 USER: where is the toyota block?
+18:30:00 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-04-07 18:31:58
+=============================================================
+18:31:58 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:32:12 USER: where is the toyota block?
+18:32:13 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-04-07 18:38:06
+=============================================================
+18:38:06 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:38:20 USER: where is the toyota block?
+18:38:22 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+
+SESSION: 2020-04-07 18:39:34
+=============================================================
+18:39:35 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:39:47 USER: where is the toyota block?
+18:39:49 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+18:40:29 USER: where is the target block?
+18:40:30 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Target BLOCK.N)) ((PRES BE.V) *H))) ?)
+18:40:33 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK . THE TARGET BLOCK IS TO THE LEFT OF THE STARBUCKS BLOCK .
+
+SESSION: 2020-04-07 19:02:03
+=============================================================
+19:04:32 USER: where is the toyota block?
+19:04:34 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:04:37 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS. THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+19:04:56 USER: is the texaco block next to the burger king block?
+19:04:58 ULF: (((THE.D (Texaco BLOCK.N)) ((PRES BE.V) (NEXT_TO.P (THE.D (Burger King BLOCK.N))))) ?)
+19:05:01 DAVID:  NO .
+19:05:09 USER: which blocks did i move?
+19:05:10 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+19:05:13 DAVID:  YOU DIDN'T MOVE ANY BLOCKS .
