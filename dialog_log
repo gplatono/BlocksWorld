@@ -8834,3 +8834,74 @@ SESSION: 2020-04-07 19:02:03
 19:05:09 USER: which blocks did i move?
 19:05:10 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
 19:05:13 DAVID:  YOU DIDN'T MOVE ANY BLOCKS .
+
+SESSION: 2020-04-09 15:29:46
+=============================================================
+15:29:47 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 15:33:30
+=============================================================
+15:33:30 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 15:52:56
+=============================================================
+15:52:57 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 15:54:04
+=============================================================
+15:54:05 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 15:54:51
+=============================================================
+15:54:51 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 15:55:42
+=============================================================
+15:55:43 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 15:57:25
+=============================================================
+15:57:26 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 16:02:28
+=============================================================
+16:02:29 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+16:03:33 USER: m
+16:03:37 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+
+SESSION: 2020-04-09 16:04:29
+=============================================================
+16:04:30 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 16:39:54
+=============================================================
+16:39:54 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 18:44:15
+=============================================================
+18:44:15 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+18:44:45 USER: which blocks did i move?
+18:44:47 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+18:44:50 DAVID:  YOU MOVED THE BURGER KING BLOCK .
+18:45:59 USER: how many blocks did i move?
+18:46:00 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+18:46:03 DAVID:  YOU MOVED ONE BLOCK .
+18:46:19 USER: how many blocks did i move since the beginning?
+18:46:20 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
+18:46:23 DAVID:  YOU MOVED TWO BLOCKS .
+18:47:35 USER: did i move the starbucs block?
+18:47:39 DAVID:  YOU ARE ASKING ABOUT SOME STARBUCS BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+18:47:44 USER: did i move the starbucks block?
+18:47:46 ULF: (NON-QUERY (((PAST DO.AUX-S) I.PRO (MOVE.V (THE.D (Starbucks BLOCK.N)))) ?))
+18:47:49 DAVID:  NO .
+18:48:07 USER: which block did i move?
+18:48:12 DAVID:  YOU MOVED THE TARGET BLOCK .
+18:48:35 USER: which block did i move?
+18:48:36 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+18:48:40 DAVID:  YOU MOVED THE TARGET BLOCK .
+18:49:18 USER: how many blocks did i move since the beginning?
+18:49:19 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H (ADV-E (SINCE.P (THE.D BEGINNING.N)))))) ?))
+18:49:22 DAVID:  YOU MOVED TWO BLOCKS .
+18:49:49 USER: which block did i move?
+18:49:50 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+18:49:54 DAVID:  YOU MOVED THE STARBUCKS BLOCK .

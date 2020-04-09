@@ -40,7 +40,7 @@ class World(object):
 		#List of  possible color modifiers
 		self.color_mods = ['black', 'red', 'blue', 'brown', 'green', 'yellow']		
 
-		self.scene_setup()
+		#self.scene_setup()
 
 		self.verbose = False
 		self.verbose_rotation = False		
@@ -435,22 +435,42 @@ class World(object):
 		bl_label = 'ProcessInput'
 		bl_options = {'REGISTER'}
 		world = None
+		move_mode = False
+		actual_move = False
 
 		def modal(self, context, event):			
-			if event.type == 'ESC':			
-				return {'FINISHED'}
-			elif event.type == 'G':
-				print("G pressed...")
-			elif event.type == 'LEFTMOUSE':
-				for ent in self.world.entities:
-					ent.update()
-				self.world.history.append(self.world.State(self.world.entities))
-				if len(self.world.history) > 1:
-					print (self.world.history[-1].state_diff(self.world.history[-2]))
-				
-			elif event.ctrl:
-				pass # Input processing code.
+			# if event.type == 'ESC':			
+			# 	return {'FINISHED'}						
+			if event.ctrl and event.shift and event.type == 'M':
+				def ShowMessageBox(message = "", title = "Message Box", icon = 'INFO'):
+					def draw(self, context):
+						self.layout.label(text=message)
 
+					bpy.context.window_manager.popup_menu(draw, title = title, icon = icon)
+
+				if self.move_mode == False:
+					self.move_mode = True
+					ShowMessageBox('Move begins...')
+				elif self.actual_move:
+					for ent in self.world.entities:
+						ent.update()
+					self.world.history.append(self.world.State(self.world.entities))
+					if len(self.world.history) > 1:
+						print (self.world.history[-1].state_diff(self.world.history[-2]))
+					ShowMessageBox('Move complete...')
+					self.actual_move = False
+					self.move_mode = False					
+			elif event.type == 'G' and self.move_mode:
+				self.actual_move = True
+
+			# elif event.type == 'G':
+			# 	print("G pressed...")
+			# elif event.type == 'LEFTMOUSE':
+			# 	for ent in self.world.entities:
+			# 		ent.update()
+			# 	self.world.history.append(self.world.State(self.world.entities))
+			# 	if len(self.world.history) > 1:
+			# 		print (self.world.history[-1].state_diff(self.world.history[-2]))						
 			return {'PASS_THROUGH'}
 
 		def execute(self, context):
