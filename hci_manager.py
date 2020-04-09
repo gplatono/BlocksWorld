@@ -29,13 +29,14 @@ class HCIManager(object):
 		END = 5
 		SUSPEND = 6
 
-	def __init__(self, world, debug_mode = False, text_mode = False):
+	def __init__(self, world, debug_mode = False, speech_mode = True, avatar_mode = True):
 
 		#Stores the context of the conversation. For future use.
 		self.context = None
 
 		self.debug_mode = debug_mode
-		self.text_mode = text_mode
+		self.speech_mode = speech_mode
+		self.avatar_mode = avatar_mode
 
 		#Current state = initial state
 		self.state = self.STATE.INIT
@@ -123,7 +124,7 @@ class HCIManager(object):
 		if response != "" and response is not None:
 			print ("\nANSWER: " + str(response))
 			#response = response.lower().replace(' you was', ' i was')
-			if self.text_mode == False:
+			if self.avatar_mode == True:
 				self.send_to_avatar('SAY', response)
 			else:
 				print ("Go on...")
@@ -262,7 +263,7 @@ class HCIManager(object):
 		"""Initiate the listening loop."""
 
 		#self.debug_mode = True
-		if self.text_mode == False:
+		if self.speech_mode:
 			print ("Starting the listening thread...")
 			mic_thread = Thread(target = self.mic_loop)
 			#mic_thread.setDaemon(True)
@@ -288,7 +289,7 @@ class HCIManager(object):
 				print ("Go ahead, ask a question...")
 				continue
 
-			if self.text_mode:
+			if not self.speech_mode:
 				self.current_input = input()
 
 			self.speech_lock.acquire()

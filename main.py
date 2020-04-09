@@ -39,10 +39,10 @@ scene = bpy.context.scene
 conf_list = open("config").readlines()
 settings = {}
 for line in conf_list:
-	setting = line.split("=")[0]
-	val = line.split("=")[1]
-	if setting == "DEBUG_MODE" or setting == "SIMULATION_MODE" or setting == "TEXT_MODE":
-		val = (val == "1")
+	setting = line.split("=")[0].strip()
+	val = line.split("=")[1].strip()
+	if setting == "DEBUG_MODE" or setting == "SIMULATION_MODE" or setting == "SPEECH_MODE" or setting == "AVATAR_MODE":
+		val = (val == "1") or (val == "True")
 	settings[setting] = val
 
 #List of  possible color modifiers
@@ -239,8 +239,7 @@ def run_debug(world, hci_manager):
 def main():
 	my_areas = bpy.context.workspace.screens[0].areas
 	my_shading = 'MATERIAL'  # 'WIREFRAME' 'SOLID' 'MATERIAL' 'RENDERED'
-
-
+	
 	for area in my_areas:
 		for space in area.spaces:
 			if space.type == 'VIEW_3D':
@@ -255,14 +254,22 @@ def main():
 		settings['DEVELOPMENT_MODE'] = True
 
 	if '-t' in sys.argv:
-		print ("Text mode enabled (text input, no ASR)...")
-		settings['TEXT_MODE'] = True
+		print ("Full text mode enabled (text input/output, no ASR or David)...")
+		settings['SPEECH_MODE'] = False
+		settings['AVATAR_MODE'] = False
+	
+	if '-ti' in sys.argv:
+		print ("Text input mode enabled (no ASR)...")
+		settings['SPEECH_MODE'] = False
+
+	if '-to' in sys.argv:
+		print ("Text output mode enabled (no David)...")
+		settings['AVATAR_MODE'] = False       
 
 	if '-bo' in sys.argv:
 		settings['DEVELOPMENT_MODE'] = True
 		settings['SIMULATION_MODE'] = True
-		
-	 
+			 
 	world = World(bpy.context.scene, simulation_mode=settings['SIMULATION_MODE'])
 	spatial.entities = world.entities
 	spatial.world = world
@@ -294,8 +301,8 @@ def main():
 	#print ([v.co for v in Toy.components[0].data.vertices])
 
 
-	if '-bo' not in sys.argv:        
-		hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'], text_mode=settings['TEXT_MODE'])
+	if '-bo' not in sys.argv:       
+		hci_manager = HCIManager(world, debug_mode = settings['DEBUG_MODE'], speech_mode=settings['SPEECH_MODE'], avatar_mode=settings['AVATAR_MODE'])
 
 		if hci_manager.debug_mode == True:
 			run_debug(world, hci_manager)

@@ -40,6 +40,12 @@ if '-d' in sys.argv:
 if '-t' in sys.argv:
 	params.append('-t')
 
+if '-ti' in sys.argv:
+	params.append('-ti')
+
+if '-to' in sys.argv:
+	params.append('-to')
+
 if '-bg' not in sys.argv:
 	command = ['blender', 'bw_scene.blend', '-P', 'main.py', '--'] + params	
 else:

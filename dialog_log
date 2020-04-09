@@ -8905,3 +8905,42 @@ SESSION: 2020-04-09 18:44:15
 18:49:49 USER: which block did i move?
 18:49:50 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
 18:49:54 DAVID:  YOU MOVED THE STARBUCKS BLOCK .
+
+SESSION: 2020-04-09 19:12:40
+=============================================================
+19:12:49 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:12:58 USER: which blocks did i move?
+19:12:59 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+
+SESSION: 2020-04-09 19:28:02
+=============================================================
+19:28:02 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:28:11 USER: where is the toyota block?
+19:28:12 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:28:15 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+
+SESSION: 2020-04-09 19:28:32
+=============================================================
+19:28:33 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:29:02 USER: where is the toyota block?
+19:29:03 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+19:29:06 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+
+SESSION: 2020-04-09 19:30:33
+=============================================================
+19:30:33 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:32:03 USER: where is the toyota block?
+
+SESSION: 2020-04-09 19:32:14
+=============================================================
+19:32:14 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 19:33:00
+=============================================================
+19:33:00 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-09 19:34:53
+=============================================================
+19:35:01 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+19:35:09 USER: where is the toyota block?
+19:35:10 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
