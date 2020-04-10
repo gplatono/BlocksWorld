@@ -330,7 +330,7 @@ class HCIManager(object):
 							#print ("HIGHER THAN ", spatial.higher_than(tar, stb), spatial.higher_than(stb, tar), spatial.at_same_height(stb, tar))
 							#print ("TOUCH:")
 							#print ([(bl, touching(bl, tbl)) for bl in self.world.entities if bl != tbl])
-					time.sleep(2.5)
+					time.sleep(4.0)
 					
 					response = str(self.read_and_vocalize_from_eta())
 					open(self.eta_answer, 'w').close()					

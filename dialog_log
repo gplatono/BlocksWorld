@@ -8969,3 +8969,20 @@ SESSION: 2020-04-10 16:20:43
 16:24:14 DAVID:  YOU MOVED THE BURGER KING BLOCK .
 16:24:24 USER: when did i move the target block?
 16:24:25 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V (THE.D (Target BLOCK.N)) (ADV-E *H)))) ?))
+
+SESSION: 2020-04-10 16:32:40
+=============================================================
+16:32:41 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+16:32:56 USER: which blocks have i moved?
+16:32:58 ULF: (NON-QUERY ((SUB (WHICH.D (PLUR BLOCK.N)) (I.PRO ((PAST PERF) (MOVE.V *H)))) ?))
+16:33:36 USER: how many blocks have i moved?
+16:33:38 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) (I.PRO ((PAST PERF) (MOVE.V *H)))) ?))
+16:33:42 DAVID:  YOU HAVEN'T MOVED ANY BLOCKS . YOU HAVEN'T MOVED ANY BLOCKS .
+16:34:44 USER: how many blocks have i moved?
+16:34:45 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) (I.PRO ((PAST PERF) (MOVE.V *H)))) ?))
+16:34:48 DAVID:  YOU HAVE MOVED ONE BLOCK .
+16:34:59 USER: did i move the target block?
+16:35:01 ULF: (NON-QUERY (((PAST DO.AUX-S) I.PRO (MOVE.V (THE.D (Target BLOCK.N)))) ?))
+16:35:04 DAVID:  YES .
+16:35:14 USER: when did i move the target block?
+16:35:15 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D TIME.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V (THE.D (Target BLOCK.N)) (ADV-E *H)))) ?))
