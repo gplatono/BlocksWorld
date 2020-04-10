@@ -89,7 +89,7 @@ class HCIManager(object):
 				time.sleep(0.5)
 				msg = file.readlines()
 				attempt_counter += 1
-				if attempt_counter == 10:
+				if attempt_counter == 40:
 					break
 			file.truncate(0)
 
@@ -310,7 +310,7 @@ class HCIManager(object):
 					self.send_to_eta("INPUT", self.current_input)
 					self.send_to_avatar('USER_SPEECH', self.current_input)
 					self.send_perceptions()
-					time.sleep(0.5)
+					time.sleep(1.0)
 
 					#print ("WAITING FOR ULF...")
 					ulf = self.read_from_eta(mode = "ULF")
