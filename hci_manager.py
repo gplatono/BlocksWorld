@@ -126,8 +126,8 @@ class HCIManager(object):
 			#response = response.lower().replace(' you was', ' i was')
 			if self.avatar_mode == True:
 				self.send_to_avatar('SAY', response)
-			else:
-				print ("Go on...")
+			# else:
+			# 	print ("Go on...")
 			self.log("DAVID", response)		
 		return response
 
@@ -334,7 +334,18 @@ class HCIManager(object):
 					time.sleep(4.0)
 					
 					response = str(self.read_and_vocalize_from_eta())
-					open(self.eta_answer, 'w').close()					
+					open(self.eta_answer, 'w').close()
+
+					if not self.speech_mode:
+						print ("Please judge the system's answer or report an error (c - correct, p - partially correct, i - incorrect, e - error): ")
+						feedback = input()
+						self.world.log_event('USER_FEEDBACK', feedback)
+						if feedback.lower() == 'e':
+							print ("Thanks, your feedback was recorded. Please manually close the SBCL window with Eta and restart the program. Press any key to continue...")
+							input()
+							exit()
+						else:
+							print ("Thanks, your feedback was recorded. Go on...")
 					
 					if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
 						print ("ENDING THE SESSION...")
