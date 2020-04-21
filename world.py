@@ -257,6 +257,8 @@ class World(object):
 		return LeftBlocked and RightBlocked
 
 	def init_event_log(self):
+		if not os.path.exists("logs"):
+			os.makedirs("logs")
 		with open("logs" + os.sep + "event_log", 'a+') as log:
 			log.write("\nSESSION: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
 			log.write("================================================================================\n")	
