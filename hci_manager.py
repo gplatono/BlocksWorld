@@ -58,8 +58,8 @@ class HCIManager(object):
 		self.eta_perceptions = self.eta_path + "perceptions.lisp"
 
 
-		self.coords_log_path = "session_coords_data"
-		self.dialog_log_path = "dialog_log"
+		self.coords_log_path = "logs" + os.sep + "session_coords_data"
+		self.dialog_log_path = "logs" + os.sep + "dialog_log"
 		self.log_file = None
 
 		self.ulf_parser = ULFParser()
