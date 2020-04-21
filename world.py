@@ -3,6 +3,8 @@ import time
 import json
 import requests
 import numpy as np
+import os
+import datetime
 
 import bpy
 import bmesh
@@ -10,6 +12,7 @@ from mathutils import Vector
 from mathutils import Quaternion
 from entity import Entity
 from geometry_utils import *
+
 #import spatial
 
 class World(object):
@@ -81,9 +84,13 @@ class World(object):
 
 			bpy.ops.wm.modal_timer_operator()	
 		else:
-			self.history.append(self.State(self.entities))
+			# self.history.append(self.State(self.entities))
+			self.record_history()
 			if len(self.history) == 1:
-				self.make_checkpoint()	
+				self.make_checkpoint()
+
+		self.init_event_log()	
+		self.start_time = time.time()	
 
 	def get_block_data(self):
 		url = "http://127.0.0.1:1236/world-api/block-state.json"
@@ -249,6 +256,16 @@ class World(object):
 					RightBlocked = True
 		return LeftBlocked and RightBlocked
 
+	def init_event_log(self):
+		with open("logs" + os.sep + "event_log", 'a+') as log:
+			log.write("\nSESSION: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
+			log.write("================================================================================\n")	
+
+	def log_event(self, event, content):
+		with open("logs" + os.sep + "event_log", 'a+') as log:
+			elapsed =  time.strftime('%H:%M:%S', time.gmtime(time.time() - self.start_time))
+			log.write('(' + elapsed + ') ' + event + ': ' + content + '\n')
+
 	def update(self, block_data):
 		moved_blocks = []
 		updated_blocks = {}
@@ -348,13 +365,32 @@ class World(object):
 		bpy.context.evaluated_depsgraph_get().update()
 
 		if len(moved_blocks) > 0:
-			self.history.append(self.State(self.entities))
+			# self.history.append(self.State(self.entities))
+			self.record_history()
 			if len(self.history) == 1:
 				self.make_checkpoint()
 
 	def make_checkpoint(self):
 		#self.checkpoint = self.history[-1]
 		self.checkpoint = len(self.history)-1
+
+	def move_to_ulf(self, name, loc1, loc2):
+		def loc_to_str(loc):
+			return ' '.join([str(coord) for coord in loc])
+		
+		return '(|' + name + '| ((past move.v) (from.p-arg ($ loc ' + loc_to_str(loc1) + ')) (to.p-arg ($ loc ' +\
+							loc_to_str(loc2) + '))))'
+
+	def record_history(self):
+		self.history.append(self.State(self.entities))
+		if len(self.history) > 1:
+			moves = self.history[-1].state_diff(self.history[-2])
+			for move in moves:
+				self.log_event('BLOCK MOVE', self.move_to_ulf(move[0], move[1], move[2]))
+			print (self.history[-1].state_diff(self.history[-2]))
+
+	def get_last_move(self):
+		return moves[-1]
 
 	def get_moves_after_checkpoint(self):
 		result = []
@@ -454,9 +490,7 @@ class World(object):
 				elif self.actual_move:
 					for ent in self.world.entities:
 						ent.update()
-					self.world.history.append(self.world.State(self.world.entities))
-					if len(self.world.history) > 1:
-						print (self.world.history[-1].state_diff(self.world.history[-2]))
+					self.world.record_history()					
 					ShowMessageBox('Move complete...')
 					self.actual_move = False
 					self.move_mode = False					

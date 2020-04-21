@@ -139,8 +139,9 @@ class HCIManager(object):
 	def log(self, mode, text):
 		dt = datetime.datetime.now()
 		dt_str = dt.strftime("%H:%M:%S")
+		self.world.log_event(mode, text)
 		with open(self.dialog_log_path, "a+") as logf:
-			logf.write(dt_str + " " + str(mode) + ": " + str(text) + "\n")
+			logf.write(dt_str + " " + str(mode) + ": " + str(text) + "\n")		
 
 	def log_coords(self, coords):
 		with open(self.coords_log_path, "a+") as logf:

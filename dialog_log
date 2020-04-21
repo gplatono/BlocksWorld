@@ -9020,3 +9020,115 @@ SESSION: 2020-04-11 11:40:01
 11:40:22 USER: where is the toyota block?
 11:40:24 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
 11:40:29 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+
+SESSION: 2020-04-11 12:11:32
+=============================================================
+12:11:33 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+12:11:48 USER: are the blocks even real?
+12:11:54 DAVID:  YOU ARE ASKING ABOUT SOME BLOCKS , BUT I DIDN'T CATCH WHAT IT WAS.
+12:12:08 USER: where is the toy block?
+12:12:14 DAVID:  I HEARD YOU MENTION SOME TOY BLOCK , BUT DIDN'T HEAR THE REST.
+12:12:36 USER: where is the table?
+12:12:38 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D TABLE.N) ((PRES BE.V) *H))) ?)
+12:12:43 DAVID:  I DON'T KNOW WHERE THE TABLE IS .
+12:12:52 USER: where is the waldo?
+12:12:58 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+12:13:22 USER: is the burger king block tastier than the mcdonald's block?
+12:13:28 DAVID:  YOU ARE ASKING ABOUT SOME BURGER_KING BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+12:13:48 USER: where was the toyota block two aeons ago?
+12:13:54 DAVID:  I HEARD YOU MENTION SOME TOYOTA BLOCK , BUT DIDN'T HEAR THE REST.
+12:14:11 USER: when did i eat the hamburger?
+12:14:18 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+12:14:24 USER: what does the fox say?
+12:14:30 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+12:14:51 USER: david, you are not even real!
+12:14:57 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+12:15:06 USER: david, make me a sandwich
+12:15:12 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+12:15:18 USER: xyz
+12:15:24 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+12:15:38 USER: what is block?
+12:15:44 DAVID:  YOU ARE ASKING ABOUT SOME IS BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+12:16:01 USER: what did i have moved?
+12:16:07 DAVID:  YOU'RE NOT SURE WHAT MY QUESTION IS REFERRING TO.
+12:16:16 USER: what did i have being moved?
+12:16:22 DAVID:  I DIDN'T CATCH WHAT YOU ARE REFERRING TO.
+12:16:40 USER: what block was on top two minutes ago?
+12:16:42 ULF: (NON-QUERY (((WHAT.D BLOCK.N) ((PAST BE.V) (ON.P (K TOP.N)) (ADV-E ((MOD-A (BY.P (TWO.D (PLUR MINUTE.N)))) AGO.A)))) ?))
+12:16:47 DAVID:  NO BLOCK WAS ON TOP .
+12:17:03 USER: when did i move the david block
+12:17:09 DAVID:  YOU ARE ASKING ABOUT SOME DAVID BLOCK , BUT I DIDN'T CATCH WHAT IT WAS.
+12:17:28 USER: where was the david block two hours ago?
+12:17:34 DAVID:  I HEARD YOU MENTION SOME DAVID BLOCK , BUT DIDN'T HEAR THE REST.
+12:17:45 USER: where was the toyota block ten moves ago?
+12:17:47 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PAST BE.V) *H (ADV-E ((MOD-A (BY.P (TEN.D (PLUR MOVE.N)))) AGO.A))))) ?))
+
+SESSION: 2020-04-11 12:18:14
+=============================================================
+12:18:14 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+12:18:21 USER: hasta la vista, david!
+12:18:27 DAVID:  I APOLOGIZE , I COULDN'T UNDERSTAND WHAT YOU SAID .
+
+SESSION: 2020-04-11 13:03:25
+=============================================================
+13:03:25 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+13:04:05 USER: where was the toyota block ten moves ago?
+13:04:06 ULF: (NON-QUERY ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PAST BE.V) *H (ADV-E ((MOD-A (BY.P (TEN.D (PLUR MOVE.N)))) AGO.A))))) ?))
+
+SESSION: 2020-04-20 17:38:29
+=============================================================
+17:38:30 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+17:38:51 USER: where is the starbucks block?
+17:38:53 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) *H))) ?)
+17:38:58 DAVID:  THE STARBUCKS BLOCK IS BETWEEN THE TARGET BLOCK AND THE TWITTER BLOCK .
+17:39:01 USER: where is the starbucks block?
+17:39:02 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Starbucks BLOCK.N)) ((PRES BE.V) *H))) ?)
+17:39:07 DAVID:  THE STARBUCKS BLOCK IS BETWEEN THE TARGET BLOCK AND THE TWITTER BLOCK .
+
+SESSION: 2020-04-20 20:25:43
+=============================================================
+20:25:44 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+20:26:10 USER: where is the toyota block?
+20:26:12 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+20:26:17 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+
+SESSION: 2020-04-20 20:29:13
+=============================================================
+
+SESSION: 2020-04-20 20:30:11
+=============================================================
+20:30:12 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+
+SESSION: 2020-04-20 20:32:50
+=============================================================
+20:32:51 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+20:32:57 USER: where is the toyota block?
+20:32:58 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+20:33:03 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+
+SESSION: 2020-04-20 20:33:53
+=============================================================
+20:33:54 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+20:34:20 USER: where is the toyota block?
+20:34:22 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+20:34:27 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+20:35:54 USER: how many blocks did i move?
+20:35:56 ULF: (NON-QUERY ((SUB ((NQUAN (HOW.MOD-A MANY.A)) (PLUR BLOCK.N)) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+20:36:01 DAVID:  YOU MOVED ONE BLOCK .
+
+SESSION: 2020-04-20 20:45:24
+=============================================================
+
+SESSION: 2020-04-20 20:48:46
+=============================================================
+20:48:46 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+20:48:53 USER: where is the toyota block?
+20:48:55 ULF: ((SUB (AT.P (WHAT.D PLACE.N)) ((THE.D (Toyota BLOCK.N)) ((PRES BE.V) *H))) ?)
+20:49:00 DAVID:  THE TOYOTA BLOCK IS NEXT TO THE BURGER KING BLOCK .
+
+SESSION: 2020-04-20 20:51:56
+=============================================================
+20:51:56 DAVID:  HI, MY NAME IS DAVID. I'M READY TO ANSWER YOUR SPATIAL QUESTIONS.
+20:52:13 USER: which block did i move?
+20:52:15 ULF: (NON-QUERY ((SUB (WHICH.D BLOCK.N) ((PAST DO.AUX-S) I.PRO (MOVE.V *H))) ?))
+20:52:20 DAVID:  YOU MOVED THE TARGET BLOCK .
