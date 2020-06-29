@@ -376,12 +376,15 @@ class World(object):
 		#self.checkpoint = self.history[-1]
 		self.checkpoint = len(self.history)-1
 
-	def move_to_ulf(self, name, loc1, loc2):
-		def loc_to_str(loc):
-			return ' '.join([str(coord) for coord in loc])
-		
-		return '(|' + name + '| ((past move.v) (from.p-arg ($ loc ' + loc_to_str(loc1) + ')) (to.p-arg ($ loc ' +\
-							loc_to_str(loc2) + '))))'
+	def loc_to_str(self, loc):
+		x = ":x " + str(loc[0])
+		y = ":y " + str(loc[1])
+		z = ":z " + str(loc[2])
+		return '($ loc' + x + ' ' + y + ' ' + z + ')'
+
+	def move_to_ulf(self, name, loc1, loc2):		
+		return '(' + self.find_entity_by_name(name).get_ulf() + ' ((past move.v) (from.p-arg ' + self.loc_to_str(loc1) + ') (to.p-arg ' +\
+							self.loc_to_str(loc2) + ')))'
 
 	def record_history(self):
 		self.history.append(self.State(self.entities))
@@ -400,6 +403,10 @@ class World(object):
 			result += self.history[i].state_diff(self.history[i-1])
 		#return self.history[-1].state_diff(self.checkpoint)
 		return result
+
+	def get_move_ulfs_after_checkpoint(self):
+		move_ulfs = [self.move_to_ulf(move) for move in self.get_moves_after_checkpoint()]
+		return move_ulfs
 
 	# def get_last_moved(self):
 	# 	if self.history == []:

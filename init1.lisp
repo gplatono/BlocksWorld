@@ -1,0 +1,2 @@
+(defparameter *kb-ht* (make-hash-table :test #'equal))
+(store-facts'((on b1 table) (on b2 table) (on b3 table) (on b4 table) (block b1) (block b2) (block b3) (block b4) (red b1) (red b2) (blue b3) (blue b4) (available b1) (available b2) (available b3) (available b4) (available table))*kb-ht*)

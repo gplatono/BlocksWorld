@@ -167,11 +167,13 @@ class HCIManager(object):
 		assert self.world.history is not None and len(self.world.history) > 0
 
 		loc_dict = self.world.history[-1].locations
-		locations = ['(|' + name + '| at-loc.p ($ loc ' + loc_to_str(loc_dict[name]) + '))' for name in loc_dict]
-		moves = self.world.get_moves_after_checkpoint()
+		locations = ['(' + self.world.find_entity_by_name(name).get_ulf() + ' at-loc.p ($ loc ' + loc_to_str(loc_dict[name]) + '))' for name in loc_dict]
+		moves = self.world.get_move_ulfs_after_checkpoint()
+		#moves = 
+		#moves = [self.world.move_to_ulf(move) for move in self.world.get_moves_after_checkpoint()]
 		#print ("moved blocks: " + ', '.join([item[0] for item in moves]))
-		moves = ['(|' + item[0] + '| ((past move.v) (from.p-arg ($ loc ' + loc_to_str(item[1]) + ')) (to.p-arg ($ loc ' +\
-							loc_to_str(item[2]) + '))))' for item in moves]
+		#moves = ['(|' + item[0] + '| ((past move.v) (from.p-arg ($ loc ' + loc_to_str(item[1]) + ')) (to.p-arg ($ loc ' +\
+							#loc_to_str(item[2]) + '))))' for item in moves]
 
 		perceptions = "(setq *next-perceptions* \'(" + " ".join(locations + moves) + "))"
 		print ("PERCEPTIONS: ", perceptions)
@@ -182,6 +184,12 @@ class HCIManager(object):
 	
 	def get_ulf(self, query_frame, subj_list, obj_list):
 		#if subj_list is None or obj_list is None or len(subj_list) == 0 or len(obj_list) == 0:
+
+		def obj_to_ulf(obj):
+			name = obj.name
+			obtype = 'block.n'
+			return "(the.d (|" + name + "| " + obtype + "))"
+
 		if subj_list is None or len(subj_list) == 0:
 			return '\'None'
 		ret_val = ''
@@ -200,20 +208,20 @@ class HCIManager(object):
 				if type(subj[0]) == Entity:
 					for obj in obj_list:
 						if type(obj[0][0]) == Entity:					
-							ret_val += '((|' + subj[0].name + '| ' + rel + ' |' + obj[0][0].name + '|) ' + str(subj[1] * obj[1]) + ') '
+							ret_val += '((' + obj_to_ulf(subj[0]) + ' ' + rel + ' ' + obj_to_ulf(obj[0][0])+ ') ' + str(subj[1] * obj[1]) + ') '
 						else:
-							ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ') '
+							ret_val += '(' + obj_to_ulf(subj[0]) + ' ' + str(subj[1]) + ') '
 		elif query_frame.query_type == query_frame.QueryType.DESCR: 
 			for item in obj_list:
 				item = item[0][0]
 				print ("WHERE: ", item)
 				if len(item[1][0]) == 2:
-					ret_val += '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '|) ' + str(item[1][1]) + ') '
+					ret_val += '((' + obj_to_ulf(item[1][0][0]) + ' ' + item[0] + ' ' + obj_to_ulf(item[1][0][1]) + ') ' + str(item[1][1]) + ') '
 				elif len(item[1][0]) == 3:
-					ret_val += '((|' + item[1][0][0].name + '| ' + item[0] + ' |' + item[1][0][1].name + '| |' + item[1][0][2].name + '|) ' + str(item[1][1]) + ') '
+					ret_val += '((' + obj_to_ulf(item[1][0][0]) + ' ' + item[0] + ' ' + obj_to_ulf(item[1][0][1]) + ' ' + obj_to_ulf(item[1][0][2]) + ') ' + str(item[1][1]) + ') '
 		else:			
 			for subj in subj_list:
-				ret_val += '((|' + subj[0].name + '|) ' + str(subj[1]) + ')'
+				ret_val += '(' + obj_to_ulf(subj[0]) + ' ' + str(subj[1]) + ')'
 		ret_val = ret_val.replace('McDonald\'s', 'McDonalds')
 		return ret_val
 

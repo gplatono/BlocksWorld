@@ -52,6 +52,7 @@ relations = ['on', 'to the left of', 'to the right of', 'in front of', 'behind',
 
 types_ids = {
 	'chair':  'props.item.furniture.chair',
+	'rocking chair':  'props.item.furniture.rocking chair',
 	'table':  'props.item.furniture.table',    
 	'bed':     'props.item.furniture.bed',
 	'sofa':  'props.item.furniture.sofa',
@@ -82,7 +83,16 @@ types_ids = {
 	'block': 'props.item.block',
 	'floor': 'world.plane.floor',
 	'ceiling': 'world.plane.ceiling',
-	'wall': 'world.plane.wall'
+	'wall': 'world.plane.wall',
+	'beach umbrella': 'props.items.outdoor.beach_umbrella',
+	'umbrella': 'props.items.indoor.portable.umbrella',
+	'big tree': 'props.indoor.plants.big_tree',
+	'small tree': 'props.indoor.plants.small tree',
+	'footrest': 'props.indoor.items.portable.footrest',
+	'aquarium': 'props.indoor.items.stationary.aquarium',
+	'fish': 'props.mobile.animate.fish',
+	'human': 'props.mobile.animate.human',
+	'cat': 'props.mobile.animate.cat'
 }
 
 #Checks if the entity "collides" (overlaps) with some other entity along any coordinate axis
