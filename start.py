@@ -25,7 +25,7 @@ if '-bo' not in sys.argv:
 		#os.system("")
 		cmd = ['gnome-terminal', '--']
 		process = subprocess.Popen(cmd + ['sbcl',  '--load', 'start.lisp'])#, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-		process = subprocess.Popen(['python2', '../quicklisp/local-projects/ulf2english/python-repl-server.py', '8080', "g:g"], stdout=subprocess.PIPE)#, shell=True, stderr=subprocess.STDOUT)
+		#process = subprocess.Popen(['python2', '../quicklisp/local-projects/ulf2english/python-repl-server.py', '8080', "g:g"], stdout=subprocess.PIPE)#, shell=True, stderr=subprocess.STDOUT)
 		#os.system("gnome-terminal -x sh -c \"sbcl --load start.lisp &; bash\"")
 		#os.system("gnome-terminal -x sh -c \"python ../quicklisp/local-projects/ulf2english/python-repl-server.py 8080 \"g:g\"")	
 	elif system == 'Darwin':

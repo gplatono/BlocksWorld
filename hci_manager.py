@@ -7,14 +7,16 @@ from threading import Thread, RLock, Event
 import time
 import operator
 import collections
+import datetime
+import traceback
+
 from query_frame import QueryFrame
 from ulf_parser import ULFParser
 from constraint_solver import *
 import spatial
 from spatial import near, touching
 from geometry_utils import get_planar_distance_scaled
-import datetime
-import traceback
+import utils
 
 class HCIManager(object):
 	"""Manages the high-level interaction loop between the user and the system."""
@@ -161,13 +163,14 @@ class HCIManager(object):
 
 		(setq next-answer 'None) for no relation satisfying the query """
 		#last_moved = self.world.get_last_moved()
-		def loc_to_str(loc):
-			return ' '.join([str(coord) for coord in loc])
+		# def loc_to_str(loc):
+		# 	return ' '.join([str(coord) for coord in loc])
 
 		assert self.world.history is not None and len(self.world.history) > 0
 
 		loc_dict = self.world.history[-1].locations
-		locations = ['(' + self.world.find_entity_by_name(name).get_ulf() + ' at-loc.p ($ loc ' + loc_to_str(loc_dict[name]) + '))' for name in loc_dict]
+		locations = ['(' + self.world.find_entity_by_name(name).get_ulf() + ' at-loc.p ' + \
+				utils.loc_to_ulf(loc_dict[name]) + ')' for name in loc_dict]
 		moves = self.world.get_move_ulfs_after_checkpoint()
 		#moves = 
 		#moves = [self.world.move_to_ulf(move) for move in self.world.get_moves_after_checkpoint()]

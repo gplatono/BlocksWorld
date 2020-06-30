@@ -8,6 +8,7 @@ import datetime
 
 import bpy
 import bmesh
+import utils
 from mathutils import Vector
 from mathutils import Quaternion
 from entity import Entity
@@ -376,22 +377,26 @@ class World(object):
 		#self.checkpoint = self.history[-1]
 		self.checkpoint = len(self.history)-1
 
-	def loc_to_str(self, loc):
-		x = ":x " + str(loc[0])
-		y = ":y " + str(loc[1])
-		z = ":z " + str(loc[2])
-		return '($ loc' + x + ' ' + y + ' ' + z + ')'
+	# def loc_to_str(self, loc):
+	# 	x = ":x " + str(loc[0])
+	# 	y = ":y " + str(loc[1])
+	# 	z = ":z " + str(loc[2])
+	# 	return '($ loc' + x + ' ' + y + ' ' + z + ')'
 
-	def move_to_ulf(self, name, loc1, loc2):		
-		return '(' + self.find_entity_by_name(name).get_ulf() + ' ((past move.v) (from.p-arg ' + self.loc_to_str(loc1) + ') (to.p-arg ' +\
-							self.loc_to_str(loc2) + ')))'
+	def move_to_ulf(self, move):
+		name = move[0]
+		loc1 = move[1]
+		loc2 = move[2]		
+		return '(' + self.find_entity_by_name(name).get_ulf() + \
+		' ((past move.v) (from.p-arg ' + utils.loc_to_ulf(loc1) + \
+		') (to.p-arg ' + utils.loc_to_ulf(loc2) + ')))'
 
 	def record_history(self):
 		self.history.append(self.State(self.entities))
 		if len(self.history) > 1:
 			moves = self.history[-1].state_diff(self.history[-2])
 			for move in moves:
-				self.log_event('BLOCK MOVE', self.move_to_ulf(move[0], move[1], move[2]))
+				self.log_event('BLOCK MOVE', self.move_to_ulf(move))
 			print (self.history[-1].state_diff(self.history[-2]))
 
 	def get_last_move(self):
