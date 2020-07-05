@@ -191,7 +191,7 @@ def filter_by_color(entities, color):
 
 #Returns the list of entities having the specified type
 def filter_by_type(entities, type_id):	
-	print ("TYPE PROCESSING: ", type_id)
+	#print ("TYPE PROCESSING: ", type_id)
 	ret_val = [] if entities == [] or entities is None \
 			else [entity for entity in entities if type_id in entity.type_structure or type_id == 'one']
 	return ret_val	
@@ -259,7 +259,7 @@ def filter_by_determiner(entities, modifier):
 		arg = tuple([arg[0] for arg in entities])
 		arg_val = np.average([arg[1] for arg in entities])
 		ret_val = [(arg, arg_val)]
-	print ("DET PROCESSING: ", ret_val)
+	#print ("DET PROCESSING: ", ret_val)
 	return ret_val
 
 # def compute_predicate(predicate, *arglists):	
@@ -305,15 +305,15 @@ def compute_predicate(predicate, relata, referents):
 						ref = (filtered, ref[1])
 				ref_tuples = list(itertools.combinations(ref[0], r = arity[predicate] - 1))
 				ref_cert = ref[1]
-				print ("REL TUPLES: ", rel_tuples)
-				print ("REF TUPLES: ", ref_tuples)
+				#print ("REL TUPLES: ", rel_tuples)
+				#print ("REF TUPLES: ", ref_tuples)
 				arg_combinations = list(itertools.product(rel_tuples, ref_tuples))
 				#print ("ARG_COMBINATIONS: ", arg_combinations)
 				if predicate != ident:
 					arg_combinations = [(*arg0, *arg1) for (arg0, arg1) in arg_combinations if arg0[0] not in arg1]
 				else:
 					arg_combinations = [(*arg0, *arg1) for (arg0, arg1) in arg_combinations]
-				print ("ARG_COMBINATIONS1: ", arg_combinations)
+				#print ("ARG_COMBINATIONS: ", arg_combinations)
 				pred_value = np.average([predicate(*arg) for arg in arg_combinations])
 				if math.isnan(pred_value):
 					pred_value = 0
@@ -335,7 +335,7 @@ def filter_by_predicate_modifier(predicate_values, modifier):
 	if modifier.content is not None and modifier.content != "":
 		modifier = modifier.content
 
-	print ("MODIFIER CONTENT: ", modifier)
+	#print ("MODIFIER CONTENT: ", modifier)
 
 	if modifier in ['fully.adv-a', 'directly.adv-a', 'very.adv-a', 'fully.mod-a', 'directly.mod-a', 'very.mod-a']:
 		return [(arg, val) for (arg, val) in predicate_values if val >= 0.9]
@@ -366,7 +366,7 @@ def filter_by_mod(entities, modifier, entity_list):
 	elif type(modifier) == TDet:
 		return filter_by_determiner(entities, modifier)
 	elif type(modifier) == TAdj or type(modifier) == NPred:
-		print ("ADJ PROCESSING... PRED = ", modifier, " RELATA = ", entities)
+		#print ("ADJ PROCESSING... PRED = ", modifier, " RELATA = ", entities)
 		#pred = NPred(content = modifier.content, mods = modifier.mods)
 		predicate_values = process_predicate(modifier, relata=entities, entity_list=entity_list)
 
@@ -393,12 +393,11 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 	pred_str = predicate.content
 	pred_arity = arity[predicate_func]
 	modifiers = predicate.mods
-	print ("\nPREDICATE COMPONENTS: ", predicate, modifiers)
+	print ("\nPREDICATE COMPONENTS: ", predicate, modifiers, relata, referents)
 	unique = False
 	unary = False
 
 	#Resolve arguments
-	print ("ARGS BEFORE RESOLVING: ", relata, referents)
 	if relata is None:
 		relata = resolve_argument(predicate.children[0], entity_list) if len(predicate.children) > 0 else None
 		if referents is None:
@@ -422,7 +421,7 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 
 	if predicate_func == spatial.where or predicate_func == color_pred:
 		predicate_values = [((relatum[0], predicate_func(relatum[0])), 1.0) for relatum in relata]		
-		print ("WHERE/COLOR PRED VALUES: ", predicate_values)
+		#print ("WHERE/COLOR PRED VALUES: ", predicate_values)
 		return predicate_values
 
 	#For superlatives	
@@ -431,14 +430,14 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 		unary = True
 		referents = [(tuple(world.active_context), 1.0)]
 		
-	print ("FINAL_RELATA: ", relata)
-	print ("FINAL_REFERENTS: ", referents)
+	print ("FINAL RELATA: ", relata)
+	print ("FINAL REFERENTS: ", referents)
 	predicate_values, ret_val = compute_predicate(predicate_func, relata, referents)
 
 	if unary:
 		predicate_values = [((arg[0],), val) for (arg, val) in predicate_values]
 	
-	print ("PREDICATE VALUES: ", predicate_values)	
+	#print ("PREDICATE VALUES: ", predicate_values)	
 	if modifiers is not None and modifiers != []:
 		for modifier in modifiers:
 			predicate_values = filter_by_predicate_modifier(predicate_values, modifier)
@@ -452,8 +451,7 @@ def process_predicate(predicate, relata=None, referents=None, entity_list=None):
 				else:
 					predicate_values = []
 
-	print ("FINAL ARGLISTS RETURNED FROM PRED: ",  predicate_values)
-
+	print ("FINAL PREDICATE VALUES: ",  predicate_values)
 
 	return predicate_values
 
@@ -463,7 +461,7 @@ def resolve_argument(arg_object, entities):
 	if type(arg_object) == NArg and (arg_object.obj_type is None or arg_object.obj_id is None or arg_object.obj_type.lower() != "table" or arg_object.obj_id.lower() != "table"):
 		entities = [item for item in entities if "table" not in item.type_structure]
 
-	print ("RESOLVING THE ARGUMENT...", arg_object)
+	#print ("RESOLVING THE ARGUMENT...", arg_object)
 
 	if type(arg_object) == NConjArg:
 		args1 = resolve_argument(arg_object.children[0], entities)
@@ -497,18 +495,18 @@ def resolve_argument(arg_object, entities):
 		if type(ret_args[0]) != tuple:
 			ret_args = [(item, 1.0) for item in ret_args]
 
-	print ("\nARGS BEFORE MODIFIERS: ", ret_args, arg_mods)
+	#print ("\nARGS BEFORE MODIFIERS: ", ret_args, arg_mods)
 	if arg_mods is not None and arg_mods != []:
 		for modifier in arg_mods:
-			print ("CURRENT MOD: ", modifier)
+			#print ("CURRENT MOD: ", modifier)
 			ret_args = filter_by_mod(ret_args, modifier, entities)
-			print ("CURRENT ARGS: ", ret_args)
+			#print ("CURRENT ARGS: ", ret_args)
 
-	print ("\nAFTER MOD APPLICATION:", ret_args)
+	#print ("\nAFTER MOD APPLICATION:", ret_args)
 
 	if arg_det is not None:
 		ret_args = filter_by_determiner(ret_args, arg_det)
-	print ("\nFINAL RESOLVED ARGS: ", ret_args)	
+	#print ("\nFINAL RESOLVED ARGS: ", ret_args)	
 	return ret_args
 
 def resolve_predicate(predicate_object):	
@@ -521,7 +519,7 @@ def resolve_predicate(predicate_object):
 			pred = ident
 		else:			
 			pred = rel_to_func_map[predicate_object.content.content]
-	print ("RESOLVING PREDICATE...", pred)
+	#print ("RESOLVING PREDICATE...", pred)
 	return pred
 
 def process_query(query, entities):
@@ -529,7 +527,7 @@ def process_query(query, entities):
 	referents = []
 	
 	if query.predicate is not None:
-		print ("\nENTERING NPRED PROCESSING...")
+		print ("\nENTERING PRED PROCESSING...")
 		pred = query.predicate
 
 		predicate_values = process_predicate(pred, entity_list=entities)
@@ -546,10 +544,10 @@ def process_query(query, entities):
 						referents = [referents[0]]
 			
 	elif query.arg is not None:#type(arg) == NArg:		
-		print ("\nENTERING TOP LEVEL ARG PROCESSING...")
+		#print ("\nENTERING TOP LEVEL ARG PROCESSING...")
 		arg = query.arg
 		relata = resolve_argument(arg, entities)
-		print ("RESOLVED RELATA:", relata)		
+		#print ("RESOLVED RELATA:", relata)		
 		if relata != None and relata != []:
 			if type(relata[0]) != tuple:
 				relata = [(item, 1.0) for item in relata]
@@ -567,17 +565,17 @@ def process_query(query, entities):
 			filtered_relata.append((arg, val))
 	relata = filtered_relata
 
-	print ("IS ARG0 SINGULAR? ", query.arg0_singular)
+	#print ("IS ARG0 SINGULAR? ", query.arg0_singular)
 	if len(relata) > 0 and query.arg0_singular:		
 		relata = [relata[0]]
 
-	print ("RETURNED RESOLVED ARG0, ARG1 ", relata, referents)
-	print ("ACTIVE CONTEXT: ", world.active_context)
+	#print ("RETURNED RESOLVED ARG0, ARG1 ", relata, referents)
+	#print ("ACTIVE CONTEXT: ", world.active_context)
 
 	# if query.arg is not None and query.arg.obj_type is not None and query.arg.obj_type.lower() != "table" or\
 	# 	query.relatum is not None and query.relatum.obj_type is not None and query.relatum.obj_type.lower() != "table":
 	relata = [item for item in relata if "table" not in item[0].type_structure]
-	print ("ANSWER SETS: ", relata, referents)
+	#print ("ANSWER SETS: ", relata, referents)
 	return relata, referents
 
 

@@ -31,7 +31,7 @@ if '-bo' not in sys.argv:
 	elif system == 'Darwin':
 		pass
 
-	time.sleep(5.0)
+	time.sleep(7.0)
 	os.chdir(bw_path)
 else:
 	params.append('-bo')

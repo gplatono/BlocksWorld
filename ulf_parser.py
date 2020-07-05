@@ -3,6 +3,7 @@ from ulf_grammar import *
 
 class ULFParser(object):
     def __init__(self):
+        self.verbose = False
         pass
 
     def parse(self, ulf):        
@@ -17,15 +18,18 @@ class ULFParser(object):
     def preprocess(self, ulf):
         ulf = ulf.lower()
         ulf = self.replace_expr(ulf)
-        ulf = self.lispify(ulf)        
-        print ("\nQUERY: ", ulf)        
+        ulf = self.lispify(ulf)  
+        if self.verbose:
+            print ("\nQUERY: ", ulf)        
         ulf = self.process_sub_rep(ulf)
-        print ("PRELIFT QUERY: ", ulf)
+        if self.verbose:
+            print ("PRELIFT QUERY: ", ulf)
         ulf = self.lift(ulf, ['pres', 'prog', 'pref'])
         #ulf = self.propagate_conj(ulf, [])[0]
         #print ("AFTER LIFTING: ", ulf)        
         ulf = self.add_brackets(ulf)
-        print ("PROCESSED QUERY: ", ulf, "\n")
+        if self.verbose:
+            print ("PROCESSED QUERY: ", ulf, "\n")
         return ulf
 
     def replace_expr(self, ulf):
@@ -46,12 +50,13 @@ class ULFParser(object):
             if tree in grammar:
                 return grammar[tree](tree)
             else:
-                print ("UNKNOWN!!! - " + tree)
+                print ("UNKNOWN TOKEN DETECTED IN ULF TREE: " + tree)
                 return TUnknown(tree)
 
         #print ("INITIAL TREE: ", tree)
         tree = [self.parse_tree(node) for node in tree]
-        print ("TREE BEFORE COLLAPSING: ", tree, " \n" + "\n".join(["\t" + node.__str__() for node in tree]))
+        if self.verbose:
+            print ("TREE BEFORE COLLAPSING: ", tree, " \n" + "\n".join(["\t" + node.__str__() for node in tree]))
         
         if type(tree[0]) == TNModMarker:
             #print ("CURRENT TREE: ", tree)
@@ -71,12 +76,9 @@ class ULFParser(object):
             tree = tree[:-3] + [substitute]
 
         #print ("TREE AFTER COLLAPSING: ", tree)
-        print ("TREE AFTER COLLAPSING: ", tree, "\n" + "\n".join(["\t" + node.__str__() for node in tree]))
-        #print ("\n".join([node.__str__() for node in tree]))
-
-        #print ("PROC: ", tree)
-        #if type(tree[0]) == NCardDet:
-        #    self.COUNT_FLAG = True
+        if self.verbose:
+            print ("TREE AFTER COLLAPSING: ", tree, "\n" + "\n".join(["\t" + node.__str__() for node in tree]))
+       
         return tree[0]
 
     def lift(self, ulf, lifted_tokens):

@@ -38,9 +38,9 @@ class QueryFrame(object):
 		self.raw = query_parse_tree.content
 
 		print ("QUERY REPRESENTATIONS: ")
-		print (self.surface)
-		print (self.ulf)
-		print (self.raw)
+		print ("SURFACE - \"" + self.surface + "\"")
+		print ("ULF - \"" + self.ulf + "\"")
+		print ("QUERY TREE - \"" + str(self.raw) + "\"")
 
 		#self.is_question = query_parse_tree.is_question
 
@@ -91,7 +91,7 @@ class QueryFrame(object):
 		#print ("RESOLVE REFERENT: ", self.resolve_referent)
 
 	def resolve_arg(self, arg):
-		print ("\n\nRESOLVING ARG: ", arg, "\n")
+		#print ("\n\nRESOLVING ARG: ", arg, "\n")
 		if arg.obj_id is None:
 			return True
 		if arg.det is not None:
@@ -163,7 +163,7 @@ class QueryFrame(object):
 
 	def is_singular(self, arg):
 		if type(arg) == NArg:
-			print ("RESOLVING SINGULARITY OF: ", arg, (not (arg is not None) and (arg.plur == True or arg.obj_type is None)))
+			#print ("RESOLVING SINGULARITY OF: ", arg, (not (arg is not None) and (arg.plur == True or arg.obj_type is None)))
 			return (arg is not None) and (not (arg.plur == True or arg.obj_type is None))
 		elif type(arg) == NConjArg:
 			sing = [int(self.is_singular(item)) for item in arg.children]

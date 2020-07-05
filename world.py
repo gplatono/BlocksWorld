@@ -345,7 +345,7 @@ class World(object):
 		block_data = self.get_block_data()		
 		moved_blocks = self.update(block_data)
 
-		print ("MOVED BLOCKS: ", moved_blocks)
+		#print ("MOVED BLOCKS: ", moved_blocks)
 		
 		if len(self.history) == 0:
 			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]
@@ -397,7 +397,7 @@ class World(object):
 			moves = self.history[-1].state_diff(self.history[-2])
 			for move in moves:
 				self.log_event('BLOCK MOVE', self.move_to_ulf(move))
-			print (self.history[-1].state_diff(self.history[-2]))
+			#print (self.history[-1].state_diff(self.history[-2]))
 
 	def get_last_move(self):
 		return moves[-1]
@@ -541,7 +541,7 @@ class World(object):
 			result = []
 			for name in self.locations:
 				if np.linalg.norm(self.locations[name] - s.locations[name]) > 0:					
-					print ("MOVE DIST: {}, {}".format(name, np.linalg.norm(self.locations[name] - s.locations[name])))
+					#print ("MOVE DIST: {}, {}".format(name, np.linalg.norm(self.locations[name] - s.locations[name])))
 				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.3:					
 					result.append([name, s.locations[name], self.locations[name]])
 			return result

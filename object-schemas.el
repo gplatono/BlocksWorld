@@ -1,14 +1,18 @@
-; (all ?x (?x sequence-of.n ?pred-name ?rel-name)
-;  ; a sequence of two or more elements satisfying the predicate named ?pred-name,
-;  ; with each non-initial element related to its predecessor by the binary
-;  ; relation named by ?rel-name;
-; (all ?y ((?y (semval.f ?pred-name)) and (?y part-of ?x))
-;           (all ?z ((?z (semval.f ?pred-name.n)) and (?z part-of ?x) (?z successor-of ?y ?x))
-;                    (?z (semval.f ?rel-name) ?y))))
+(all ?x (?x sequence-of.n ?pred-name ?rel-name)
+ ; a sequence of two or more elements satisfying the predicate named ?pred-name,
+ ; with each non-initial element related to its predecessor by the binary
+ ; relation named by ?rel-name;
+(all ?y ((?y (semval.f ?pred-name)) and (?y part-of ?x))
+          (all ?z ((?z (semval.f ?pred-name.n)) and (?z part-of ?x) (?z successor-of ?y ?x))
+                   (?z (semval.f ?rel-name) ?y))))
 
 ;NOTE: If ?y and ?z are part of the sequence, then they should be of type "?pred-name" already, no need for further checks
 
 ;=========================================== PRIMITIVES ============================================
+(defun color-of.f (x)
+  return 'blue.a
+  )
+
 (setq ?bl_schema '(obj-schema (?x BW-block.n)
    :types
      !t0 (?x block.n)
@@ -32,7 +36,7 @@
 (obj-schema (?x stack-of.n ?P)
 ; a stack of items of type ?P (where ?P is a monadic predicate *name*)
  :types
-   !t0 (?x (maximal.a (sequence-of.n ?P 'on.n))))
+   !t0 (?x (maximal.a (sequence-of.n ?P 'on.n)))
  :rigid-conds
    !r1 (?x (form7.v (straight.a line.n)))
    !r2 (?x vertical.a)

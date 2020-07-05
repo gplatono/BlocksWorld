@@ -7,9 +7,12 @@ import itertools
 import os
 import sys
 import random
-from mathutils import Vector
-from geometry_utils import *
 import enum
+from mathutils import Vector
+
+from geometry_utils import *
+import utils
+
 
 class Entity(object):
 	"""
@@ -417,10 +420,11 @@ class Entity(object):
 		return '(the.d (' + name + ' ' + obtype + '))'
 
 	def get_location_ulf(self):
-		x = ":x " + str(self.location[0])
-		y = ":y " + str(self.location[1])
-		z = ":z " + str(self.location[2])
-		return '($ loc' + x + ' ' + y + ' ' + z + ')'
+		return utils.loc_to_ulf(self.location)
+		# x = ":x " + str(self.location[0])
+		# y = ":y " + str(self.location[1])
+		# z = ":z " + str(self.location[2])
+		# return '($ loc' + x + ' ' + y + ' ' + z + ')'
 
 	def get_features(self):
 		features = []

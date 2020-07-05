@@ -269,7 +269,7 @@ def between(a, b, c):
     #print ("\nFINAL VALUE BETWEEN: ", a , b, c, math.exp(- math.fabs(-1 - cos)))
     #print ("BETWEEN DIST FACT: ", dist_coeff)
     ret_val = math.exp(- 0.5 * math.fabs(-1 - cos)) * dist_coeff
-    print ("BETWEEN: ", a.name, b.name, c.name, ret_val)
+    #print ("BETWEEN: ", a.name, b.name, c.name, ret_val)
     return ret_val
 
 
@@ -695,12 +695,15 @@ def where(entity):
         val = get_vals(pred)
         other_best = max([pred(ent, val[0][1]) for ent in entities]) if pred != between else \
                     max([pred(ent, val[0][1], val[0][2]) for ent in entities])
-        if val[1] > max_val and val[1] > other_best + 0.05:
+        #print (pred, val)
+        #if val[1] > max_val and val[1] > other_best + 0.05:
+        if val[1] > max_val and val[1] > other_best - 0.1:
             max_val = val[1]
             ret_val = (pred_to_str[pred], val)
 
-        if max_val > 0.8:
-            return ret_val
+    #if max_val > 0.8:
+    #print ("RET WHERE: ", ret_val)
+    return ret_val
 
     
     # val = get_vals(at)
