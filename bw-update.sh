@@ -5,7 +5,11 @@ git pull
 cd ../eta
 git stash
 git pull
-cp -f ../config.lisp .
+sed -i 's/sophie/david-qa/g' config.lisp
+sed -i 's/*live-mode* NIL/*live-mode* T/g' config.lisp
+sed -i 's/*perceptive-mode* NIL/*perceptive-mode* T/g' config.lisp
+sed -i 's/*responsive-mode* NIL/*responsive-mode* T/g' config.lisp
+#cp -f ../config.lisp .
 
 cd ../quicklisp/local-projects/ulf2english
 git pull
