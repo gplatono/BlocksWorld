@@ -540,7 +540,7 @@ class World(object):
 			"""self - s"""
 			result = []
 			for name in self.locations:
-				if np.linalg.norm(self.locations[name] - s.locations[name]) > 0:					
+				#if np.linalg.norm(self.locations[name] - s.locations[name]) > 0:					
 					#print ("MOVE DIST: {}, {}".format(name, np.linalg.norm(self.locations[name] - s.locations[name])))
 				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.3:					
 					result.append([name, s.locations[name], self.locations[name]])

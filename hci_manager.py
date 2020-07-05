@@ -340,8 +340,8 @@ class HCIManager(object):
 							print ("Thanks, your feedback has been recorded. Please manually close the SBCL window with Eta and restart the program. Press any key to continue...")
 							input()
 							exit()
-						else:
-							print ("Thanks, your feedback has been recorded. Go on...")
+						# else:
+						# 	print ("Thanks, your feedback has been recorded. Go on...")
 					
 					if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
 						print ("ENDING THE SESSION...")
