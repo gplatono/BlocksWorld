@@ -69,6 +69,8 @@ class HCIManager(object):
 
 		self.state = self.STATE.INIT
 
+		self.dialog_counter = 0
+
 		if self.debug_mode:
 			self.state = self.STATE.QUESTION_PENDING
 		
@@ -151,6 +153,10 @@ class HCIManager(object):
 
 	def init_log(self):
 		with open(self.dialog_log_path, "a+") as logf:
+			logf.write("\nSESSION: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
+			logf.write("=============================================================\n")		
+
+		with open(self.coords_log_path, "a+") as logf:
 			logf.write("\nSESSION: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
 			logf.write("=============================================================\n")		
 
@@ -271,7 +277,7 @@ class HCIManager(object):
 		self.clear_file(self.eta_ulf)
 		self.clear_file(self.eta_answer)
 		self.clear_file(self.eta_input)
-		self.clear_file(self.coords_log_path)
+		#self.clear_file(self.coords_log_path)
 		self.init_log()
 
 		print ("\n==========================================================")
@@ -324,6 +330,7 @@ class HCIManager(object):
 					
 					response = str(self.read_and_vocalize_from_eta())
 					open(self.eta_answer, 'w').close()
+					self.dialog_counter += 1
 
 					if not self.speech_mode:
 						print ("\033[1;32;40mPlease judge the system's answer, report an error or retract the question by typing one of the following",
@@ -332,8 +339,9 @@ class HCIManager(object):
 							"\033[1;32;40mi - incorrect",
 							"\033[1;32;40me - error has occurred",
 							"\033[1;32;40mr - retract question (system failed because of user input error, e.g., a typo or ungrammatical construction)", sep = '\n')
-						feedback = input ("\033[1;32;40mFEEDBACK: ")
+						feedback = input ("\033[1;32;40mFEEDBACK (QUESTION " + str(self.dialog_counter) + "): ")
 						print ("\033[0;37;40m")
+
 						#print ('============================================================================\n')
 						self.world.log_event('USER_FEEDBACK', feedback)
 						if feedback.lower() == 'e':

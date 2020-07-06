@@ -57,6 +57,10 @@ grammar['put.v'] = lambda x: TPred(x)
 grammar['move.v'] = lambda x: TPred(x)
 grammar['of.p'] = lambda x: TPred(x)
 
+grammar['relative_to.p'] = lambda x: TPred('relative_to.p')
+grammar['with_respect_to.p'] = lambda x: TPred('relative_to.p')
+grammar['compared_to.p'] = lambda x: TPred('relative_to.p')
+
 grammar['side_by_side.a'] = lambda x: TPred(x)
 grammar['where.a'] = lambda x: TPred(x)
 grammar['clear.a'] = lambda x: TPred(x)
@@ -364,7 +368,10 @@ grammar[("TRelativizer", "NPred")] = lambda x, y: y
 
 grammar[("TSuperMarker", "NRel")] = lambda x, y: NRel(content = y.content, children = y.children, neg = y.neg, mods = y.mods + [x])
 
-grammar[("TAdvTransformMarker", "NRel")] = lambda x, y: y
+#grammar[("TAdvTransformMarker", "NRel")] = lambda x, y: y
+grammar[("TAdvTransformMarker", "TPred")] = lambda x, y: y
+grammar[("TAdvTransformMarker", "NPred")] = lambda x, y: y
+
 grammar[("TAdvAdjMod", "NRel")] = lambda x, y: NRel(content = y.content, children = y.children, neg = y.neg, mods = y.mods + [x])
 
 grammar[("NPred", "NRel")] = lambda x, y : NPred(content = y.content, children = x.children + y.children, neg = y.neg, mods = y.mods)

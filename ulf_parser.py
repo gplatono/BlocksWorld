@@ -4,7 +4,6 @@ from ulf_grammar import *
 class ULFParser(object):
     def __init__(self):
         self.verbose = False
-        pass
 
     def parse(self, ulf):        
         ulf = self.preprocess(ulf)
