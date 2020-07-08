@@ -13,7 +13,9 @@
   return 'blue.a
   )
 
-(setq ?bl_schema '(obj-schema (?x BW-block.n)
+($ obj-schema 
+   :header 
+    (?x BW-block.n)
    :types
      !t0 (?x block.n)
      !t1 (?c color.n)
@@ -23,7 +25,8 @@
      !r1 ((color-of.f ?x) = ?c)
      !r2 (?x carry26.v ?l)); "carry26" is the WN sense of "carrying on the surface"
 
-(obj-schema (?x row-of.n ?P)
+($ obj-schema 
+ :header (?x row-of.n ?P)
 ; a row of items of type ?P (where ?P is a monadic predicate *name*)
  :types
     !t0 (?x (maximal.a (sequence-of.n ?P 'abut.v)))
@@ -33,7 +36,8 @@
  :skeletal-prototype
     row.obj) ; horizontal straight line, representing 'orientation' of an abstract row
 
-(obj-schema (?x stack-of.n ?P)
+($ obj-schema 
+  :header (?x stack-of.n ?P)
 ; a stack of items of type ?P (where ?P is a monadic predicate *name*)
  :types
    !t0 (?x (maximal.a (sequence-of.n ?P 'on.n)))
@@ -43,7 +47,9 @@
  :skeletal-prototype
    stack.obj) ; vertical straight line, representing 'orientation' of an abstract stack
 
-(obj-schema (?x BW-row.n)
+($ obj-schema 
+ :header 
+   (?x BW-row.n)
  :types
    !t0 (?x row-of.n 'BW-block.n)
  :skeletal-prototype
@@ -51,7 +57,9 @@
    bw-row2.obj
    bw-row3.obj) ;Various prototypes of rows (of blocks)
 
-(obj-schema (?x BW-stack.n)
+($ obj-schema 
+ :header 
+  (?x BW-stack.n)
  :types
    !t0 (?x stack-of.n 'BW-block.n)
    !t1 (?b (1st ?x)) ; assume 1st is a special primitive function on sequences
@@ -63,7 +71,9 @@
 
 ;=========================================== STRUCTURES ============================================
 
-(obj-schema (?x BW-arch.n)
+($ obj-schema 
+ :header 
+   (?x BW-arch.n)
  :types
    !t0 (?stack1 BW-stack.n)
    !t1 (?stack2 BW-stack.n)
@@ -80,7 +90,9 @@
    bw-arch1.obj
    bw-arch2.obj) ;Various prototypes of arches
 
-(obj-schema (?x BW-staircase.n)
+($ obj-schema 
+ :header
+   (?x BW-staircase.n)
  :types
    !t0 (?x row-of.n 'BW-stack.n)
  :rigid-conds
@@ -91,7 +103,9 @@
    bw-staircase1.obj
    bw-staircase2.obj)
 
-(obj-schema (?x BW-wedge.n)
+($ obj-schema
+ :header 
+   (?x BW-wedge.n)
  :types
    !t0 (?x BW-block.n)
    !t1 (?y BW-row.n)
@@ -107,7 +121,9 @@
 ;Note: I decided to keep "vertically" to distinguish between vertical and horizontal sequences,
 ;since a line of stacks can also be 'center-aligned' if their center are on the same line.
 
-(obj-schema (?x BW-pyramid.n)
+($ obj-schema
+ :header
+   (?x BW-pyramid.n)
  :types
    !t0 (?x stack-of.n 'BW-row.n)
  :rigid-conds

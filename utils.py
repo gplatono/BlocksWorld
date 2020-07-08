@@ -4,6 +4,15 @@ def loc_to_ulf(location):
 	z = ":z " + str(location[2])
 	return '($ loc ' + x + ' ' + y + ' ' + z + ')'
 
+def rel_to_ulf(relation):
+	ret_val = ""
+	for item in relation:
+		if hasattr(item, "get_ulf"):
+			ret_val += item.get_ulf() + " "
+		elif type(item) == str:
+			ret_val += item + " "
+
+	return "(" + ret_val + ")"
 
 def lisp_to_pylist(lisp_list):
 	# ret_list = []

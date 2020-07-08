@@ -42,9 +42,16 @@ class World(object):
 		self.kinectRight = (0.75, 0.27, 0.6)
 
 		#List of  possible color modifiers
-		self.color_mods = ['black', 'red', 'blue', 'brown', 'green', 'yellow']		
+		self.color_mods = ['black', 'red', 'blue', 'brown', 'green', 'yellow']
 
-		#self.scene_setup()
+		# self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']		
+		# self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
+
+		self.block_by_ids = {}
+		self.block_to_ids = {}
+		print ("SIML ", self.simulation_mode)
+		if self.simulation_mode == False:
+			self.scene_setup()
 
 		self.verbose = False
 		self.verbose_rotation = False		
@@ -201,9 +208,7 @@ class World(object):
 		self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
 		materials = [bpy.data.materials['blue'], bpy.data.materials['green'], bpy.data.materials['red']]
 	
-		self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]
-		self.block_by_ids = {}
-		self.block_to_ids = {}
+		self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
 		dg = bpy.context.evaluated_depsgraph_get().update()        
 
 	def clear_scene(self):
@@ -345,13 +350,16 @@ class World(object):
 		block_data = self.get_block_data()		
 		moved_blocks = self.update(block_data)
 
-		#print ("MOVED BLOCKS: ", moved_blocks)
-		
 		if len(self.history) == 0:
 			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]
 
+		if (len(moved_blocks) > 0):
+			print ("MOVED BLOCKS: ", moved_blocks)		
+
+		bpy.context.evaluated_depsgraph_get().update()		
 		for ent in self.entities:
-			ent.update()
+			if ent.name in moved_blocks:
+				ent.update()
 		# for name in moved_blocks:
 		# 	ent = self.find_entity_by_name(name)
 		# 	# old_loc = ent.location                    
@@ -365,7 +373,7 @@ class World(object):
 		# 	#print ("ENTITY {} IS RELOCATED BY DIST {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
 		# 	if self.verbose:
 		# 		print ("ENTITY RELOCATED: {} {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
-		bpy.context.evaluated_depsgraph_get().update()
+		
 
 		if len(moved_blocks) > 0:
 			# self.history.append(self.State(self.entities))
@@ -395,9 +403,9 @@ class World(object):
 		self.history.append(self.State(self.entities))
 		if len(self.history) > 1:
 			moves = self.history[-1].state_diff(self.history[-2])
+			print (moves)
 			for move in moves:
-				self.log_event('BLOCK MOVE', self.move_to_ulf(move))
-			#print (self.history[-1].state_diff(self.history[-2]))
+				self.log_event('BLOCK MOVE', self.move_to_ulf(move))			
 
 	def get_last_move(self):
 		return moves[-1]
@@ -540,9 +548,9 @@ class World(object):
 			"""self - s"""
 			result = []
 			for name in self.locations:
-				#if np.linalg.norm(self.locations[name] - s.locations[name]) > 0:					
-					#print ("MOVE DIST: {}, {}".format(name, np.linalg.norm(self.locations[name] - s.locations[name])))
-				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.3:					
+				# if np.linalg.norm(self.locations[name] - s.locations[name]) > 0:					
+				# 	print ("MOVE DIST: {}, {}".format(name, np.linalg.norm(self.locations[name] - s.locations[name])))
+				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.2:					
 					result.append([name, s.locations[name], self.locations[name]])
 			return result
 

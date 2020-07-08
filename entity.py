@@ -109,6 +109,8 @@ class Entity(object):
 		self.dimensions = self.compute_dimensions()
 
 		#Entity's mesh centroid
+		if hasattr(self, "location"):
+			print ("UPDATING... ", self.name, self.location, self.compute_centroid())
 		self.centroid = self.compute_centroid()
 		self.location = self.centroid
 	  

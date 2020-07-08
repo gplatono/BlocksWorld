@@ -17,6 +17,7 @@ import spatial
 from spatial import near, touching
 from geometry_utils import get_planar_distance_scaled
 import utils
+from bw_planner import Planner
 
 class HCIManager(object):
 	"""Manages the high-level interaction loop between the user and the system."""
@@ -26,10 +27,11 @@ class HCIManager(object):
 		INIT = 0
 		SYSTEM_GREET = 1
 		USER_GREET = 2
-		QUESTION_PENDING = 3
+		QUESTION_PENDING = 3		
 		USER_BYE = 4
 		END = 5
 		SUSPEND = 6
+		TUTORING_BEGIN = 7
 
 	def __init__(self, world, debug_mode = False, speech_mode = True, avatar_mode = True):
 
@@ -58,15 +60,20 @@ class HCIManager(object):
 		self.eta_answer = self.eta_path + "answer.lisp"
 		self.eta_output = self.eta_path + "output.txt"
 		self.eta_perceptions = self.eta_path + "perceptions.lisp"
-
+		self.eta_goal_req = self.eta_path + "goal-request.lisp"
+		self.eta_goal_resp = self.eta_path + "goal-rep.lisp"
+		self.eta_planner_input = self.eta_path + "planner-input.lisp"
+		self.eta_user_try_success = self.eta_path + "user-try-ka-success.lisp"
 
 		self.coords_log_path = "logs" + os.sep + "session_coords_data"
 		self.dialog_log_path = "logs" + os.sep + "dialog_log"
 		self.log_file = None
 
-		self.ulf_parser = ULFParser()
 		self.world = world
-
+		self.ulf_parser = ULFParser()
+		self.planner = Planner(self.world)
+		
+		self.last_mentioned = []
 		self.state = self.STATE.INIT
 
 		self.dialog_counter = 0
@@ -75,17 +82,40 @@ class HCIManager(object):
 			self.state = self.STATE.QUESTION_PENDING
 		
 	def send_to_eta(self, mode, text):
-		filename = self.eta_input if mode == "INPUT" else self.eta_answer
-		formatted_msg = "(setq *next-input* \"" + text + "\")" if mode == "INPUT" \
-									else "(setq *next-answer* \'(" + text + "))" if text != "\'None" \
-										else "(setq *next-answer* " + text + ")"
+		if mode == "INPUT":
+			filename = self.eta_input
+			formatted_msg = "(setq *next-input* \"" + text + "\")"
+		elif mode == "GOAL_RESP":
+			filename = self.eta_goal_resp
+			formatted_msg = "(setq *goal-rep* '" + text + ")"
+		elif mode == "PLAN_STEP":
+			filename = self.eta_planner_input
+			formatted_msg = "(setq planner-input '" + text + ")"
+		else:
+			filename = self.eta_answer
+			if text != "\'None":
+				formatted_msg = "(setq *next-answer* \'(" + text + "))"
+			else: 
+				formatted_msg = "(setq *next-answer* " + text + ")"
+
+		# filename = self.eta_input if mode == "INPUT" else self.eta_answer
+		# formatted_msg = "(setq *next-input* \"" + text + "\")" if mode == "INPUT" \
+		# 							else "(setq *next-answer* \'(" + text + "))" if text != "\'None" \
+		# 								else "(setq *next-answer* " + text + ")"
 									#else "(setq *next-answer* \'(" + text + " NIL))"
 		print("SENT TO ETA: ", formatted_msg)
 		with open(filename, 'w') as file:
 			file.write(formatted_msg)
 
 	def read_from_eta(self, mode):
-		filename = self.eta_ulf if mode == "ULF" else self.eta_output
+		filename = ""
+		if mode == "ULF":
+			filename = self.eta_ulf
+		elif mode == "GOAL_REQ":
+			filename = self.eta_goal_req
+		else:			
+		 	filename = self.eta_output
+
 		attempt_counter = 0
 		with open(filename, "r+") as file:
 			msg = ""
@@ -104,6 +134,10 @@ class HCIManager(object):
 			result = re.sub(" +", " ", result.replace("\n", ""))
 			result = (result.split("* '")[1])[:-1]
 			self.log("ULF", result)
+		elif mode == "GOAL_REQ":
+			msg = "".join(msg)
+			msg = msg.split("*chosen-obj-schema*")[1].strip()[1:-1]
+			return msg
 		else:
 			result = ""
 			responses = [r.strip() for r in msg if r.strip() != ""]
@@ -198,8 +232,10 @@ class HCIManager(object):
 			#print ("ANS DATA: ", subj_list, rel, obj_list)
 		print ("ANSWER SET DATA: ", subj_list, obj_list)
 		if rel is not None and type(rel) != TCopulaBe and obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR and query_frame.query_type != query_frame.QueryType.COUNT:
+			self.last_mentioned = []
 			for subj in subj_list:				
 				if type(subj[0]) == Entity:
+					self.last_mentioned.append(subj[0])
 					for obj in obj_list:
 						if type(obj[0][0]) == Entity:					
 							ret_val += '((' + subj[0].get_ulf() + ' ' + rel + ' ' + obj[0][0].get_ulf()+ ') ' + str(subj[1] * obj[1]) + ') '
@@ -209,11 +245,13 @@ class HCIManager(object):
 			for item in obj_list:
 				item = item[0][0]
 				#print ("WHERE: ", item)
+				self.last_mentioned = [item[1][0][0]]
 				if len(item[1][0]) == 2:
 					ret_val += '((' + item[1][0][0].get_ulf() + ' ' + item[0] + ' ' + item[1][0][1].get_ulf() + ') ' + str(item[1][1]) + ') '
 				elif len(item[1][0]) == 3:
 					ret_val += '((' + item[1][0][0].get_ulf() + ' ' + item[0] + ' ' + item[1][0][1].get_ulf() + ' ' + item[1][0][2].get_ulf() + ') ' + str(item[1][1]) + ') '
-		else:			
+		else:
+			self.last_mentioned = [subj[0] for subj in subj_list]
 			for subj in subj_list:
 				ret_val += '((' + subj[0].get_ulf() + ') ' + str(subj[1]) + ')'
 		ret_val = ret_val.replace('McDonald\'s', 'McDonalds')
@@ -289,7 +327,21 @@ class HCIManager(object):
 			if self.state == self.STATE.INIT:				
 				response = self.read_and_vocalize_from_eta()				
 				self.state = self.STATE.SYSTEM_GREET
-				print ("Go ahead, ask a question...")				
+				if "TEACH YOU THE CONCEPT" in response:
+					self.state = self.STATE.TUTORING_BEGIN
+					obj_schema = self.read_from_eta(mode = "GOAL_REQ")
+					print ("GOAL: ", obj_schema)					
+					#print ("OBJ_SCHEMA: ", obj_schema)
+					self.planner.init(obj_schema)
+					goal_schema = self.planner.get_goal_schema()
+					print ("GOAL SCHEMA: ", goal_schema)
+					self.send_to_eta(mode="GOAL_RESP", text=goal_schema)
+					next_step = self.planner.next()
+					print ("NEXT STEP:", next_step)
+					#self.send_to_eta(mode="PLAN_STEP", text=next_step)
+
+				else:
+					print ("Go ahead, ask a question...")
 				continue
 
 			if not self.speech_mode:
@@ -299,7 +351,7 @@ class HCIManager(object):
 			self.speech_lock.acquire()
 			if self.current_input != "":
 				
-				if self.state != self.STATE.SUSPEND:
+				if self.state != self.STATE.SUSPEND and self.state != self.STATE.TUTORING_BEGIN:
 					self.state = self.STATE.QUESTION_PENDING
 				if self.speech_mode:
 					print ("\033[1;34;40mYOU: " + self.current_input + "\033[0;37;40m")
@@ -307,49 +359,8 @@ class HCIManager(object):
 				#self.current_input = self.current_input.replace("is it ", "is that block ")
 				
 				if self.debug_mode == False and self.state != self.STATE.SUSPEND:
-					#print ("ENTERING ETA EXCHANGE BLOCK...")
 
-					#input = self.current_input
-					time.sleep(0.2)										
-					self.send_to_eta("INPUT", self.current_input)
-					self.send_to_avatar('USER_SPEECH', self.current_input)
-					self.send_perceptions()
-					time.sleep(1.0)
-
-					#print ("WAITING FOR ULF...")
-					ulf = self.read_from_eta(mode = "ULF")
-					
-					#print ("RETURNED ULF FROM ETA: ", ulf)
-					if ulf is not None and ulf != "":
-						self.send_to_avatar('ULF', ulf)
-						if 'NON-QUERY' not in ulf.upper():
-							response_surface = self.process_spatial_request(ulf)							
-							print ("Sending Response to ETA: " + response_surface)										
-							self.send_to_eta("ANSWER", response_surface)
-					time.sleep(4.0)
-					
-					response = str(self.read_and_vocalize_from_eta())
-					open(self.eta_answer, 'w').close()
-					self.dialog_counter += 1
-
-					if not self.speech_mode:
-						print ("\033[1;32;40mPlease judge the system's answer, report an error or retract the question by typing one of the following",
-							"\033[1;32;40mc - correct",
-							"\033[1;32;40mp - partially correct",
-							"\033[1;32;40mi - incorrect",
-							"\033[1;32;40me - error has occurred",
-							"\033[1;32;40mr - retract question (system failed because of user input error, e.g., a typo or ungrammatical construction)", sep = '\n')
-						feedback = input ("\033[1;32;40mFEEDBACK (QUESTION " + str(self.dialog_counter) + "): ")
-						print ("\033[0;37;40m")
-
-						#print ('============================================================================\n')
-						self.world.log_event('USER_FEEDBACK', feedback)
-						if feedback.lower() == 'e':
-							print ("Thanks, your feedback has been recorded. Please manually close the SBCL window with Eta and restart the program. Press any key to continue...")
-							input()
-							exit()
-						# else:
-						# 	print ("Thanks, your feedback has been recorded. Go on...")
+					self.qa()
 					
 					if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
 						print ("ENDING THE SESSION...")
@@ -360,6 +371,44 @@ class HCIManager(object):
 			self.speech_lock.release()
 			time.sleep(0.1)
 
+	def qa(self):
+		time.sleep(0.2)										
+		self.send_to_eta("INPUT", self.current_input)
+		self.send_to_avatar('USER_SPEECH', self.current_input)
+		self.send_perceptions()
+		time.sleep(1.0)
+
+		#print ("WAITING FOR ULF...")
+		ulf = self.read_from_eta(mode = "ULF")
+		
+		#print ("RETURNED ULF FROM ETA: ", ulf)
+		if ulf is not None and ulf != "":
+			self.send_to_avatar('ULF', ulf)
+			if 'NON-QUERY' not in ulf.upper():
+				response_surface = self.process_spatial_request(ulf)							
+				print ("Sending Response to ETA: " + response_surface)										
+				self.send_to_eta("ANSWER", response_surface)
+		time.sleep(4.0)
+		
+		response = str(self.read_and_vocalize_from_eta())
+		open(self.eta_answer, 'w').close()
+		self.dialog_counter += 1
+
+		if not self.speech_mode:
+			print ("\033[1;32;40mPlease judge the system's answer, report an error or retract the question by typing one of the following",
+				"\033[1;32;40mc - correct",
+				"\033[1;32;40mp - partially correct",
+				"\033[1;32;40mi - incorrect",
+				"\033[1;32;40me - error has occurred",
+				"\033[1;32;40mr - retract question (system failed because of user input error, e.g., a typo or ungrammatical construction)", sep = '\n')
+			feedback = input ("\033[1;32;40mFEEDBACK (QUESTION " + str(self.dialog_counter) + "): ")
+			print ("\033[0;37;40m")
+			
+			self.world.log_event('USER_FEEDBACK', feedback)
+			if feedback.lower() == 'e':
+				print ("Thanks, your feedback has been recorded. Please manually close the SBCL window with Eta and restart the program. Press any key to continue...")
+				input()
+				exit()
 
 	def process_spatial_request(self, ulf):
 		response_surface = "\'None"
@@ -374,7 +423,9 @@ class HCIManager(object):
 			else:
 				self.state = self.STATE.QUESTION_PENDING
 				try:
-					print ("ULF: ", ulf)
+					print ("ULF: ", ulf, self.last_mentioned)
+					if "IT.PRO" in ulf and self.last_mentioned is not None and len(self.last_mentioned) > 0:
+						ulf = ulf.replace("IT.PRO", self.last_mentioned[0].get_ulf())
 					POSS_FLAG = False
 					if "POSS-QUES" in ulf:
 						POSS_FLAG = True
