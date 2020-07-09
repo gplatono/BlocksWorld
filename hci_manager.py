@@ -32,6 +32,8 @@ class HCIManager(object):
 		END = 5
 		SUSPEND = 6
 		TUTORING_BEGIN = 7
+		TUTORING_NEXT_STEP = 8
+		TUTORING_NEXT_WAIT = 9
 
 	def __init__(self, world, debug_mode = False, speech_mode = True, avatar_mode = True):
 
@@ -90,7 +92,7 @@ class HCIManager(object):
 			formatted_msg = "(setq *goal-rep* '" + text + ")"
 		elif mode == "PLAN_STEP":
 			filename = self.eta_planner_input
-			formatted_msg = "(setq planner-input '" + text + ")"
+			formatted_msg = "(setq *planner-input* '" + text + ")"
 		else:
 			filename = self.eta_answer
 			if text != "\'None":
@@ -327,7 +329,7 @@ class HCIManager(object):
 			if self.state == self.STATE.INIT:				
 				response = self.read_and_vocalize_from_eta()				
 				self.state = self.STATE.SYSTEM_GREET
-				if "TEACH YOU THE CONCEPT" in response:
+				if "TEACH YOU" in response:
 					self.state = self.STATE.TUTORING_BEGIN
 					obj_schema = self.read_from_eta(mode = "GOAL_REQ")
 					print ("GOAL: ", obj_schema)					
@@ -336,15 +338,25 @@ class HCIManager(object):
 					goal_schema = self.planner.get_goal_schema()
 					print ("GOAL SCHEMA: ", goal_schema)
 					self.send_to_eta(mode="GOAL_RESP", text=goal_schema)
-					next_step = self.planner.next()
-					print ("NEXT STEP:", next_step)
-					#self.send_to_eta(mode="PLAN_STEP", text=next_step)
-
 				else:
 					print ("Go ahead, ask a question...")
 				continue
+			elif self.state == self.STATE.TUTORING_BEGIN:
+				response = self.read_and_vocalize_from_eta()				
+				if response is not None and "START BUILDING" in response:
+					self.state = self.STATE.TUTORING_NEXT_STEP
+				continue
 
-			if not self.speech_mode:
+			elif self.state == self.STATE.TUTORING_NEXT_STEP:
+				self.tutor_step()
+				self.state = self.STATE.TUTORING_NEXT_WAIT
+				continue
+
+			elif self.state == self.STATE.TUTORING_NEXT_WAIT:
+				response = self.read_and_vocalize_from_eta()
+				continue
+
+			if not self.speech_mode and not self.state == self.STATE.TUTORING_BEGIN and not self.state == self.STATE.TUTORING_NEXT_STEP:
 				self.current_input = input ("\033[1;34;40mYOU: ")
 				print ("\033[0;37;40m")
 
@@ -360,8 +372,12 @@ class HCIManager(object):
 				
 				if self.debug_mode == False and self.state != self.STATE.SUSPEND:
 
-					self.qa()
-					
+					if self.state == self.STATE.QUESTION_PENDING:
+						self.qa()
+					elif self.state == self.STATE.TUTORING_BEGIN:
+						self.tutor_step()
+
+
 					if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
 						print ("ENDING THE SESSION...")
 						exit()
@@ -370,6 +386,11 @@ class HCIManager(object):
 				self.current_input = ""
 			self.speech_lock.release()
 			time.sleep(0.1)
+
+	def tutor_step(self):
+		next_step = self.planner.next()
+		print ("NEXT STEP:", next_step)	
+		self.send_to_eta(mode="PLAN_STEP", text=next_step)				
 
 	def qa(self):
 		time.sleep(0.2)										
