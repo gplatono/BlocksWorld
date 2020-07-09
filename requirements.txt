@@ -5,3 +5,4 @@ pyasn1-modules=0.2.7
 pytz=2019.3
 grpcio=1.19.0
 pyaudio=0.2.11
+pattern=3.6
