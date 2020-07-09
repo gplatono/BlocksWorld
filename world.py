@@ -54,7 +54,7 @@ class World(object):
 			self.scene_setup()
 
 		self.verbose = False
-		self.verbose_rotation = False		
+		self.verbose_rotation = False
 		
 		bpy.utils.register_class(self.ProcessInputOp)
 		bpy.utils.register_class(self.ModalTimerOp)
@@ -353,8 +353,9 @@ class World(object):
 		if len(self.history) == 0:
 			moved_blocks = [ent.name for ent in self.entities if 'block' in ent.type_structure]
 
-		if (len(moved_blocks) > 0):
-			print ("MOVED BLOCKS: ", moved_blocks)		
+		if self.verbose:
+			if (len(moved_blocks) > 0):
+				print ("MOVED BLOCKS: ", moved_blocks)		
 
 		bpy.context.evaluated_depsgraph_get().update()		
 		for ent in self.entities:
@@ -403,7 +404,8 @@ class World(object):
 		self.history.append(self.State(self.entities))
 		if len(self.history) > 1:
 			moves = self.history[-1].state_diff(self.history[-2])
-			print (moves)
+			if self.verbose:
+				print (moves)
 			for move in moves:
 				self.log_event('BLOCK MOVE', self.move_to_ulf(move))			
 
