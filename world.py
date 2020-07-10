@@ -205,7 +205,8 @@ class World(object):
 		bpy.data.materials['green'].diffuse_color = (0, 1, 0, 0)
 		bpy.data.materials['blue'].diffuse_color = (0, 0, 1, 0)
 
-		self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
+		#self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
+		self.block_names = ['Target', 'Texaco', 'Toyota', 'Twitter', 'Starbucks',  'Burger King', 'McDonald\'s', 'Mercedes']
 		materials = [bpy.data.materials['blue'], bpy.data.materials['green'], bpy.data.materials['red']]
 	
 		self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
@@ -395,7 +396,7 @@ class World(object):
 	def move_to_ulf(self, move):
 		name = move[0]
 		loc1 = move[1]
-		loc2 = move[2]		
+		loc2 = move[2]
 		return '(' + self.find_entity_by_name(name).get_ulf() + \
 		' ((past move.v) (from.p-arg ' + utils.loc_to_ulf(loc1) + \
 		') (to.p-arg ' + utils.loc_to_ulf(loc2) + ')))'
