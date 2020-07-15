@@ -1,5 +1,6 @@
 from goal_generator import GoalGenerator
 import utils
+import constraint_solver
 
 class Planner:
 	def __init__(self, world):
@@ -19,16 +20,24 @@ class Planner:
 
 	def generate_plan(self):
 		move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Table')]
-		self.plan = [utils.rel_to_ulf(move)]
+		self.plan = [move]
 
 	def next(self):				
-		return self.plan[0]
+		return utils.rel_to_ulf(self.plan[0])
 
 	def execute(self):
 		self.plan.pop(0)
 
 	def update(self):
 		pass
+
+	def process_move(self, move):
+		arg0 = self.world.find_entity_by_name(move[0])
+		rel = self.plan[0][1]
+		arg1 = self.plan[0][2]
+		question = "(" + arg0.get_ulf() + "((pres be.v) " + rel + " " + arg1.get_ulf() + ")"
+		print (question)
+
 
 # planner = Planner('($ obj-schema \
 #  :header (?x BW-row.n) \

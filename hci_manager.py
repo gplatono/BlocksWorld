@@ -100,12 +100,7 @@ class HCIManager(object):
 			else: 
 				formatted_msg = "(setq *next-answer* " + text + ")"
 
-		# filename = self.eta_input if mode == "INPUT" else self.eta_answer
-		# formatted_msg = "(setq *next-input* \"" + text + "\")" if mode == "INPUT" \
-		# 							else "(setq *next-answer* \'(" + text + "))" if text != "\'None" \
-		# 								else "(setq *next-answer* " + text + ")"
-									#else "(setq *next-answer* \'(" + text + " NIL))"
-		print("SENT TO ETA: ", formatted_msg)
+		#print("SENT TO ETA: ", formatted_msg)
 		with open(filename, 'w') as file:
 			file.write(formatted_msg)
 
@@ -386,6 +381,43 @@ class HCIManager(object):
 				self.current_input = ""
 			self.speech_lock.release()
 			time.sleep(0.1)
+
+	def wait_for_user_action(self):
+		s = self.world.history[-1]
+		timestamp = time.time()		
+		has_moved = False
+		while True:
+			if has_moved == True:
+				if time.time() - self.world.history[-1].timestamp >= 2.0:
+					moves = self.world.history[-1].state_diff(s)
+					self.process_move(moves)
+					#self.world.make_checkpoint()
+					break
+				else:
+					time.sleep(1.0)
+			else:
+				if self.world.history[-1].timestamp <= timestamp:
+					time.sleep(1.0)
+				else:
+					has_moved = True
+
+	def process_move(self, moves):
+		move = moves[0]		
+		arg0 = self.world.find_entity_by_name(move[0])
+		rel = self.planner.plan[0][1]
+		arg1 = self.planner.plan[0][2]
+		question = "((" + arg0.get_ulf() + "((pres be.v) " + rel + " " + arg1.get_ulf() + ") ?)"
+		print ("QUESTION: ", question)
+		query_tree = self.ulf_parser.parse(question)		
+		query_frame = QueryFrame(self.current_input, question, query_tree)
+		answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
+		answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
+		print ("RESULT: ", answer_set_rel)
+		if arg0 in answer_set_rel:
+			print ("MOVE SUCCESSFUL...")
+			return True
+
+		#self.process_spatial_request(question)
 
 	def tutor_step(self):
 		next_step = self.planner.next()

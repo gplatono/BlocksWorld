@@ -543,6 +543,7 @@ class World(object):
 
 	class State:
 		def __init__(self, entities):
+			self.timestamp = time.time()
 			self.locations = {}
 			for ent in entities:
 				self.locations[ent.name] = np.round(ent.location, 3)
