@@ -92,7 +92,10 @@ class HCIManager(object):
 			formatted_msg = "(setq *goal-rep* '" + text + ")"
 		elif mode == "PLAN_STEP":
 			filename = self.eta_planner_input
-			formatted_msg = "(setq *planner-input* '" + text + ")"
+			if text is not None:
+				formatted_msg = "(setq *planner-input* '" + text + ")"
+			else:
+				formatted_msg = "(setq *planner-input* 'None)"
 		else:
 			filename = self.eta_answer
 			if text != "\'None":
@@ -349,6 +352,8 @@ class HCIManager(object):
 
 			elif self.state == self.STATE.TUTORING_NEXT_WAIT:
 				response = self.read_and_vocalize_from_eta()
+				self.wait_for_user_action()
+				self.state = self.STATE.TUTORING_NEXT_STEP
 				continue
 
 			if not self.speech_mode and not self.state == self.STATE.TUTORING_BEGIN and not self.state == self.STATE.TUTORING_NEXT_STEP:
@@ -387,18 +392,23 @@ class HCIManager(object):
 		timestamp = time.time()		
 		has_moved = False
 		while True:
+			print ("WAITING FOR MOVE...", timestamp)
 			if has_moved == True:
 				if time.time() - self.world.history[-1].timestamp >= 2.0:
+					print ("1")
 					moves = self.world.history[-1].state_diff(s)
 					self.process_move(moves)
 					#self.world.make_checkpoint()
 					break
 				else:
+					print ("2")
 					time.sleep(1.0)
 			else:
 				if self.world.history[-1].timestamp <= timestamp:
+					print ("3")
 					time.sleep(1.0)
 				else:
+					print ("4")
 					has_moved = True
 
 	def process_move(self, moves):

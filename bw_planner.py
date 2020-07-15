@@ -19,11 +19,14 @@ class Planner:
 		return self.goal_schema
 
 	def generate_plan(self):
-		move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Table')]
+		move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Construction Area')]
 		self.plan = [move]
 
-	def next(self):				
-		return utils.rel_to_ulf(self.plan[0])
+	def next(self):		
+		if len(self.plan) > 0:
+			return utils.rel_to_ulf(self.plan[0])
+		else:
+			return None
 
 	def execute(self):
 		self.plan.pop(0)
