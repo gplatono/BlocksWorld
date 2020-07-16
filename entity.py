@@ -419,8 +419,10 @@ class Entity(object):
 		obtype = self.type_structure[-1] if self.type_structure[-1] != self.name else \
 			self.type_structure[-2]
 		obtype += '.n'
-		if 'block' not in obtype:
-			obtype = ""
+		# if 'block' not in obtype:
+		# 	return '(the.d ' + name + '.n)'
+		# else:
+		# 	return '(the.d (' + name + ' ' + obtype + '))'
 		return '(the.d (' + name + ' ' + obtype + '))'
 
 	def get_location_ulf(self):

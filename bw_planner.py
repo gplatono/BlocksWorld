@@ -19,7 +19,8 @@ class Planner:
 		return self.goal_schema
 
 	def generate_plan(self):
-		move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Construction Area')]
+		#move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Construction Area')]
+		move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Table')]
 		self.plan = [move]
 
 	def next(self):		
@@ -28,7 +29,7 @@ class Planner:
 		else:
 			return None
 
-	def execute(self):
+	def execute_next(self):
 		self.plan.pop(0)
 
 	def update(self):

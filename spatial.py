@@ -318,8 +318,10 @@ def on(a, b):
     #print ("CURRENT ON: ", a, b, ret_val, above(a, b), touching(a, b), hor_offset)
 #    ret_val =  touching(a, b) * hor_offset if above(a, b) < 0.88 else above(a, b) * touching(a, b)        
     #print ("CURRENT ON:", ret_val)
-    if b.get('planar') is not None and larger_than(b, a) and a.centroid[2] > 0.5 * a.dimensions[2]:
-        ret_val = max(ret_val, touching(a, b))    
+    if b.get('planar') is not None and larger_than(b, a):# and a.centroid[2] > 0.5 * a.dimensions[2]:
+        ret_val = max(ret_val, touching(a, b))
+        #print ("CURRENT ON FOR PLANAR:", ret_val)
+    
     #ret_val = 0.5 * (v_offset(a, b) + get_proj_intersection(a, b))
     #print ("ON {}, {}, {}".format(ret_val, get_proj_intersection(a, b), v_offset(a, b)))
     #ret_val = max(ret_val, 0.5 * (above(a, b) + touching(a, b)))

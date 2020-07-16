@@ -191,7 +191,8 @@ def filter_by_color(entities, color):
 
 #Returns the list of entities having the specified type
 def filter_by_type(entities, type_id):	
-	#print ("TYPE PROCESSING: ", type_id)
+	print ("TYPE PROCESSING: ", type_id)
+	#type_id = type_id.replace("|", "").replace(".n", "")
 	ret_val = [] if entities == [] or entities is None \
 			else [entity for entity in entities if type_id in entity.type_structure or type_id == 'one']
 	return ret_val	

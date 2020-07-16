@@ -34,6 +34,8 @@ class HCIManager(object):
 		TUTORING_BEGIN = 7
 		TUTORING_NEXT_STEP = 8
 		TUTORING_NEXT_WAIT = 9
+		TUTORING_COMPLETE = 10
+		DEFAULT = 11		#System waits for the user's suggestion
 
 	def __init__(self, world, debug_mode = False, speech_mode = True, avatar_mode = True):
 
@@ -96,6 +98,12 @@ class HCIManager(object):
 				formatted_msg = "(setq *planner-input* '" + text + ")"
 			else:
 				formatted_msg = "(setq *planner-input* 'None)"
+		elif mode == "ACTION_RESULT":
+			filename = self.eta_user_try_success
+			if text == "SUCCESS":
+				formatted_msg = "(setq *user-try-ka-success* T)"
+			else:
+				formatted_msg = "(setq *user-try-ka-success* 'Failure')"
 		else:
 			filename = self.eta_answer
 			if text != "\'None":
@@ -334,10 +342,20 @@ class HCIManager(object):
 					#print ("OBJ_SCHEMA: ", obj_schema)
 					self.planner.init(obj_schema)
 					goal_schema = self.planner.get_goal_schema()
+
+					# question = "(((The.d (|Toyota| block.n)) ((pres be.v) (on.p (the.d |construction_area|.n)))) ?)"
+					# print ("QUESTION: ", question)
+					# query_tree = self.ulf_parser.parse(question)		
+					# query_frame = QueryFrame(self.current_input, question, query_tree)
+					# answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
+					# answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
+					# print ("RESULT: ", answer_set_rel)
+
 					print ("GOAL SCHEMA: ", goal_schema)
 					self.send_to_eta(mode="GOAL_RESP", text=goal_schema)
 				else:
 					print ("Go ahead, ask a question...")
+					self.state = self.STATE.DEFAULT
 				continue
 			elif self.state == self.STATE.TUTORING_BEGIN:
 				response = self.read_and_vocalize_from_eta()				
@@ -346,45 +364,89 @@ class HCIManager(object):
 				continue
 
 			elif self.state == self.STATE.TUTORING_NEXT_STEP:
-				self.tutor_step()
-				self.state = self.STATE.TUTORING_NEXT_WAIT
+				print ("STEP...")
+				#self.tutor_step()
+				#self.state = self.STATE.TUTORING_NEXT_WAIT
+				next_step = self.planner.next()
+				print ("NEXT STEP:", next_step)	
+				self.send_to_eta(mode="PLAN_STEP", text=next_step)
+				if next_step is not None:
+					self.state = self.STATE.TUTORING_NEXT_WAIT
+				else:
+					self.state = self.STATE.TUTORING_COMPLETE				
 				continue
 
 			elif self.state == self.STATE.TUTORING_NEXT_WAIT:
-				response = self.read_and_vocalize_from_eta()
-				self.wait_for_user_action()
+				print ("WAIT...")
+				response = ""
+				while response == "" or response is None:
+					response = self.read_and_vocalize_from_eta()					
+				response = ""
+
+				self.wait_for_user_action()				
 				self.state = self.STATE.TUTORING_NEXT_STEP
+				self.send_to_eta(mode="ACTION_RESULT", text="SUCCESS")
+				time.sleep(1.0)
 				continue
 
-			if not self.speech_mode and not self.state == self.STATE.TUTORING_BEGIN and not self.state == self.STATE.TUTORING_NEXT_STEP:
-				self.current_input = input ("\033[1;34;40mYOU: ")
-				print ("\033[0;37;40m")
+			elif self.state == self.STATE.TUTORING_COMPLETE:
+				while response == "" or response is None:
+					response = self.read_and_vocalize_from_eta()
+				response = ""
+				self.state = self.STATE.DEFAULT
+				continue
 
-			self.speech_lock.acquire()
-			if self.current_input != "":
-				
-				if self.state != self.STATE.SUSPEND and self.state != self.STATE.TUTORING_BEGIN:
-					self.state = self.STATE.QUESTION_PENDING
-				if self.speech_mode:
-					print ("\033[1;34;40mYOU: " + self.current_input + "\033[0;37;40m")
-				self.current_input = self.preprocess(self.current_input)
-				#self.current_input = self.current_input.replace("is it ", "is that block ")
-				
-				if self.debug_mode == False and self.state != self.STATE.SUSPEND:
+			elif self.state == self.STATE.DEFAULT:
+				if not self.speech_mode:
+					self.current_input = input ("\033[1;34;40mYOU: ")
+					print ("\033[0;37;40m")
 
-					if self.state == self.STATE.QUESTION_PENDING:
-						self.qa()
-					elif self.state == self.STATE.TUTORING_BEGIN:
-						self.tutor_step()
+				self.speech_lock.acquire()
+				if self.current_input != "":					
+					if self.speech_mode:
+						print ("\033[1;34;40mYOU: " + self.current_input + "\033[0;37;40m")
+					self.current_input = self.preprocess(self.current_input)
 
-
+					self.qa()					
 					if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
 						print ("ENDING THE SESSION...")
 						exit()
 
-					time.sleep(0.5)					
-				self.current_input = ""
-			self.speech_lock.release()
+					time.sleep(0.5)
+					self.current_input = ""
+				self.speech_lock.release()
+				continue
+
+			# if not self.speech_mode and not self.state == self.STATE.TUTORING_BEGIN and not self.state == self.STATE.TUTORING_NEXT_STEP:
+			# 	self.current_input = input ("\033[1;34;40mYOU: ")
+			# 	print ("\033[0;37;40m")
+
+			# self.speech_lock.acquire()
+			# if self.current_input != "":
+				
+			# 	if self.state != self.STATE.SUSPEND and self.state != self.STATE.TUTORING_BEGIN:
+			# 		self.state = self.STATE.QUESTION_PENDING
+			# 	if self.speech_mode:
+			# 		print ("\033[1;34;40mYOU: " + self.current_input + "\033[0;37;40m")
+			# 	self.current_input = self.preprocess(self.current_input)
+			# 	#self.current_input = self.current_input.replace("is it ", "is that block ")
+				
+			# 	if self.debug_mode == False and self.state != self.STATE.SUSPEND:
+
+			# 		if self.state == self.STATE.QUESTION_PENDING:
+			# 			self.qa()
+			# 		elif self.state == self.STATE.TUTORING_BEGIN:
+			# 			self.tutor_step()
+
+
+			# 		if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
+			# 			print ("ENDING THE SESSION...")
+			# 			exit()
+
+			# 		time.sleep(0.5)					
+			# 	self.current_input = ""
+			# response = ""
+			# self.speech_lock.release()
 			time.sleep(0.1)
 
 	def wait_for_user_action(self):
@@ -392,46 +454,56 @@ class HCIManager(object):
 		timestamp = time.time()		
 		has_moved = False
 		while True:
-			print ("WAITING FOR MOVE...", timestamp)
+			#print ("WAITING FOR MOVE...", timestamp)
 			if has_moved == True:
 				if time.time() - self.world.history[-1].timestamp >= 2.0:
-					print ("1")
+					#print ("1")
 					moves = self.world.history[-1].state_diff(s)
 					self.process_move(moves)
 					#self.world.make_checkpoint()
 					break
 				else:
-					print ("2")
+					#print ("2")
 					time.sleep(1.0)
 			else:
 				if self.world.history[-1].timestamp <= timestamp:
-					print ("3")
+					#print ("3")
 					time.sleep(1.0)
 				else:
-					print ("4")
+					#print ("4")
 					has_moved = True
 
 	def process_move(self, moves):
-		move = moves[0]		
+		move = moves[0]
 		arg0 = self.world.find_entity_by_name(move[0])
 		rel = self.planner.plan[0][1]
-		arg1 = self.planner.plan[0][2]
-		question = "((" + arg0.get_ulf() + "((pres be.v) " + rel + " " + arg1.get_ulf() + ") ?)"
+		arg1 = self.planner.plan[0][2].get_ulf()
+		if 'construction_area' in arg1:
+			arg1 = "(the.d |construction_area|.n)"
+		elif 'table' in arg1:
+			arg1 = "(the.d |construction_area|.n)"
+		question = "((" + arg0.get_ulf() + " ((pres be.v) " + rel + " " + arg1 + ") ?)"
 		print ("QUESTION: ", question)
 		query_tree = self.ulf_parser.parse(question)		
 		query_frame = QueryFrame(self.current_input, question, query_tree)
 		answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
 		answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
 		print ("RESULT: ", answer_set_rel)
-		if arg0 in answer_set_rel:
-			print ("MOVE SUCCESSFUL...")
-			return True
-
+		for item in answer_set_rel:
+			if arg0 in item:
+				print ("MOVE SUCCESSFUL...")
+				self.planner.execute_next()
+				return True
+		return False
 		#self.process_spatial_request(question)
 
 	def tutor_step(self):
 		next_step = self.planner.next()
 		print ("NEXT STEP:", next_step)	
+		if next_step is not None:
+			self.state = self.STATE.TUTORING_NEXT_WAIT
+		else:
+			self.state = self.STATE.TUTORING_COMPLETE
 		self.send_to_eta(mode="PLAN_STEP", text=next_step)				
 
 	def qa(self):
@@ -448,12 +520,17 @@ class HCIManager(object):
 		if ulf is not None and ulf != "":
 			self.send_to_avatar('ULF', ulf)
 			if 'NON-QUERY' not in ulf.upper():
-				response_surface = self.process_spatial_request(ulf)							
+				answer = self.process_spatial_request(ulf)							
+				response_surface = self.get_ulf(answer[3], answer[1], answer[2])
+				if answer[0] == "POSS-ANS":
+					response_surface = "POSS-ANS " + response_surface
 				print ("Sending Response to ETA: " + response_surface)										
 				self.send_to_eta("ANSWER", response_surface)
-		time.sleep(4.0)
-		
-		response = str(self.read_and_vocalize_from_eta())
+		#time.sleep(4.0)
+		response = ""
+		while response == "" or response is None:
+			response = self.read_and_vocalize_from_eta()
+		response = ""
 		open(self.eta_answer, 'w').close()
 		self.dialog_counter += 1
 
@@ -474,7 +551,8 @@ class HCIManager(object):
 				exit()
 
 	def process_spatial_request(self, ulf):
-		response_surface = "\'None"
+		#response_surface = "\'None"
+
 		if ulf is not None and ulf != "" and ulf != "NIL":
 			#self.send_to_avatar('ULF', ulf)
 			if re.search(r"^\((\:OUT|OUT|OUT:)", ulf):
@@ -482,9 +560,9 @@ class HCIManager(object):
 					ulf = (ulf.split("(OUT ")[1])[:-1]
 				else:
 					ulf = (ulf.split("(:OUT ")[1])[:-1]
-				response_surface = ulf
+				#response_surface = ulf
 			else:
-				self.state = self.STATE.QUESTION_PENDING
+				#self.state = self.STATE.QUESTION_PENDING
 				try:
 					print ("ULF: ", ulf, self.last_mentioned)
 					if "IT.PRO" in ulf and self.last_mentioned is not None and len(self.last_mentioned) > 0:
@@ -501,17 +579,61 @@ class HCIManager(object):
 
 					if answer_set_ref is not None:
 						answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
-					response_surface = self.get_ulf(query_frame, answer_set_rel, answer_set_ref)
+					#response_surface = self.get_ulf(query_frame, answer_set_rel, answer_set_ref)
+					answer = ["ANS", answer_set_rel, answer_set_ref, query_frame]
 				
 					if POSS_FLAG:
-						response_surface = "POSS-ANS " + response_surface
+						answer[0] = "POSS-ANS"
+						#response_surface = "POSS-ANS " + response_surface
 				except Exception as e:
 					query_frame = QueryFrame(None, None, None)					
-					response_surface = "\'None"#self.generate_response(query_frame, [], [])
+					#response_surface = "\'None"#self.generate_response(query_frame, [], [])
+					answer = None
 					#print (str(e))
 					traceback.print_exc()
 
-		return response_surface
+		#return response_surface
+		return answer
+
+	# def process_spatial_request(self, ulf):
+	# 	response_surface = "\'None"
+	# 	if ulf is not None and ulf != "" and ulf != "NIL":
+	# 		#self.send_to_avatar('ULF', ulf)
+	# 		if re.search(r"^\((\:OUT|OUT|OUT:)", ulf):
+	# 			if "(OUT " in ulf:
+	# 				ulf = (ulf.split("(OUT ")[1])[:-1]
+	# 			else:
+	# 				ulf = (ulf.split("(:OUT ")[1])[:-1]
+	# 			response_surface = ulf
+	# 		else:
+	# 			#self.state = self.STATE.QUESTION_PENDING
+	# 			try:
+	# 				print ("ULF: ", ulf, self.last_mentioned)
+	# 				if "IT.PRO" in ulf and self.last_mentioned is not None and len(self.last_mentioned) > 0:
+	# 					ulf = ulf.replace("IT.PRO", self.last_mentioned[0].get_ulf())
+	# 				POSS_FLAG = False
+	# 				if "POSS-QUES" in ulf:
+	# 					POSS_FLAG = True
+	# 					ulf = (ulf.split("POSS-QUES ")[1])[:-1]
+	# 				query_tree = self.ulf_parser.parse(ulf)					
+	# 				query_frame = QueryFrame(self.current_input, ulf, query_tree)
+					
+	# 				answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
+	# 				answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
+
+	# 				if answer_set_ref is not None:
+	# 					answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
+	# 				response_surface = self.get_ulf(query_frame, answer_set_rel, answer_set_ref)
+				
+	# 				if POSS_FLAG:
+	# 					response_surface = "POSS-ANS " + response_surface
+	# 			except Exception as e:
+	# 				query_frame = QueryFrame(None, None, None)					
+	# 				response_surface = "\'None"#self.generate_response(query_frame, [], [])
+	# 				#print (str(e))
+	# 				traceback.print_exc()
+
+	# 	return response_surface
 
 
 	def send_to_avatar(self, mode, text):
