@@ -213,8 +213,8 @@ class World(object):
 		bpy.data.materials['green'].diffuse_color = (0, 1, 0, 0)
 		bpy.data.materials['blue'].diffuse_color = (0, 0, 1, 0)
 
-		self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
-		#self.block_names = ['Twitter', 'Target', 'Texaco', 'Toyota', 'Mercedes', 'Starbucks',  'Burger King', 'McDonald\'s']
+		#self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
+		self.block_names = ['Twitter', 'Toyota', 'Texaco', 'Target', 'Mercedes', 'Burger King', 'McDonald\'s', 'Starbucks']
 		materials = [bpy.data.materials['blue'], bpy.data.materials['green'], bpy.data.materials['red']]
 	
 		self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
@@ -576,6 +576,12 @@ class World(object):
 				if name in s.locations and np.linalg.norm(self.locations[name] - s.locations[name]) > 0.2:					
 					result.append([name, s.locations[name], self.locations[name]])
 			return result
+
+
+		def evaluate(self, arg0, relation, arg1):
+
+			for name in self.locations:
+				ent1 = Entity()
 
 		def compute(self):
 			from constraint_solver import func_to_rel_map
