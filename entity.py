@@ -415,15 +415,17 @@ class Entity(object):
 			return canopy
 
 	def get_ulf(self):
-		name = '|' + self.name + '|'
+		name = self.name
+		if " " in name:
+			name = "_".join(name.split(" "))
 		obtype = self.type_structure[-1] if self.type_structure[-1] != self.name else \
-			self.type_structure[-2]
+			self.type_structure[-2]				
 		obtype += '.n'
-		# if 'block' not in obtype:
-		# 	return '(the.d ' + name + '.n)'
-		# else:
-		# 	return '(the.d (' + name + ' ' + obtype + '))'
-		return '(the.d (' + name + ' ' + obtype + '))'
+		if name.lower() in obtype:
+			return '(the.d ' + obtype + ')'
+		else:
+			name = '|' + name + '|'
+			return '(the.d (' + name + ' ' + obtype + '))'
 
 	def get_location_ulf(self):
 		return utils.loc_to_ulf(self.location)

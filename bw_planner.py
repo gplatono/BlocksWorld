@@ -1,6 +1,7 @@
 from goal_generator import GoalGenerator
 import utils
 import constraint_solver
+import random
 
 class Planner:
 	def __init__(self, world):
@@ -19,13 +20,28 @@ class Planner:
 		return self.goal_schema
 
 	def generate_plan(self):
-		#move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Construction Area')]
-		move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Table')]
-		self.plan = [move]
+		self.blocks = self.world.find_entities_by_type('block')
+		random.shuffle(self.blocks)
+		if 'bw-pyramid.n' in self.goal_schema:
+			size = 3
+			bl = []
+			for i in range(size):
+				bl.append(self.get_block())			
+			self.plan = [[(bl[0], "on.p", self.world.find_entity_by_name('Construction Area'))], \
+			[(bl[1], "on.p", self.world.find_entity_by_name('Construction Area')), (bl[1], "next_to.p", bl[0])], \
+			[(bl[2], "on.p", bl[0]), (bl[2], "on.p", bl[1])]]
+		#move = [self.world.find_entity_by_name('Toyota'), "on.p", self.world.find_entity_by_name('Table')]
+		#self.plan = [move]
+
+	def get_block(self):
+		return self.blocks.pop()
 
 	def next(self):		
 		if len(self.plan) > 0:
-			return utils.rel_to_ulf(self.plan[0])
+			if len(self.plan[0]) == 1:
+				return utils.rel_to_ulf(self.plan[0][0]) 
+			else:
+				return "(" + " ".join(utils.rel_to_ulf(item) for item in self.plan[0]) + ")"
 		else:
 			return None
 

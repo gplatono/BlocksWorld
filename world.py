@@ -460,6 +460,17 @@ class World(object):
 				return entity
 		return None
 
+
+	def find_entities_by_type(self, en_type):
+		"""
+		Search and return the entities that have the given type.
+		
+		Inputs: type - human-readable typename as a string
+
+		Returns: list of entities (if exist) or None.
+		"""
+		return [entity for entity in self.entities if en_type.lower() in entity.type_structure]
+
 	class ModalTimerOp(bpy.types.Operator):
 		#metatags for Blender internal machinery
 		bl_idname = "wm.modal_timer_operator"

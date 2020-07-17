@@ -408,7 +408,7 @@ class HCIManager(object):
 					self.current_input = self.preprocess(self.current_input)
 
 					self.qa()					
-					if response is not None and ("good bye" in response.lower() or "take a break" in response.lower()):
+					if response is not None and ("bye" in response.lower() or "take a break" in response.lower()):
 						print ("ENDING THE SESSION...")
 						exit()
 
@@ -474,28 +474,30 @@ class HCIManager(object):
 					has_moved = True
 
 	def process_move(self, moves):
+		result = True
+		for constraint in self.planner.plan[0]:
+			result = result and self.process_constraint(moves, constraint)
+		if result:
+			print ("MOVE SUCCESSFUL...")
+			self.planner.execute_next()		
+
+	def process_constraint(self, moves, constraint):
 		move = moves[0]
 		arg0 = self.world.find_entity_by_name(move[0])
-		rel = self.planner.plan[0][1]
-		arg1 = self.planner.plan[0][2].get_ulf()
-		if 'construction_area' in arg1:
-			arg1 = "(the.d |construction_area|.n)"
-		elif 'table' in arg1:
-			arg1 = "(the.d |construction_area|.n)"
+		print ("ARG0: ", arg0, constraint[0])
+		if arg0 != constraint[0]:
+			return False
+		rel = constraint[1]
+		arg1 = constraint[2].get_ulf()
 		question = "((" + arg0.get_ulf() + " ((pres be.v) " + rel + " " + arg1 + ") ?)"
 		print ("QUESTION: ", question)
-		query_tree = self.ulf_parser.parse(question)		
-		query_frame = QueryFrame(self.current_input, question, query_tree)
-		answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
-		answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
-		print ("RESULT: ", answer_set_rel)
-		for item in answer_set_rel:
+		answer = self.process_spatial_request(question)
+		print ("RESULT: ", answer[1])
+		for item in answer[1]:
 			if arg0 in item:
-				print ("MOVE SUCCESSFUL...")
-				self.planner.execute_next()
+				#self.planner.execute_next()
 				return True
-		return False
-		#self.process_spatial_request(question)
+		return False	
 
 	def tutor_step(self):
 		next_step = self.planner.next()
