@@ -80,6 +80,8 @@ class World(object):
 		self.history = []
 		self.move_queue = []
 
+		self.first = True
+
 		if self.simulation_mode == False:
 			block_data = self.get_block_data()
 			block_data.sort(key = lambda x : x[1][0])
@@ -110,6 +112,11 @@ class World(object):
 			position = self.bw_multiplier * np.array([round(float(x), 2) for x in segment['Position'].split(",")])
 			rotation = Quaternion([round(float(x), 2) for x in segment['Rotation'].split(",")]).to_euler()
 			block_data.append((segment['ID'], position, rotation))            
+
+		if self.first:
+			for item in block_data:
+				print (item)
+			self.first = False
 
 		return block_data
 		
@@ -178,7 +185,8 @@ class World(object):
 	def create_block(self, name="", location=(0,0,0), rotation=(0,0,0), material=None):
 		if bpy.data.objects.get(name) is not None:
 			bl = bpy.data.objects[name]
-			bl.rotation_euler = rotation
+			#bl.rotation_euler = rotation
+			print ("bl...", bl.name, bl.location)
 			return bl
 		block_mesh = bpy.data.meshes.new('Block_mesh')
 		block = bpy.data.objects.new(name, block_mesh)
@@ -205,8 +213,8 @@ class World(object):
 		bpy.data.materials['green'].diffuse_color = (0, 1, 0, 0)
 		bpy.data.materials['blue'].diffuse_color = (0, 0, 1, 0)
 
-		#self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
-		self.block_names = ['Target', 'Texaco', 'Toyota', 'Twitter', 'Starbucks',  'Burger King', 'McDonald\'s', 'Mercedes']
+		self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
+		#self.block_names = ['Twitter', 'Target', 'Texaco', 'Toyota', 'Mercedes', 'Starbucks',  'Burger King', 'McDonald\'s']
 		materials = [bpy.data.materials['blue'], bpy.data.materials['green'], bpy.data.materials['red']]
 	
 		self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
