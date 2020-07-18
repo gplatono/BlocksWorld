@@ -11,8 +11,9 @@ import datetime
 import traceback
 
 from query_frame import QueryFrame
-from ulf_parser import ULFParser
-from constraint_solver import *
+import ulf_grammar
+#from ulf_parser import ULFParser
+import constraint_solver
 import spatial
 from spatial import near, touching
 from geometry_utils import get_planar_distance_scaled
@@ -74,7 +75,7 @@ class HCIManager(object):
 		self.log_file = None
 
 		self.world = world
-		self.ulf_parser = ULFParser()
+		#self.ulf_parser = ULFParser()
 		self.planner = Planner(self.world)
 		
 		self.last_mentioned = []
@@ -239,7 +240,7 @@ class HCIManager(object):
 				rel = 'not ' + rel
 			#print ("ANS DATA: ", subj_list, rel, obj_list)
 		print ("ANSWER SET DATA: ", subj_list, obj_list)
-		if rel is not None and type(rel) != TCopulaBe and obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR and query_frame.query_type != query_frame.QueryType.COUNT:
+		if rel is not None and type(rel) != ulf_grammar.TCopulaBe and obj_list != None and len(obj_list) > 0 and type(obj_list[0]) == tuple and query_frame.query_type != query_frame.QueryType.ATTR_COLOR and query_frame.query_type != query_frame.QueryType.DESCR and query_frame.query_type != query_frame.QueryType.COUNT:
 			self.last_mentioned = []
 			for subj in subj_list:				
 				if type(subj[0]) == Entity:
@@ -491,7 +492,7 @@ class HCIManager(object):
 		arg1 = constraint[2].get_ulf()
 		question = "((" + arg0.get_ulf() + " ((pres be.v) " + rel + " " + arg1 + ") ?)"
 		print ("QUESTION: ", question)
-		answer = self.process_spatial_request(question)
+		answer = constraint_solver.process_spatial_request("", question, self.world.entities)
 		print ("RESULT: ", answer[1])
 		for item in answer[1]:
 			if arg0 in item:
@@ -521,8 +522,14 @@ class HCIManager(object):
 		#print ("RETURNED ULF FROM ETA: ", ulf)
 		if ulf is not None and ulf != "":
 			self.send_to_avatar('ULF', ulf)
+			
+			#print ("ULF: ", ulf, self.last_mentioned)
+			if "IT.PRO" in ulf and self.last_mentioned is not None and len(self.last_mentioned) > 0:
+				ulf = ulf.replace("IT.PRO", self.last_mentioned[0].get_ulf())
+					
 			if 'NON-QUERY' not in ulf.upper():
-				answer = self.process_spatial_request(ulf)							
+				answer = constraint_solver.process_spatial_request(self.current_input, ulf, self.world.entities)
+				print ("ANS:" , answer)
 				response_surface = self.get_ulf(answer[3], answer[1], answer[2])
 				if answer[0] == "POSS-ANS":
 					response_surface = "POSS-ANS " + response_surface
@@ -552,50 +559,37 @@ class HCIManager(object):
 				input()
 				exit()
 
-	def process_spatial_request(self, ulf):
-		#response_surface = "\'None"
-
-		if ulf is not None and ulf != "" and ulf != "NIL":
-			#self.send_to_avatar('ULF', ulf)
-			if re.search(r"^\((\:OUT|OUT|OUT:)", ulf):
-				if "(OUT " in ulf:
-					ulf = (ulf.split("(OUT ")[1])[:-1]
-				else:
-					ulf = (ulf.split("(:OUT ")[1])[:-1]
-				#response_surface = ulf
-			else:
-				#self.state = self.STATE.QUESTION_PENDING
-				try:
-					print ("ULF: ", ulf, self.last_mentioned)
-					if "IT.PRO" in ulf and self.last_mentioned is not None and len(self.last_mentioned) > 0:
-						ulf = ulf.replace("IT.PRO", self.last_mentioned[0].get_ulf())
-					POSS_FLAG = False
-					if "POSS-QUES" in ulf:
-						POSS_FLAG = True
-						ulf = (ulf.split("POSS-QUES ")[1])[:-1]
-					query_tree = self.ulf_parser.parse(ulf)					
-					query_frame = QueryFrame(self.current_input, ulf, query_tree)
+	# def process_spatial_request(self, ulf):
+	# 	if ulf is not None and ulf != "" and ulf != "NIL":
+	# 		if re.search(r"^\((\:OUT|OUT|OUT:)", ulf):
+	# 			if "(OUT " in ulf:
+	# 				ulf = (ulf.split("(OUT ")[1])[:-1]
+	# 			else:
+	# 				ulf = (ulf.split("(:OUT ")[1])[:-1]
+	# 		else:
+	# 			try:
+	# 				POSS_FLAG = False
+	# 				if "POSS-QUES" in ulf:
+	# 					POSS_FLAG = True
+	# 					ulf = (ulf.split("POSS-QUES ")[1])[:-1]
+	# 				query_tree = self.ulf_parser.parse(ulf)					
+	# 				query_frame = QueryFrame(self.current_input, ulf, query_tree)
 					
-					answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
-					answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
+	# 				answer_set_rel, answer_set_ref = process_query(query_frame, self.world.entities)
+	# 				answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
 
-					if answer_set_ref is not None:
-						answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
-					#response_surface = self.get_ulf(query_frame, answer_set_rel, answer_set_ref)
-					answer = ["ANS", answer_set_rel, answer_set_ref, query_frame]
+	# 				if answer_set_ref is not None:
+	# 					answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
+	# 				answer = ["ANS", answer_set_rel, answer_set_ref, query_frame]
 				
-					if POSS_FLAG:
-						answer[0] = "POSS-ANS"
-						#response_surface = "POSS-ANS " + response_surface
-				except Exception as e:
-					query_frame = QueryFrame(None, None, None)					
-					#response_surface = "\'None"#self.generate_response(query_frame, [], [])
-					answer = None
-					#print (str(e))
-					traceback.print_exc()
+	# 				if POSS_FLAG:
+	# 					answer[0] = "POSS-ANS"
+	# 			except Exception as e:
+	# 				query_frame = QueryFrame(None, None, None)					
+	# 				answer = None
+	# 				traceback.print_exc()
 
-		#return response_surface
-		return answer
+	# 	return answer
 
 	# def process_spatial_request(self, ulf):
 	# 	response_surface = "\'None"

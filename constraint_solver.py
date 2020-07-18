@@ -1,12 +1,18 @@
 import spatial
-import itertools
 from ulf_grammar import *
+from ulf_parser import ULFParser
+from query_frame import QueryFrame
+from entity import Entity
+
+import itertools
 import numpy as np
 import math
-from entity import Entity
+import re
+import traceback
 
 global_entities = []
 world = None
+parser = ULFParser()
 
 def ident(arg1, arg2):
 	return int(arg1 is arg2)
@@ -578,6 +584,40 @@ def process_query(query, entities):
 	relata = [item for item in relata if "table" not in item[0].type_structure]
 	#print ("ANSWER SETS: ", relata, referents)
 	return relata, referents
+
+
+def process_spatial_request(question, ulf, entities):
+	if ulf is not None and ulf != "" and ulf != "NIL":
+		if re.search(r"^\((\:OUT|OUT|OUT:)", ulf):
+			if "(OUT " in ulf:
+				ulf = (ulf.split("(OUT ")[1])[:-1]
+			else:
+				ulf = (ulf.split("(:OUT ")[1])[:-1]
+		else:
+			try:
+				POSS_FLAG = False
+				if "POSS-QUES" in ulf:
+					POSS_FLAG = True
+					ulf = (ulf.split("POSS-QUES ")[1])[:-1]
+				query_tree = parser.parse(ulf)
+				query_frame = QueryFrame(question, ulf, query_tree)
+				
+				answer_set_rel, answer_set_ref = process_query(query_frame, entities)
+				answer_set_rel = [item for item in answer_set_rel if item[1] > 0.1]
+
+				if answer_set_ref is not None:
+					answer_set_ref = [item for item in answer_set_ref if item[1] > 0.1]
+				answer = ["ANS", answer_set_rel, answer_set_ref, query_frame]
+			
+				if POSS_FLAG:
+					answer[0] = "POSS-ANS"
+			except Exception as e:
+				query_frame = QueryFrame(None, None, None)					
+				answer = None
+				traceback.print_exc()
+
+	return answer
+
 
 
 class Response():

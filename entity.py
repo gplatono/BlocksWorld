@@ -9,6 +9,7 @@ import sys
 import random
 import enum
 from mathutils import Vector
+import copy
 
 from geometry_utils import *
 import utils
@@ -28,8 +29,9 @@ class Entity(object):
 		STRUCTURE = 1
 		REGION = 2
 
-	def __init__(self, components, name=None, explore_children=True):
-
+	def __init__(self, components=None, name=None, explore_children=True):
+		if components is None:
+			return
 		if type(components) == bpy_types.Object:
 			components = [components]
 
@@ -447,3 +449,14 @@ class Entity(object):
 			features.append(item)
 		#features.append(self.span)
 		return features
+
+	def copy(self):
+		entity = Entity()
+		for key in self.__dict__.keys():
+			try:
+				entity.key = copy.deepcopy(self.__dict__[key])
+			except Exception as e:
+				print (e)
+				entity.key = self.__dict__[key]
+		return entity
+		#return copy.deepcopy(self)

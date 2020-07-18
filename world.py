@@ -13,6 +13,7 @@ from mathutils import Vector
 from mathutils import Quaternion
 from entity import Entity
 from geometry_utils import *
+import constraint_solver
 
 #import spatial
 
@@ -564,8 +565,10 @@ class World(object):
 		def __init__(self, entities):
 			self.timestamp = time.time()
 			self.locations = {}
+			self.entities = []			
 			for ent in entities:
 				self.locations[ent.name] = np.round(ent.location, 3)
+				self.entities.append(ent.copy())
 			
 		def state_diff(self, s):
 			"""self - s"""
@@ -578,10 +581,27 @@ class World(object):
 			return result
 
 
-		def evaluate(self, arg0, relation, arg1):
+		def evaluate(self, arg0, relation, arg1, arg2=None):
+			arg0_ = None
+			arg1_ = None
+			arg2_ = None
+			for ent in self.entities:
+				if ent.name == arg0 and arg0_ is None:
+					arg0_ = ent
+				if ent.name	== arg1 and arg1_ is None:
+					arg1_ = ent
+				if arg2 is not None and ent.name == arg2 and arg2_ is None:
+					arg2_ = ent
 
-			for name in self.locations:
-				ent1 = Entity()
+			question = "((" + arg0_.get_ulf() + " ((pres be.v) " + relation + " " + arg1_.get_ulf + ") ?)"
+			print ("QUESTION: ", question)
+			answer = constraint_solver.process_spatial_request("", question, self.world.entities)
+			print ("RESULT: ", answer[1])
+			for item in answer[1]:
+				if arg0 in item:
+					return True
+
+			return False
 
 		def compute(self):
 			from constraint_solver import func_to_rel_map
