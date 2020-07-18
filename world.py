@@ -371,21 +371,7 @@ class World(object):
 		for ent in self.entities:
 			if ent.name in moved_blocks:
 				ent.update()
-		# for name in moved_blocks:
-		# 	ent = self.find_entity_by_name(name)
-		# 	# old_loc = ent.location                    
-		# 	# self.entities.remove(ent)
-			
-		# 	# ent = Entity(bpy.data.objects[name])
-		# 	# self.entities.append(ent)
-		# 	ent.update()
-			
 		
-		# 	#print ("ENTITY {} IS RELOCATED BY DIST {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
-		# 	if self.verbose:
-		# 		print ("ENTITY RELOCATED: {} {}; OLD LOC: {}; NEW LOC: {}".format(ent.name, np.linalg.norm(old_loc - ent.location), old_loc, ent.location))
-		
-
 		if len(moved_blocks) > 0:
 			# self.history.append(self.State(self.entities))
 			self.record_history()
@@ -395,12 +381,6 @@ class World(object):
 	def make_checkpoint(self):
 		#self.checkpoint = self.history[-1]
 		self.checkpoint = len(self.history)-1
-
-	# def loc_to_str(self, loc):
-	# 	x = ":x " + str(loc[0])
-	# 	y = ":y " + str(loc[1])
-	# 	z = ":z " + str(loc[2])
-	# 	return '($ loc' + x + ' ' + y + ' ' + z + ')'
 
 	def move_to_ulf(self, move):
 		name = move[0]
@@ -419,14 +399,13 @@ class World(object):
 			for move in moves:
 				self.log_event('BLOCK MOVE', self.move_to_ulf(move))			
 
-	def get_last_move(self):
-		return moves[-1]
+	# def get_last_move(self):
+	# 	return moves[-1]
 
 	def get_moves_after_checkpoint(self):
 		result = []
 		for i in range(self.checkpoint+1, len(self.history)):
 			result += self.history[i].state_diff(self.history[i-1])
-		#return self.history[-1].state_diff(self.checkpoint)
 		return result
 
 	def get_move_ulfs_after_checkpoint(self):
@@ -588,15 +567,18 @@ class World(object):
 			for ent in self.entities:
 				if ent.name == arg0 and arg0_ is None:
 					arg0_ = ent
-				if ent.name	== arg1 and arg1_ is None:
+				if arg1 is not None and ent.name == arg1 and arg1_ is None:
 					arg1_ = ent
 				if arg2 is not None and ent.name == arg2 and arg2_ is None:
 					arg2_ = ent
 
-			question = "((" + arg0_.get_ulf() + " ((pres be.v) " + relation + " " + arg1_.get_ulf + ") ?)"
+			if relation != 'where.a':
+				question = "((" + arg0_.get_ulf() + " ((pres be.v) " + relation + " " + arg1_.get_ulf + ") ?)"
+			elif relation == 'where.a':
+				question = "((SUB (AT.P (WHAT.D PLACE.N)) (" + arg0_.get_ulf() + " ((PRES BE.V) *H))) ?)"
 			print ("QUESTION: ", question)
 			answer = constraint_solver.process_spatial_request("", question, self.world.entities)
-			print ("RESULT: ", answer[1])
+			print ("RESULT: ", answer[1])			
 			for item in answer[1]:
 				if arg0 in item:
 					return True

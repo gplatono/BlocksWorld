@@ -457,10 +457,11 @@ class HCIManager(object):
 		while True:
 			#print ("WAITING FOR MOVE...", timestamp)
 			if has_moved == True:
-				if time.time() - self.world.history[-1].timestamp >= 2.0:
+				s2 = self.world.history[-1]
+				if time.time() - s2.timestamp >= 2.0:
 					#print ("1")
-					moves = self.world.history[-1].state_diff(s)
-					self.process_move(moves)
+					moves = s2.state_diff(s)
+					self.process_move(s, s2, self.world.history[-1]moves)
 					#self.world.make_checkpoint()
 					break
 				else:
@@ -474,13 +475,20 @@ class HCIManager(object):
 					#print ("4")
 					has_moved = True
 
-	def process_move(self, moves):
-		result = True
+	def process_move(self, s1, s2, moves):
+		succ = []
+		fail = []
 		for constraint in self.planner.plan[0]:
-			result = result and self.process_constraint(moves, constraint)
-		if result:
+			result = self.process_constraint(moves, constraint)
+			if result:
+				succ.append(constraint)
+			else:
+				fail.append(constraint)
+		if fail == []:
 			print ("MOVE SUCCESSFUL...")
-			self.planner.execute_next()		
+			self.planner.execute_next()
+		elif succ == []:			
+			s1.evaluate()
 
 	def process_constraint(self, moves, constraint):
 		move = moves[0]
