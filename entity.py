@@ -456,7 +456,7 @@ class Entity(object):
 			try:
 				entity.key = copy.deepcopy(self.__dict__[key])
 			except Exception as e:
-				print (e)
+				#print (e)
 				entity.key = self.__dict__[key]
 		return entity
 		#return copy.deepcopy(self)

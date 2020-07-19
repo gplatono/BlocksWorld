@@ -47,12 +47,16 @@ class World(object):
 
 		# self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']		
 		# self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
-
+		self.block_names = ['Twitter', 'Toyota', 'Texaco', 'Target', 'Mercedes', 'Burger King', 'McDonald\'s', 'Starbucks']
+		self.blocks = [bpy.data.objects[name] for name in self.block_names]
+		
 		self.block_by_ids = {}
 		self.block_to_ids = {}
-		print ("SIML ", self.simulation_mode)
-		if self.simulation_mode == False:
-			self.scene_setup()
+		for bl in self.blocks:
+			self.block_to_ids[bl] = None
+		# print ("SIML ", self.simulation_mode)
+		# if self.simulation_mode == False:
+		# 	self.scene_setup()
 
 		self.verbose = False
 		self.verbose_rotation = False
@@ -92,7 +96,8 @@ class World(object):
 				self.block_by_ids[id] = self.blocks[idx]
 				self.blocks[idx].location = location
 				self.blocks[idx].rotation_euler = rotation
-
+			
+			#self.update_state()
 			bpy.ops.wm.modal_timer_operator()	
 		else:
 			# self.history.append(self.State(self.entities))
@@ -215,10 +220,17 @@ class World(object):
 		bpy.data.materials['blue'].diffuse_color = (0, 0, 1, 0)
 
 		#self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
-		self.block_names = ['Twitter', 'Toyota', 'Texaco', 'Target', 'Mercedes', 'Burger King', 'McDonald\'s', 'Starbucks']
-		materials = [bpy.data.materials['blue'], bpy.data.materials['green'], bpy.data.materials['red']]
-	
-		self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
+		
+		
+		#materials = [bpy.data.materials['blue'], bpy.data.materials['green'], bpy.data.materials['red']]
+		# if bpy.data.objects.get(name) is not None:
+		# 	bl = bpy.data.objects[name]
+		# 	#bl.rotation_euler = rotation
+		# 	print ("bl...", bl.name, bl.location)
+		# 	return bl
+		#self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
+		self.blocks = [bpy.data.objects[name] for name in self.block_names]
+		print (self.blocks)
 		dg = bpy.context.evaluated_depsgraph_get().update()        
 
 	def clear_scene(self):
@@ -293,8 +305,6 @@ class World(object):
 		for block in self.blocks:
 			updated_blocks[block] = 0
 
-
-
 		for id, location, rotation in block_data:
 			if id in self.block_by_ids:
 				block = self.block_by_ids[id]              
@@ -319,6 +329,8 @@ class World(object):
 					if np.linalg.norm(location - block.location) < 0.1:
 						if self.verbose:
 							print ("NOISE: ", block.name, location, block.location, np.linalg.norm(location - block.location))
+						# if block in self.block_to_ids:
+						# 	id_ = self.block_to_ids[block]
 						self.block_by_ids.pop(self.block_to_ids[block], None)
 						self.block_by_ids[id] = block
 						self.block_to_ids[block] = id
@@ -355,6 +367,76 @@ class World(object):
 					#cand.rotation_euler = rotation
 					moved_blocks.append(cand.name)
 		return moved_blocks
+
+	# def update(self, block_data):
+	# 	moved_blocks = []
+	# 	updated_blocks = {}
+	# 	unpaired = []
+	# 	unpaired_blocks = [bl for bl in self.blocks]
+
+	# 	for block in self.blocks:
+	# 		updated_blocks[block] = 0
+
+	# 	for id, location, rotation in block_data:
+	# 		if id in self.block_by_ids:
+	# 			block = self.block_by_ids[id]              
+	# 			rot1 = np.array([item for item in rotation])
+	# 			rot2 = np.array([item for item in block.rotation_euler])				
+	# 			#Threshold changed from 0.05
+	# 			if np.linalg.norm(location - block.location) >= 0.1: # or np.linalg.norm(rot1 - rot2) >= 0.4: #0.05
+	# 				if self.verbose or self.verbose_rotation:
+	# 					if np.linalg.norm(location - block.location) >= 0.1:
+	# 						print ("MOVED BLOCK: ", block.name, location, block.location, np.linalg.norm(location - block.location))
+	# 					else:
+	# 						print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
+	# 				moved_blocks.append(block.name)
+	# 				block.location = location
+	# 				#block.rotation_euler = rotation
+	# 			updated_blocks[block] = 1
+	# 		# else:
+	# 		# 	unpaired.append((id, location, rotation))
+	# 		else:
+	# 			id_assigned = False
+	# 			for block in self.blocks:
+	# 				if np.linalg.norm(location - block.location) < 0.1:
+	# 					if self.verbose:
+	# 						print ("NOISE: ", block.name, location, block.location, np.linalg.norm(location - block.location))
+	# 					self.block_by_ids.pop(self.block_to_ids[block], None)
+	# 					self.block_by_ids[id] = block
+	# 					self.block_to_ids[block] = id
+	# 					block.location = location
+	# 					#block.rotation_euler = rotation
+	# 					id_assigned = True
+	# 					updated_blocks[block] = 1
+	# 					#moved_blocks.append(block.name)
+	# 					break
+	# 			if id_assigned == False:
+	# 				unpaired.append((id, location, rotation))
+
+	# 	for id, location, rotation in unpaired:
+	# 		min_dist = 10e9
+	# 		cand = None
+	# 		for block in self.blocks:
+	# 			if updated_blocks[block] == 0:
+	# 				cur_dist = np.linalg.norm(location - block.location)
+	# 				if min_dist > cur_dist:
+	# 					min_dist = cur_dist
+	# 					cand = block
+	# 		if cand != None:
+	# 			if self.verbose or self.verbose_rotation:
+	# 				if np.linalg.norm(location - cand.location) >= 0.1:
+	# 					print ("MOVED BLOCK: ", cand.name, location, cand.location, np.linalg.norm(location - cand.location))                
+	# 				else:
+	# 					print ("ROTATED BLOCK: ", block.name, rotation, block.rotation_euler)
+	# 			self.block_by_ids.pop(self.block_to_ids[cand], None)
+	# 			self.block_by_ids[id] = cand
+	# 			self.block_to_ids[cand] = id
+	# 			updated_blocks[cand] = 1
+	# 			if np.linalg.norm(location - cand.location) >= 0.3:# or np.linalg.norm(rot1 - rot2) >= 0.4:
+	# 				cand.location = location
+	# 				#cand.rotation_euler = rotation
+	# 				moved_blocks.append(cand.name)
+	# 	return moved_blocks
 
 	def update_state(self):
 		block_data = self.get_block_data()		

@@ -461,7 +461,7 @@ class HCIManager(object):
 				if time.time() - s2.timestamp >= 2.0:
 					#print ("1")
 					moves = s2.state_diff(s)
-					self.process_move(s, s2, self.world.history[-1]moves)
+					self.process_move(s, s2, moves)
 					#self.world.make_checkpoint()
 					break
 				else:
