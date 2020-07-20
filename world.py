@@ -88,14 +88,14 @@ class World(object):
 		self.first = True
 
 		if self.simulation_mode == False:
-			block_data = self.get_block_data()
-			block_data.sort(key = lambda x : x[1][0])
-			for idx in range(len(block_data)):
-				id, location, rotation = block_data[idx]
-				self.block_to_ids[self.blocks[idx]] = id
-				self.block_by_ids[id] = self.blocks[idx]
-				self.blocks[idx].location = location
-				self.blocks[idx].rotation_euler = rotation
+			# block_data = self.get_block_data()
+			# block_data.sort(key = lambda x : x[1][0])
+			# for idx in range(len(block_data)):
+			# 	id, location, rotation = block_data[idx]
+			# 	self.block_to_ids[self.blocks[idx]] = id
+			# 	self.block_by_ids[id] = self.blocks[idx]
+			# 	self.blocks[idx].location = location
+			# 	self.blocks[idx].rotation_euler = rotation
 			
 			#self.update_state()
 			bpy.ops.wm.modal_timer_operator()	

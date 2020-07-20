@@ -171,6 +171,7 @@ class HCIManager(object):
 		if response != "" and response is not None:
 			print ("\n\033[1;34;40mDAVID: " + str(response) + "\033[0;37;40m\n")
 			#response = response.lower().replace(' you was', ' i was')
+			print (self.avatar_mode)
 			if self.avatar_mode == True:
 				self.send_to_avatar('SAY', response)
 			# else:
