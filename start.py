@@ -52,7 +52,7 @@ if '-to' in sys.argv:
 	params.append('-to')
 
 if '-bg' not in sys.argv:
-	command = ['blender', 'bw_scene_tut.blend', '-P', 'main.py', '--'] + params	
+	command = ['blender', 'bw_scene_tut2.blend', '-P', 'main.py', '--'] + params	
 else:
 	command = ['blender', '--background', 'bw_scene.blend', '-P', 'main.py', '--'] + params
 

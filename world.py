@@ -45,9 +45,9 @@ class World(object):
 		#List of  possible color modifiers
 		self.color_mods = ['black', 'red', 'blue', 'brown', 'green', 'yellow']
 
-		# self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']		
+		self.block_names = ['Target', 'Starbucks', 'Twitter', 'Texaco', 'McDonald\'s', 'Mercedes', 'Toyota', 'Burger King']
 		# self.blocks = [self.create_block(name, Vector((0, 0, self.block_edge / 2)), (0,0,0), materials[self.block_names.index(name) % 3]) for name in self.block_names]		
-		self.block_names = ['Twitter', 'Toyota', 'Texaco', 'Target', 'Mercedes', 'Burger King', 'McDonald\'s', 'Starbucks']
+		#self.block_names = ['Twitter', 'Toyota', 'Texaco', 'Target', 'Mercedes', 'Burger King', 'McDonald\'s', 'Starbucks']
 		self.blocks = [bpy.data.objects[name] for name in self.block_names]
 		
 		self.block_by_ids = {}
@@ -88,14 +88,14 @@ class World(object):
 		self.first = True
 
 		if self.simulation_mode == False:
-			# block_data = self.get_block_data()
-			# block_data.sort(key = lambda x : x[1][0])
-			# for idx in range(len(block_data)):
-			# 	id, location, rotation = block_data[idx]
-			# 	self.block_to_ids[self.blocks[idx]] = id
-			# 	self.block_by_ids[id] = self.blocks[idx]
-			# 	self.blocks[idx].location = location
-			# 	self.blocks[idx].rotation_euler = rotation
+			block_data = self.get_block_data()
+			block_data.sort(key = lambda x : x[1][0])
+			for idx in range(len(block_data)):
+				id, location, rotation = block_data[idx]
+				self.block_to_ids[self.blocks[idx]] = id
+				self.block_by_ids[id] = self.blocks[idx]
+				self.blocks[idx].location = location
+				#self.blocks[idx].rotation_euler = rotation
 			
 			#self.update_state()
 			bpy.ops.wm.modal_timer_operator()	
@@ -119,10 +119,10 @@ class World(object):
 			rotation = Quaternion([round(float(x), 2) for x in segment['Rotation'].split(",")]).to_euler()
 			block_data.append((segment['ID'], position, rotation))            
 
-		if self.first:
-			for item in block_data:
-				print (item)
-			self.first = False
+		# if self.first:
+		# 	for item in block_data:
+		# 		print (item)
+		# 	self.first = False
 
 		return block_data
 		
