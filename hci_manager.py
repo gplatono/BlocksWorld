@@ -54,16 +54,26 @@ class HCIManager(object):
 		self.speech_lock = RLock()
 		self.asr_active = False
 
-		self.eta_path = ".." + os.sep + "eta" + os.sep + "io" + os.sep
-		self.eta_input = self.eta_path + "input.lisp"
+		self.eta_path = ".." + os.sep + "eta" + os.sep
+		self.eta_io = ".." + os.sep + "eta" + os.sep + "io" + os.sep
+		self.eta_input = self.eta_path + "input.lisp"		
 		self.eta_ulf = self.eta_path + "ulf.lisp"
 		self.eta_answer = self.eta_path + "answer.lisp"
-		self.eta_output = self.eta_path + "output.txt"
+		self.eta_output = self.eta_io + "output.txt"
 		self.eta_perceptions = self.eta_path + "perceptions.lisp"
 		self.eta_goal_req = self.eta_path + "goal-request.lisp"
 		self.eta_goal_resp = self.eta_path + "goal-rep.lisp"
 		self.eta_planner_input = self.eta_path + "planner-input.lisp"
 		self.eta_user_try_success = self.eta_path + "user-try-ka-success.lisp"
+
+		self.eta_perceptions_in = self.eta_io + "in" + os.sep + "Blocks-World-System.lisp"
+		self.eta_audio_in = self.eta_io + "in" + os.sep + "Audio.lisp"
+		self.eta_text_in = self.eta_io + "in" + os.sep + "Text.lisp"
+		self.eta_spatial_in = self.eta_io + "in" + os.sep + "Spatial-Reasoning-System.lisp"
+
+		self.eta_perceptions_out = self.eta_io + "out" + os.sep + "Blocks-World-System.lisp"		
+		self.eta_text_out = self.eta_io + "out" + os.sep + "Text.lisp"
+		self.eta_spatial_out = self.eta_io + "out" + os.sep + "Spatial-Reasoning-System.lisp"
 
 		self.coords_log_path = "logs" + os.sep + "session_coords_data"
 		self.dialog_log_path = "logs" + os.sep + "dialog_log"
@@ -80,25 +90,45 @@ class HCIManager(object):
 
 		if self.debug_mode:
 			self.state = self.STATE.QUESTION_PENDING
-		
+
+	def get_speech_ulf(self, speech_text):
+		return "(setq *input* '((^you say-to.v ^me \"" + speech_text + "\")))"
+	
 	def send_to_eta(self, mode, text):
 		if mode == "INPUT":
-			filename = self.eta_input
-			formatted_msg = "(setq *next-input* \"" + text + "\")"
+			filename = self.eta_audio_in
+			formatted_msg = self.get_speech_ulf(text)
 		elif mode == "GOAL_RESP":
-			filename = self.eta_goal_resp
+			filename = self.eta_spatial_in
 			formatted_msg = "(setq *goal-rep* '" + text + ")"
 		elif mode == "PLAN_STEP":
-			filename = self.eta_planner_input
+			filename = self.eta_spatial_in
 			formatted_msg = "(setq planner-input '" + text + ")"
 		else:
-			filename = self.eta_answer
+			filename = self.eta_spatial_in
 			if text != "\'None":
-				formatted_msg = "(setq *next-answer* \'(" + text + "))"
+				formatted_msg = "(setq *input* \'(" + text + "))"
 			else: 
-				formatted_msg = "(setq *next-answer* " + text + ")"
+				formatted_msg = "(setq *input* " + text + ")"
+		
+	# def send_to_eta(self, mode, text):
+	# 	if mode == "INPUT":
+	# 		filename = self.eta_input
+	# 		formatted_msg = "(setq *next-input* \"" + text + "\")"
+	# 	elif mode == "GOAL_RESP":
+	# 		filename = self.eta_goal_resp
+	# 		formatted_msg = "(setq *goal-rep* '" + text + ")"
+	# 	elif mode == "PLAN_STEP":
+	# 		filename = self.eta_planner_input
+	# 		formatted_msg = "(setq planner-input '" + text + ")"
+	# 	else:
+	# 		filename = self.eta_answer
+	# 		if text != "\'None":
+	# 			formatted_msg = "(setq *next-answer* \'(" + text + "))"
+	# 		else: 
+	# 			formatted_msg = "(setq *next-answer* " + text + ")"
 
-		# filename = self.eta_input if mode == "INPUT" else self.eta_answer
+	# 	# filename = self.eta_input if mode == "INPUT" else self.eta_answer
 		# formatted_msg = "(setq *next-input* \"" + text + "\")" if mode == "INPUT" \
 		# 							else "(setq *next-answer* \'(" + text + "))" if text != "\'None" \
 		# 								else "(setq *next-answer* " + text + ")"
@@ -110,9 +140,9 @@ class HCIManager(object):
 	def read_from_eta(self, mode):
 		filename = ""
 		if mode == "ULF":
-			filename = self.eta_ulf
+			filename = self.eta_spatial_out
 		elif mode == "GOAL_REQ":
-			filename = self.eta_goal_req
+			filename = self.eta_spatial_out
 		else:			
 		 	filename = self.eta_output
 
@@ -141,18 +171,60 @@ class HCIManager(object):
 		else:
 			result = ""
 			responses = [r.strip() for r in msg if r.strip() != ""]
-			#print ("RESP RAW: ", responses)
 			for resp in responses:
 				if "*" not in resp and ": ANSWER" in resp:
 					result += resp.split(":")[2]
 				elif "*" not in resp and ": " in resp and "DO YOU HAVE A SPATIAL QUESTION" not in resp and "NIL" not in resp:
-					result += resp.split(":")[1]
-				# 	if "#: ANSWER" in resp:
-				# 	result += resp.split(":")[2]
-				# elif "#: " in resp and "DO YOU HAVE A SPATIAL QUESTION" not in resp and "NIL" not in resp:
-				# 	result += resp.split(":")[1]
+					result += resp.split(":")[1]			
 
 		return result
+
+	# def read_from_eta(self, mode):
+	# 	filename = ""
+	# 	if mode == "ULF":
+	# 		filename = self.eta_ulf
+	# 	elif mode == "GOAL_REQ":
+	# 		filename = self.eta_goal_req
+	# 	else:			
+	# 	 	filename = self.eta_output
+
+	# 	attempt_counter = 0
+	# 	with open(filename, "r+") as file:
+	# 		msg = ""
+	# 		while msg is None or msg == "":
+	# 			time.sleep(0.3)
+	# 			msg = file.readlines()
+	# 			attempt_counter += 1
+	# 			if attempt_counter == 40:
+	# 				break
+	# 		file.truncate(0)
+
+	# 	if msg == "" or msg is None or msg == []:
+	# 		return None
+	# 	elif mode == "ULF":
+	# 		result = "".join([line for line in msg])
+	# 		result = re.sub(" +", " ", result.replace("\n", ""))
+	# 		result = (result.split("* '")[1])[:-1]
+	# 		self.log("ULF", result)
+	# 	elif mode == "GOAL_REQ":
+	# 		msg = "".join(msg)
+	# 		msg = msg.split("*chosen-obj-schema*")[1].strip()[1:-1]
+	# 		return msg
+	# 	else:
+	# 		result = ""
+	# 		responses = [r.strip() for r in msg if r.strip() != ""]
+	# 		#print ("RESP RAW: ", responses)
+	# 		for resp in responses:
+	# 			if "*" not in resp and ": ANSWER" in resp:
+	# 				result += resp.split(":")[2]
+	# 			elif "*" not in resp and ": " in resp and "DO YOU HAVE A SPATIAL QUESTION" not in resp and "NIL" not in resp:
+	# 				result += resp.split(":")[1]
+	# 			# 	if "#: ANSWER" in resp:
+	# 			# 	result += resp.split(":")[2]
+	# 			# elif "#: " in resp and "DO YOU HAVE A SPATIAL QUESTION" not in resp and "NIL" not in resp:
+	# 			# 	result += resp.split(":")[1]
+
+	# 	return result
 
 	def clear_file(self, filename):
 		open(filename, 'w').close()
@@ -213,7 +285,7 @@ class HCIManager(object):
 		perceptions = "(setq *next-perceptions* \'(" + " ".join(locations + moves) + "))"
 		print ("PERCEPTIONS: ", perceptions)
 		self.log_coords(perceptions)
-		with open(self.eta_perceptions, 'w') as f:
+		with open(self.eta_perceptions_in, 'w') as f:
 			f.write(perceptions)
 		self.world.make_checkpoint()
 	
@@ -238,7 +310,7 @@ class HCIManager(object):
 					self.last_mentioned.append(subj[0])
 					for obj in obj_list:
 						if type(obj[0][0]) == Entity:					
-							ret_val += '((' + subj[0].get_ulf() + ' ' + rel + ' ' + obj[0][0].get_ulf()+ ') ' + str(subj[1] * obj[1]) + ') '
+							ret_val += '((that (' + subj[0].get_ulf() + ' ' + rel + ' ' + obj[0][0].get_ulf()+ ')) certain-to-degree ' + str(subj[1] * obj[1]) + ') '
 						else:
 							ret_val += '(' + subj[0].get_ulf() + ' ' + str(subj[1]) + ') '
 		elif query_frame.query_type == query_frame.QueryType.DESCR: 
@@ -247,9 +319,9 @@ class HCIManager(object):
 				#print ("WHERE: ", item)
 				self.last_mentioned = [item[1][0][0]]
 				if len(item[1][0]) == 2:
-					ret_val += '((' + item[1][0][0].get_ulf() + ' ' + item[0] + ' ' + item[1][0][1].get_ulf() + ') ' + str(item[1][1]) + ') '
+					ret_val += '((that (' + item[1][0][0].get_ulf() + ' ' + item[0] + ' ' + item[1][0][1].get_ulf() + ')) certain-to-degree ' + str(item[1][1]) + ') '
 				elif len(item[1][0]) == 3:
-					ret_val += '((' + item[1][0][0].get_ulf() + ' ' + item[0] + ' ' + item[1][0][1].get_ulf() + ' ' + item[1][0][2].get_ulf() + ') ' + str(item[1][1]) + ') '
+					ret_val += '((that (' + item[1][0][0].get_ulf() + ' ' + item[0] + ' ' + item[1][0][1].get_ulf() + ' ' + item[1][0][2].get_ulf() + ')) certain-to-degree ' + str(item[1][1]) + ') '
 		else:
 			self.last_mentioned = [subj[0] for subj in subj_list]
 			for subj in subj_list:
