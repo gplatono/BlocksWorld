@@ -55,7 +55,7 @@ class HCIManager(object):
 		self.asr_active = False
 
 		self.eta_path = ".." + os.sep + "eta" + os.sep
-		self.eta_io = ".." + os.sep + "eta" + os.sep + "io" + os.sep
+		self.eta_io = ".." + os.sep + "eta" + os.sep + "io" + os.sep + "david-qa" + os.sep
 		self.eta_input = self.eta_path + "input.lisp"		
 		self.eta_ulf = self.eta_path + "ulf.lisp"
 		self.eta_answer = self.eta_path + "answer.lisp"
@@ -398,6 +398,9 @@ class HCIManager(object):
 			
 			if self.state == self.STATE.INIT:				
 				response = self.read_and_vocalize_from_eta()				
+				if response is None:
+					continue
+
 				self.state = self.STATE.SYSTEM_GREET
 				if "TEACH YOU THE CONCEPT" in response:
 					self.state = self.STATE.TUTORING_BEGIN

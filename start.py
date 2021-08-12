@@ -16,7 +16,7 @@ params = []
 if '-bo' not in sys.argv:
 	os.chdir(eta_path)
 	if system == 'Windows':
-		os.system("start cmd.exe /c sbcl --load start.lisp")
+		os.system("start cmd.exe /c sbcl --load custom_start.lisp")
 		#os.system("start cmd.exe /c python C:\\Users\\user\\quicklisp\\local-projects\\ulf2english\\python-repl-server.py 8080 \"g:g\"")
 		#os.system("start cmd.exe /c python2 C:\\Users\\" + username + "\\quicklisp\\local-projects\\ulf2english\\python-repl-server.py 8080 \"g:g\"")
 		subprocess.Popen(['C:\\Python27\\python.exe', 'C:\\Users\\' + username + '\\quicklisp\\local-projects\\ulf2english\\python-repl-server.py', '8080', 'g:g'], stdout=subprocess.PIPE)
@@ -24,7 +24,7 @@ if '-bo' not in sys.argv:
 	elif system == 'Linux':
 		#os.system("")
 		cmd = ['gnome-terminal', '--']
-		process = subprocess.Popen(cmd + ['sbcl',  '--load', 'start.lisp'])#, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		process = subprocess.Popen(cmd + ['sbcl',  '--load', 'custom_start.lisp'])#, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)		
 		process = subprocess.Popen(['python2', '../quicklisp/local-projects/ulf2english/python-repl-server.py', '8080', "g:g"], stdout=subprocess.PIPE)#, shell=True, stderr=subprocess.STDOUT)
 		#os.system("gnome-terminal -x sh -c \"sbcl --load start.lisp &; bash\"")
 		#os.system("gnome-terminal -x sh -c \"python ../quicklisp/local-projects/ulf2english/python-repl-server.py 8080 \"g:g\"")	
