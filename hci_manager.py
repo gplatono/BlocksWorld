@@ -469,21 +469,21 @@ class HCIManager(object):
 		open(self.eta_answer, 'w').close()
 		self.dialog_counter += 1
 
-		if not self.speech_mode:
-			print ("\033[1;32;40mPlease judge the system's answer, report an error or retract the question by typing one of the following",
-				"\033[1;32;40mc - correct",
-				"\033[1;32;40mp - partially correct",
-				"\033[1;32;40mi - incorrect",
-				"\033[1;32;40me - error has occurred",
-				"\033[1;32;40mr - retract question (system failed because of user input error, e.g., a typo or ungrammatical construction)", sep = '\n')
-			feedback = input ("\033[1;32;40mFEEDBACK (QUESTION " + str(self.dialog_counter) + "): ")
-			print ("\033[0;37;40m")
+		# if not self.speech_mode:
+		# 	print ("\033[1;32;40mPlease judge the system's answer, report an error or retract the question by typing one of the following",
+		# 		"\033[1;32;40mc - correct",
+		# 		"\033[1;32;40mp - partially correct",
+		# 		"\033[1;32;40mi - incorrect",
+		# 		"\033[1;32;40me - error has occurred",
+		# 		"\033[1;32;40mr - retract question (system failed because of user input error, e.g., a typo or ungrammatical construction)", sep = '\n')
+		# 	feedback = input ("\033[1;32;40mFEEDBACK (QUESTION " + str(self.dialog_counter) + "): ")
+		# 	print ("\033[0;37;40m")
 			
-			self.world.log_event('USER_FEEDBACK', feedback)
-			if feedback.lower() == 'e':
-				print ("Thanks, your feedback has been recorded. Please manually close the SBCL window with Eta and restart the program. Press any key to continue...")
-				input()
-				exit()
+		# 	self.world.log_event('USER_FEEDBACK', feedback)
+		# 	if feedback.lower() == 'e':
+		# 		print ("Thanks, your feedback has been recorded. Please manually close the SBCL window with Eta and restart the program. Press any key to continue...")
+		# 		input()
+		# 		exit()
 
 	def process_spatial_request(self, ulf):
 		response_surface = "\'None"

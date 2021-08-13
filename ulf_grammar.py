@@ -257,6 +257,7 @@ grammar['|target|.n'] = lambda x: TName(x)
 grammar['not.adv-s'] = lambda x: TNeg()
 grammar['not'] = lambda x: TNeg()
 grammar['not.adv-a'] = lambda x: TNeg()
+grammar['why.adv-s'] = lambda x: TWhMarker(x)
 
 grammar['or.cc'] = lambda x: TConj(x)
 grammar['and.cc'] = lambda x: TConj(x)
@@ -443,6 +444,11 @@ class TAspectMarker(TreeNode):
 
     def __str__(self):
         return "PROG=" + str(self.prog) + ":PERF=" + str(self.perf)
+
+class TWhMarker(TreeNode):
+    __name__ = "TWhMarker"
+    def __init__(self, content=None):
+        super().__init__(content, None)
 
 class TSubMarker(TreeNode):
     __name__ = "TSubMarker"

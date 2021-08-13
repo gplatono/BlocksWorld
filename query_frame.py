@@ -20,7 +20,8 @@ class QueryFrame(object):
 		COUNT = 4
 		ATTR_COLOR = 5
 		ATTR_ORIENT = 6
-		ERROR = 7
+		EXPL = 7
+		ERROR = 8
 
 	def __init__(self, query_surface=None, query_ulf=None, query_parse_tree=None):
 
@@ -49,6 +50,7 @@ class QueryFrame(object):
 		self.EXIST_FLAG = False
 		self.IDENT_FLAG = False
 		self.DESCR_FLAG = False
+		self.EXPL_FLAG = False
 
 		self.arg = None
 		
@@ -109,6 +111,8 @@ class QueryFrame(object):
 		self.IDENT_FLAG = True if re.search('^.*(what.d|which.d).*(block.n).*(be.v)', self.ulf, re.IGNORECASE) else False
 		self.IDENT_FLAG = True if re.search('^.*(what.pro|which.pro).*(be.v)', self.ulf, re.IGNORECASE) else self.IDENT_FLAG
 		self.IDENT_FLAG = True if re.search('(what.pro|which.pro|which.d|what.d)', self.ulf, re.IGNORECASE) else self.IDENT_FLAG
+
+		self.EXPL_FLAG = True if re.search('why.adv-s', self.ulf, re.IGNORECASE) else self.EXPL_FLAG
 
 		if re.search(r'^\(*what.pro', self.ulf, re.IGNORECASE):
 			self.IDENT_FLAG = True
